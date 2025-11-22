@@ -1245,76 +1245,11 @@ p {
             </div>
           </div>
         </div>
-
-        {/* Konsep Utility-First */}
-        <div className="bg-violet-900/20 border border-violet-700/50 rounded-2xl p-6">
-          <div className="flex items-start gap-4 mb-4">
-            <div className="w-12 h-12 bg-violet-500 rounded-xl flex items-center justify-center shrink-0">
-              <Code size={24} className="text-white" />
-            </div>
-            <div className="flex-1">
-              <h3 className="text-xl font-bold text-violet-400 mb-3">
-                Konsep Utility-First
-              </h3>
-              <p className="text-slate-300 leading-relaxed mb-4">
-                Tailwind menggunakan pendekatan{" "}
-                <strong className="text-white">utility-first</strong>, di mana
-                setiap class memiliki fungsi spesifik dan dapat dikombinasikan
-                untuk membuat desain kompleks.
-              </p>
-            </div>
-          </div>
-
-          {/* Visual Example */}
-          <div className="bg-slate-800/50 p-4 rounded-lg border border-violet-700/30 mb-4">
-            <div className="flex items-center justify-center gap-4 p-4 bg-blue-500 rounded-lg text-white hover:bg-blue-600 transition">
-              <span className="font-bold">Button</span>
-            </div>
-          </div>
-
-          <div className="bg-slate-800/50 p-4 rounded-lg border border-white/10">
-            <p className="text-xs text-slate-400 mb-2">
-              Kode HTML dengan Tailwind:
-            </p>
-            <code className="text-xs text-violet-400 block mb-4">
-              &lt;div class="flex items-center justify-center p-4 bg-blue-500
-              text-white rounded-lg hover:bg-blue-600 transition"&gt;
-            </code>
-            <div className="grid grid-cols-2 gap-3 text-xs text-slate-300">
-              <div className="flex items-center gap-2">
-                <code className="text-violet-400">flex</code>
-                <span className="text-slate-500">→ display: flex</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <code className="text-violet-400">items-center</code>
-                <span className="text-slate-500">→ align-items: center</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <code className="text-violet-400">justify-center</code>
-                <span className="text-slate-500">
-                  → justify-content: center
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <code className="text-violet-400">p-4</code>
-                <span className="text-slate-500">→ padding: 1rem</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <code className="text-violet-400">bg-blue-500</code>
-                <span className="text-slate-500">→ background-color</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <code className="text-violet-400">rounded-lg</code>
-                <span className="text-slate-500">→ border-radius</span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     ),
   },
   {
-    id: 12,
+    id: 13,
     type: "content",
     title: "Tailwind CSS Intro",
     subtitle: "Utility-First",
@@ -1352,7 +1287,7 @@ p {
     ),
   },
   {
-    id: 13,
+    id: 16,
     type: "interactive-tailwind",
     title: "Tailwind Playground",
     subtitle: "Interactive Builder",
@@ -1362,7 +1297,7 @@ p {
       "Eksperimen dengan class Tailwind untuk melihat betapa cepatnya membangun UI.",
   },
   {
-    id: 13,
+    id: 15,
     type: "code-editor",
     title: "Live Coding",
     subtitle: "Coba Sendiri",
@@ -2211,62 +2146,119 @@ const TailwindBuilder = () => {
   const [state, setState] = useState({
     rounded: true,
     shadow: true,
-    gradient: false,
-    dark: false,
+    border: false,
+    scale: false,
   });
 
+  // Generate Tailwind classes
+  const getTailwindClasses = () => {
+    const classes = [
+      "w-64",
+      "h-40",
+      "flex",
+      "flex-col",
+      "items-center",
+      "justify-center",
+      "gap-2",
+      "transition-all",
+      "duration-500",
+      "bg-blue-500",
+      "text-white",
+      state.rounded ? "rounded-2xl" : "rounded-none",
+      state.shadow ? "shadow-2xl shadow-black/20" : "shadow-none",
+      state.border ? "border-4 border-white" : "border-0",
+      state.scale ? "scale-110" : "scale-100",
+    ];
+    return classes.filter(Boolean).join(" ");
+  };
+
+  // Get code label for each control
+  const getControlLabel = (key) => {
+    const labels = {
+      rounded: state.rounded ? "rounded-2xl" : "rounded-none",
+      shadow: state.shadow ? "shadow-2xl" : "shadow-none",
+      border: state.border ? "border-4" : "border-0",
+      scale: state.scale ? "scale-110" : "scale-100",
+    };
+    return labels[key] || key;
+  };
+
   return (
-    <div className="h-full flex flex-col md:flex-row gap-8 items-center">
-      <div className="w-full md:w-1/3 space-y-3">
-        {Object.keys(state).map((key) => (
-          <button
-            key={key}
-            onClick={() => setState((p) => ({ ...p, [key]: !p[key] }))}
-            className={`w-full flex items-center justify-between p-3 rounded-lg border transition-all ${
-              state[key]
-                ? "bg-blue-900/50 border-blue-600 text-blue-300"
-                : "bg-slate-800/50 border-white/10 text-slate-400"
+    <div className="h-full flex flex-col gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 min-h-0">
+        {/* Left Side: Controls & Generated Code */}
+        <div className="flex flex-col gap-4">
+          {/* Controls */}
+          <div className="bg-slate-800/50 rounded-xl p-4 border border-white/10">
+            <label className="text-xs font-bold text-slate-400 uppercase mb-3 block">
+              Controls
+            </label>
+            <div className="grid grid-cols-2 gap-2">
+              {Object.keys(state).map((key) => (
+                <button
+                  key={key}
+                  onClick={() => setState((p) => ({ ...p, [key]: !p[key] }))}
+                  className={`flex items-center justify-between p-2.5 rounded-lg border transition-all ${
+                    state[key]
+                      ? "bg-sky-900/50 border-sky-600 text-sky-300"
+                      : "bg-slate-800/50 border-white/10 text-slate-400"
+                  }`}
+                >
+                  <code className="text-xs font-mono font-medium">
+                    {getControlLabel(key)}
+                  </code>
+                  <div
+                    className={`w-8 h-4 rounded-full relative transition-colors shrink-0 ${
+                      state[key] ? "bg-sky-500" : "bg-slate-600"
+                    }`}
+                  >
+                    <div
+                      className={`absolute top-0.5 w-3 h-3 bg-white rounded-full transition-all ${
+                        state[key] ? "left-4.5" : "left-0.5"
+                      }`}
+                    ></div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Generated Code */}
+          <div className="flex flex-col gap-2 flex-1 min-h-0">
+            <label className="text-xs font-bold text-slate-400 uppercase flex items-center gap-2">
+              <Code size={12} /> Generated Code
+            </label>
+            <div className="flex-1 bg-slate-800/50 rounded-xl p-4 border border-white/10 flex flex-col min-h-0">
+              <label className="text-xs font-bold text-slate-400 mb-2 block">
+                Tailwind Classes:
+              </label>
+              <pre className="text-xs text-sky-300 font-mono bg-slate-900/50 p-4 rounded border border-slate-700 overflow-auto flex-1">
+                {`<div class="${getTailwindClasses()}">
+    <div class="font-bold text-xl">Card Component</div>
+    <div class="text-xs opacity-80">Generated with Tailwind</div>
+</div>`}
+              </pre>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Side: Live Preview */}
+        <div className="flex flex-col gap-2 flex-1 min-h-0">
+          <label className="text-xs font-bold text-slate-400 uppercase flex items-center gap-2">
+            <Monitor size={12} /> Live Preview
+          </label>
+          <div
+            className={`flex-1 flex items-center justify-center rounded-xl border-2 border-dashed transition-all duration-500 ${
+              state.dark
+                ? "bg-slate-900 border-slate-700"
+                : "bg-slate-800 border-slate-600"
             }`}
           >
-            <span className="capitalize font-medium">{key}</span>
-            <div
-              className={`w-10 h-5 rounded-full relative transition-colors ${
-                state[key] ? "bg-blue-500" : "bg-slate-600"
-              }`}
-            >
-              <div
-                className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all ${
-                  state[key] ? "left-6" : "left-1"
-                }`}
-              ></div>
+            <div className={getTailwindClasses()}>
+              <div className="font-bold text-xl">Card Component</div>
+              <div className="text-xs opacity-80">Generated with Tailwind</div>
             </div>
-          </button>
-        ))}
-      </div>
-      <div
-        className={`flex-1 aspect-video flex items-center justify-center rounded-2xl border-2 border-dashed transition-all duration-500 ${
-          state.dark
-            ? "bg-slate-900 border-slate-700"
-            : "bg-slate-800 border-slate-600"
-        }`}
-      >
-        <div
-          className={`
-                w-64 h-40 flex flex-col items-center justify-center gap-2 transition-all duration-500
-                ${state.rounded ? "rounded-2xl" : "rounded-none"}
-                ${state.shadow ? "shadow-2xl shadow-black/20" : "shadow-none"}
-                ${
-                  state.gradient
-                    ? "bg-gradient-to-br from-sky-400 to-indigo-600 text-white"
-                    : "bg-white text-slate-800"
-                }
-                ${
-                  !state.gradient && state.dark ? "bg-slate-800 text-white" : ""
-                }
-            `}
-        >
-          <div className="font-bold text-xl">Card Component</div>
-          <div className="text-xs opacity-80">Generated with Tailwind</div>
+          </div>
         </div>
       </div>
     </div>
@@ -2280,27 +2272,29 @@ const CodePlayground = () => {
 
   return (
     <div className="h-full flex flex-col gap-4">
-      <div className="flex-1 grid grid-cols-2 gap-4 min-h-0">
-        <div className="flex flex-col gap-2">
-          <label className="text-xs font-bold text-slate-400 uppercase flex items-center gap-2">
-            <Code size={12} /> HTML & Tailwind Classes
-          </label>
-          <textarea
-            value={html}
-            onChange={(e) => setHtml(e.target.value)}
-            className="flex-1 w-full p-4 bg-slate-900 text-blue-300 font-mono text-sm rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 border border-white/10"
-            spellCheck="false"
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <label className="text-xs font-bold text-slate-400 uppercase flex items-center gap-2">
-            <Monitor size={12} /> Live Preview
-          </label>
-          <div className="flex-1 bg-slate-800 rounded-xl border border-white/10 shadow-inner p-8 flex items-center justify-center overflow-hidden">
-            <div dangerouslySetInnerHTML={{ __html: html }} />
-          </div>
+      {/* Code Editor - Top */}
+      <div className="flex flex-col gap-2">
+        <label className="text-xs font-bold text-slate-400 uppercase flex items-center gap-2">
+          <Code size={12} /> HTML & Tailwind Classes
+        </label>
+        <textarea
+          value={html}
+          onChange={(e) => setHtml(e.target.value)}
+          className="h-48 w-full p-4 bg-slate-900 text-blue-300 font-mono text-sm rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 border border-white/10"
+          spellCheck="false"
+        />
+      </div>
+
+      {/* Live Preview - Bottom */}
+      <div className="flex flex-col gap-2 flex-1 min-h-0">
+        <label className="text-xs font-bold text-slate-400 uppercase flex items-center gap-2">
+          <Monitor size={12} /> Live Preview
+        </label>
+        <div className="flex-1 bg-slate-800 rounded-xl border border-white/10 shadow-inner p-8 flex items-center justify-center overflow-auto">
+          <div dangerouslySetInnerHTML={{ __html: html }} />
         </div>
       </div>
+
       <p className="text-xs text-slate-500 text-center">
         Tips: Gunakan class Tailwind seperti{" "}
         <code className="text-blue-400">text-red-500</code>,{" "}
@@ -2407,9 +2401,9 @@ const LearningApp = () => {
               <div className="bg-slate-800/50 border border-white/10 rounded-2xl p-1 shadow-sm flex flex-col">
                 {slide.type.startsWith("interactive") ||
                 slide.type === "code-editor" ? (
-                  <div className="rounded-xl p-6 flex-1">
+                  <div className="rounded-xl p-6">
                     <div className="mb-4 text-slate-400">{slide.content}</div>
-                    <div className="min-h-[400px]">
+                    <div className="h-[500px]">
                       {renderInteractive(slide.type)}
                     </div>
                   </div>
