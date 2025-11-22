@@ -710,14 +710,13 @@ const slidesData = [
                 <strong className="text-white">
                   CSS (Cascading Style Sheets)
                 </strong>{" "}
-                adalah sebuah bahasa
-                stylesheet yang digunakan untuk mengatur tampilan dan gaya
-                dokumen web yang ditulis dalam bahasa markup seperti HTML. CSS
-                memungkinkan pengembang web untuk mengontrol elemen visual
-                seperti warna, font, tata letak, dan ukuran, sehingga memisahkan
-                konten dari presentasi visualnya. Tujuannya adalah membuat
-                website lebih menarik, konsisten, dan responsif di berbagai
-                perangkat.
+                adalah sebuah bahasa stylesheet yang digunakan untuk mengatur
+                tampilan dan gaya dokumen web yang ditulis dalam bahasa markup
+                seperti HTML. CSS memungkinkan pengembang web untuk mengontrol
+                elemen visual seperti warna, font, tata letak, dan ukuran,
+                sehingga memisahkan konten dari presentasi visualnya. Tujuannya
+                adalah membuat website lebih menarik, konsisten, dan responsif
+                di berbagai perangkat.
               </p>
             </div>
           </div>
@@ -753,6 +752,200 @@ const slidesData = [
   },
   {
     id: 6,
+    type: "content",
+    title: "Cara Penggunaan CSS",
+    subtitle: "Inline, Internal, dan External CSS",
+    icon: <Code size={40} />,
+    chapter: "CSS",
+    content: (
+      <div className="space-y-8">
+        <p className="text-slate-300 text-lg">
+          Ada tiga cara untuk menambahkan CSS ke dokumen HTML. Mari kita
+          pelajari masing-masing.
+        </p>
+
+        {/* Inline CSS */}
+        <div className="bg-purple-900/20 border border-purple-700/50 rounded-2xl p-6">
+          <div className="flex items-start gap-4 mb-4">
+            <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center shrink-0">
+              <Code size={24} className="text-white" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-purple-400 mb-3">
+                1. Inline CSS
+              </h3>
+              <p className="text-slate-300 leading-relaxed mb-4">
+                CSS langsung ditulis dalam atribut{" "}
+                <code className="text-purple-400">style</code> pada tag HTML.
+              </p>
+              <div className="bg-slate-800/50 p-4 rounded-lg border border-purple-700/30">
+                <h4 className="text-sm font-bold text-purple-300 mb-2">
+                  Kode HTML:
+                </h4>
+                <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-3 rounded border border-slate-700 overflow-x-auto">
+                  {`<h1 style="color: blue; font-size: 24px;">
+    Judul Biru
+</h1>
+<p style="background-color: yellow; padding: 10px;">
+    Paragraf dengan background kuning
+</p>`}
+                </pre>
+                <div className="mt-4 pt-4 border-t border-purple-700/30">
+                  <h4 className="text-sm font-bold text-purple-300 mb-2">
+                    Hasil:
+                  </h4>
+                  <div className="bg-slate-700/50 p-4 rounded border border-slate-600">
+                    <h1 style={{ color: "blue", fontSize: "24px" }}>
+                      Judul Biru
+                    </h1>
+                    <p
+                      style={{
+                        backgroundColor: "yellow",
+                        padding: "10px",
+                        marginTop: "10px",
+                      }}
+                    >
+                      Paragraf dengan background kuning
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4 bg-red-900/20 p-3 rounded-lg border border-red-700/30">
+                <p className="text-xs text-red-300">
+                  ⚠️ <strong>Kelemahan:</strong> Tidak dapat digunakan ulang,
+                  sulit dirawat, dan tidak efisien untuk banyak elemen.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Internal CSS */}
+        <div className="bg-purple-900/20 border border-purple-700/50 rounded-2xl p-6">
+          <div className="flex items-start gap-4 mb-4">
+            <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center shrink-0">
+              <Code size={24} className="text-white" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-purple-400 mb-3">
+                2. Internal CSS
+              </h3>
+              <p className="text-slate-300 leading-relaxed mb-4">
+                CSS ditulis di dalam tag{" "}
+                <code className="text-purple-400">&lt;style&gt;</code> di bagian{" "}
+                <code className="text-purple-400">&lt;head&gt;</code> HTML.
+              </p>
+              <div className="bg-slate-800/50 p-4 rounded-lg border border-purple-700/30">
+                <h4 className="text-sm font-bold text-purple-300 mb-2">
+                  Kode HTML:
+                </h4>
+                <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-3 rounded border border-slate-700 overflow-x-auto">
+                  {`<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        h1 {
+            color: blue;
+            font-size: 24px;
+        }
+        p {
+            background-color: yellow;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Judul Biru</h1>
+    <p>Paragraf dengan background kuning</p>
+</body>
+</html>`}
+                </pre>
+              </div>
+              <div className="mt-4 bg-yellow-900/20 p-3 rounded-lg border border-yellow-700/30">
+                <p className="text-xs text-yellow-300">
+                  💡 <strong>Kelebihan:</strong> Lebih terorganisir, dapat
+                  digunakan untuk semua elemen dalam satu halaman.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* External CSS */}
+        <div className="bg-purple-900/20 border border-purple-700/50 rounded-2xl p-6">
+          <div className="flex items-start gap-4 mb-4">
+            <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center shrink-0">
+              <Code size={24} className="text-white" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-purple-400 mb-3">
+                3. External CSS
+              </h3>
+              <p className="text-slate-300 leading-relaxed mb-4">
+                CSS ditulis dalam file terpisah (eksternal) dan dihubungkan
+                dengan tag <code className="text-purple-400">&lt;link&gt;</code>{" "}
+                di bagian <code className="text-purple-400">&lt;head&gt;</code>.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-slate-800/50 p-4 rounded-lg border border-purple-700/30">
+                  <h4 className="text-sm font-bold text-purple-300 mb-2">
+                    File: style.css
+                  </h4>
+                  <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-3 rounded border border-slate-700 overflow-x-auto">
+                    {`h1 {
+    color: blue;
+    font-size: 24px;
+}
+
+p {
+    background-color: yellow;
+    padding: 10px;
+}`}
+                  </pre>
+                </div>
+                <div className="bg-slate-800/50 p-4 rounded-lg border border-purple-700/30">
+                  <h4 className="text-sm font-bold text-purple-300 mb-2">
+                    File: index.html
+                  </h4>
+                  <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-3 rounded border border-slate-700 overflow-x-auto">
+                    {`<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Judul Biru</h1>
+    <p>Paragraf dengan background kuning</p>
+</body>
+</html>`}
+                  </pre>
+                </div>
+              </div>
+              <div className="mt-4 bg-emerald-900/20 p-3 rounded-lg border border-emerald-700/30">
+                <p className="text-xs text-emerald-300">
+                  ✅ <strong>Kelebihan:</strong> Paling direkomendasikan! Dapat
+                  digunakan ulang untuk banyak halaman, mudah dirawat, dan
+                  performa lebih baik.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: 7,
+    type: "interactive-css",
+    title: "Dasar-dasar CSS Interaktif",
+    subtitle: "Color, Background, Font, Spacing, dan Border",
+    icon: <Layers size={40} />,
+    chapter: "CSS - Praktik",
+    content:
+      "Eksplorasi properti-properti CSS dasar secara interaktif. Ubah nilai dan lihat hasilnya secara langsung.",
+  },
+  {
+    id: 8,
     type: "content",
     title: "CSS Box Model",
     subtitle: "Fondasi Layout",
@@ -793,7 +986,7 @@ const slidesData = [
     ),
   },
   {
-    id: 7,
+    id: 9,
     type: "content",
     title: "Konsep Flexbox & Grid",
     subtitle: "Sistem Layout Modern",
@@ -951,7 +1144,7 @@ const slidesData = [
     ),
   },
   {
-    id: 8,
+    id: 14,
     type: "interactive-flex",
     title: "CSS Flexbox",
     subtitle: "Layout 1 Dimensi",
@@ -961,43 +1154,17 @@ const slidesData = [
       "Flexbox sangat powerful untuk mengatur elemen dalam satu baris atau satu kolom.",
   },
   {
-    id: 9,
-    type: "content",
+    id: 10,
+    type: "interactive-grid",
     title: "CSS Grid",
     subtitle: "Layout 2 Dimensi",
     icon: <Grid size={40} />,
     chapter: "CSS - Praktik",
-    content: (
-      <div className="space-y-6">
-        <p className="text-slate-300">
-          Berbeda dengan Flexbox, <b>Grid</b> bekerja dua arah (baris & kolom)
-          sekaligus. Ideal untuk struktur halaman utama.
-        </p>
-        <div className="grid grid-cols-3 gap-4 h-48 w-full p-4 bg-slate-100 rounded-xl border border-slate-200">
-          <div className="bg-rose-400 rounded-lg text-white flex items-center justify-center font-bold col-span-3">
-            Header
-          </div>
-          <div className="bg-indigo-400 rounded-lg text-white flex items-center justify-center font-bold col-span-2 row-span-2">
-            Main Content
-          </div>
-          <div className="bg-teal-400 rounded-lg text-white flex items-center justify-center font-bold">
-            Sidebar
-          </div>
-          <div className="bg-teal-400 rounded-lg text-white flex items-center justify-center font-bold">
-            Ads
-          </div>
-          <div className="bg-slate-600 rounded-lg text-white flex items-center justify-center font-bold col-span-3">
-            Footer
-          </div>
-        </div>
-        <p className="text-xs text-slate-500 text-center font-mono">
-          Contoh layout 'Holy Grail' yang mudah dibuat dengan CSS Grid.
-        </p>
-      </div>
-    ),
+    content:
+      "Eksplorasi CSS Grid secara interaktif. Atur kolom, baris, gap, dan alignment untuk memahami layout 2 dimensi.",
   },
   {
-    id: 10,
+    id: 11,
     type: "content",
     title: "Konsep Tailwind CSS",
     subtitle: "Utility-First Framework",
@@ -1147,7 +1314,7 @@ const slidesData = [
     ),
   },
   {
-    id: 11,
+    id: 12,
     type: "content",
     title: "Tailwind CSS Intro",
     subtitle: "Utility-First",
@@ -1185,7 +1352,7 @@ const slidesData = [
     ),
   },
   {
-    id: 12,
+    id: 13,
     type: "interactive-tailwind",
     title: "Tailwind Playground",
     subtitle: "Interactive Builder",
@@ -1508,56 +1675,532 @@ const InfoApp = () => (
 
 // --- LEARNING COMPONENTS ---
 
-const FlexboxPlayground = () => {
-  const [justify, setJustify] = useState("justify-center");
-  const [align, setAlign] = useState("items-center");
+const CssPropertiesPlayground = () => {
+  const [properties, setProperties] = useState({
+    color: "#ffffff",
+    backgroundColor: "#3b82f6",
+    fontSize: "16",
+    padding: "12",
+    margin: "10",
+    borderWidth: "2",
+    borderColor: "#1e40af",
+    borderRadius: "8",
+    fontWeight: "400",
+    width: "200",
+    height: "auto",
+  });
+
+  const updateProperty = (key, value) => {
+    setProperties((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const style = {
+    color: properties.color,
+    backgroundColor: properties.backgroundColor,
+    fontSize: `${properties.fontSize}px`,
+    padding: `${properties.padding}px`,
+    margin: `${properties.margin}px`,
+    borderWidth: `${properties.borderWidth}px`,
+    borderColor: properties.borderColor,
+    borderStyle: "solid",
+    borderRadius: `${properties.borderRadius}px`,
+    fontWeight: properties.fontWeight,
+    width: properties.height === "auto" ? `${properties.width}px` : "auto",
+    minHeight: properties.height !== "auto" ? `${properties.height}px` : "auto",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    transition: "all 0.3s ease",
+  };
 
   return (
     <div className="h-full flex flex-col gap-4">
-      <div className="flex gap-4 p-4 bg-slate-800/50 rounded-xl border border-white/10 shadow-sm">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 min-h-0 flex-1">
+        {/* Controls */}
+        <div className="flex flex-col gap-4 overflow-y-auto pr-2">
+          <div className="bg-slate-800/50 rounded-xl p-4 border border-white/10">
+            <h4 className="text-sm font-bold text-purple-400 mb-4 flex items-center gap-2">
+              <Layers size={16} /> Properti CSS
+            </h4>
+
+            {/* Color */}
+            <div className="mb-4">
+              <label className="text-xs text-slate-400 mb-1 block font-mono">
+                <code className="text-purple-400">color:</code>{" "}
+                <span className="text-slate-300">{properties.color}</span>
+              </label>
+              <div className="flex gap-2">
+                <input
+                  type="color"
+                  value={properties.color}
+                  onChange={(e) => updateProperty("color", e.target.value)}
+                  className="w-12 h-8 rounded border border-slate-600 cursor-pointer"
+                />
+                <input
+                  type="text"
+                  value={properties.color}
+                  onChange={(e) => updateProperty("color", e.target.value)}
+                  className="flex-1 px-2 py-1 bg-slate-900 text-slate-300 rounded text-xs border border-slate-700 font-mono"
+                />
+              </div>
+            </div>
+
+            {/* Background Color */}
+            <div className="mb-4">
+              <label className="text-xs text-slate-400 mb-1 block font-mono">
+                <code className="text-purple-400">background-color:</code>{" "}
+                <span className="text-slate-300">
+                  {properties.backgroundColor}
+                </span>
+              </label>
+              <div className="flex gap-2">
+                <input
+                  type="color"
+                  value={properties.backgroundColor}
+                  onChange={(e) =>
+                    updateProperty("backgroundColor", e.target.value)
+                  }
+                  className="w-12 h-8 rounded border border-slate-600 cursor-pointer"
+                />
+                <input
+                  type="text"
+                  value={properties.backgroundColor}
+                  onChange={(e) =>
+                    updateProperty("backgroundColor", e.target.value)
+                  }
+                  className="flex-1 px-2 py-1 bg-slate-900 text-slate-300 rounded text-xs border border-slate-700 font-mono"
+                />
+              </div>
+            </div>
+
+            {/* Font Size */}
+            <div className="mb-4">
+              <label className="text-xs text-slate-400 mb-1 block font-mono">
+                <code className="text-purple-400">font-size:</code>{" "}
+                <span className="text-slate-300">{properties.fontSize}px</span>
+              </label>
+              <input
+                type="range"
+                min="10"
+                max="48"
+                value={properties.fontSize}
+                onChange={(e) => updateProperty("fontSize", e.target.value)}
+                className="w-full"
+              />
+            </div>
+
+            {/* Padding */}
+            <div className="mb-4">
+              <label className="text-xs text-slate-400 mb-1 block font-mono">
+                <code className="text-purple-400">padding:</code>{" "}
+                <span className="text-slate-300">{properties.padding}px</span>
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="50"
+                value={properties.padding}
+                onChange={(e) => updateProperty("padding", e.target.value)}
+                className="w-full"
+              />
+            </div>
+
+            {/* Margin */}
+            <div className="mb-4">
+              <label className="text-xs text-slate-400 mb-1 block font-mono">
+                <code className="text-purple-400">margin:</code>{" "}
+                <span className="text-slate-300">{properties.margin}px</span>
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="50"
+                value={properties.margin}
+                onChange={(e) => updateProperty("margin", e.target.value)}
+                className="w-full"
+              />
+            </div>
+
+            {/* Border Width */}
+            <div className="mb-4">
+              <label className="text-xs text-slate-400 mb-1 block font-mono">
+                <code className="text-purple-400">border-width:</code>{" "}
+                <span className="text-slate-300">
+                  {properties.borderWidth}px
+                </span>
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="10"
+                value={properties.borderWidth}
+                onChange={(e) => updateProperty("borderWidth", e.target.value)}
+                className="w-full"
+              />
+            </div>
+
+            {/* Border Color */}
+            <div className="mb-4">
+              <label className="text-xs text-slate-400 mb-1 block font-mono">
+                <code className="text-purple-400">border-color:</code>{" "}
+                <span className="text-slate-300">{properties.borderColor}</span>
+              </label>
+              <div className="flex gap-2">
+                <input
+                  type="color"
+                  value={properties.borderColor}
+                  onChange={(e) =>
+                    updateProperty("borderColor", e.target.value)
+                  }
+                  className="w-12 h-8 rounded border border-slate-600 cursor-pointer"
+                />
+                <input
+                  type="text"
+                  value={properties.borderColor}
+                  onChange={(e) =>
+                    updateProperty("borderColor", e.target.value)
+                  }
+                  className="flex-1 px-2 py-1 bg-slate-900 text-slate-300 rounded text-xs border border-slate-700 font-mono"
+                />
+              </div>
+            </div>
+
+            {/* Border Radius */}
+            <div className="mb-4">
+              <label className="text-xs text-slate-400 mb-1 block font-mono">
+                <code className="text-purple-400">border-radius:</code>{" "}
+                <span className="text-slate-300">
+                  {properties.borderRadius}px
+                </span>
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="50"
+                value={properties.borderRadius}
+                onChange={(e) => updateProperty("borderRadius", e.target.value)}
+                className="w-full"
+              />
+            </div>
+
+            {/* Font Weight */}
+            <div className="mb-4">
+              <label className="text-xs text-slate-400 mb-1 block font-mono">
+                <code className="text-purple-400">font-weight:</code>{" "}
+                <span className="text-slate-300">{properties.fontWeight}</span>
+              </label>
+              <select
+                value={properties.fontWeight}
+                onChange={(e) => updateProperty("fontWeight", e.target.value)}
+                className="w-full px-2 py-1 bg-slate-900 text-slate-300 rounded text-xs border border-slate-700 font-mono"
+              >
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="300">300</option>
+                <option value="400">400</option>
+                <option value="500">500</option>
+                <option value="600">600</option>
+                <option value="700">700</option>
+                <option value="800">800</option>
+                <option value="900">900</option>
+              </select>
+            </div>
+
+            {/* Width */}
+            <div className="mb-4">
+              <label className="text-xs text-slate-400 mb-1 block font-mono">
+                <code className="text-purple-400">width:</code>{" "}
+                <span className="text-slate-300">{properties.width}px</span>
+              </label>
+              <input
+                type="range"
+                min="100"
+                max="400"
+                value={properties.width}
+                onChange={(e) => updateProperty("width", e.target.value)}
+                className="w-full"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Preview */}
+        <div className="flex flex-col gap-2">
+          <label className="text-xs font-bold text-slate-400 uppercase flex items-center gap-2">
+            <Monitor size={12} /> Live Preview
+          </label>
+          <div className="flex-1 bg-slate-800 rounded-xl border border-white/10 shadow-inner p-8 flex items-center justify-center overflow-auto min-h-[400px]">
+            <div style={style}>Hello, CSS!</div>
+          </div>
+
+          {/* Generated CSS */}
+          <div className="bg-slate-800/50 rounded-xl p-4 border border-white/10">
+            <label className="text-xs font-bold text-slate-400 mb-2 block">
+              Generated CSS:
+            </label>
+            <pre className="text-xs text-purple-300 font-mono bg-slate-900/50 p-3 rounded border border-slate-700 overflow-x-auto">
+              {`.box {
+    color: ${properties.color};
+    background-color: ${properties.backgroundColor};
+    font-size: ${properties.fontSize}px;
+    padding: ${properties.padding}px;
+    margin: ${properties.margin}px;
+    border: ${properties.borderWidth}px solid ${properties.borderColor};
+    border-radius: ${properties.borderRadius}px;
+    font-weight: ${properties.fontWeight};
+    width: ${properties.width}px;
+}`}
+            </pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const GridPlayground = () => {
+  const [columns, setColumns] = useState("3");
+  const [rows, setRows] = useState("3");
+  const [gap, setGap] = useState("16");
+  const [justifyItems, setJustifyItems] = useState("stretch");
+  const [alignItems, setAlignItems] = useState("stretch");
+
+  const gridStyle = {
+    display: "grid",
+    gridTemplateColumns: `repeat(${columns}, 1fr)`,
+    gridTemplateRows: `repeat(${rows}, 1fr)`,
+    gap: `${gap}px`,
+    justifyItems: justifyItems,
+    alignItems: alignItems,
+  };
+
+  const totalItems = parseInt(columns) * parseInt(rows);
+  const items = Array.from(
+    { length: Math.min(totalItems, 9) },
+    (_, i) => i + 1
+  );
+
+  return (
+    <div className="h-full flex flex-col gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 p-4 bg-slate-800/50 rounded-xl border border-white/10 shadow-sm">
         <div className="space-y-1">
-          <label className="text-[10px] font-bold uppercase text-slate-400">
-            Justify (X-Axis)
+          <label className="text-xs text-slate-400 mb-1 block font-mono">
+            <code className="text-teal-400">grid-template-columns:</code>{" "}
+            <span className="text-slate-300">repeat({columns}, 1fr)</span>
+          </label>
+          <input
+            type="range"
+            min="1"
+            max="6"
+            value={columns}
+            onChange={(e) => setColumns(e.target.value)}
+            className="w-full"
+          />
+        </div>
+        <div className="space-y-1">
+          <label className="text-xs text-slate-400 mb-1 block font-mono">
+            <code className="text-teal-400">grid-template-rows:</code>{" "}
+            <span className="text-slate-300">repeat({rows}, 1fr)</span>
+          </label>
+          <input
+            type="range"
+            min="1"
+            max="6"
+            value={rows}
+            onChange={(e) => setRows(e.target.value)}
+            className="w-full"
+          />
+        </div>
+        <div className="space-y-1">
+          <label className="text-xs text-slate-400 mb-1 block font-mono">
+            <code className="text-teal-400">gap:</code>{" "}
+            <span className="text-slate-300">{gap}px</span>
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="40"
+            value={gap}
+            onChange={(e) => setGap(e.target.value)}
+            className="w-full"
+          />
+        </div>
+        <div className="space-y-1">
+          <label className="text-xs text-slate-400 mb-1 block font-mono">
+            <code className="text-teal-400">justify-items:</code>{" "}
+            <span className="text-slate-300">{justifyItems}</span>
           </label>
           <select
-            value={justify}
-            onChange={(e) => setJustify(e.target.value)}
-            className="block w-full text-sm p-2 rounded bg-slate-700 border border-white/10 text-slate-300"
+            value={justifyItems}
+            onChange={(e) => setJustifyItems(e.target.value)}
+            className="block w-full text-sm p-2 rounded bg-slate-700 border border-white/10 text-slate-300 font-mono"
           >
-            <option value="justify-start">Start</option>
-            <option value="justify-center">Center</option>
-            <option value="justify-end">End</option>
-            <option value="justify-between">Space Between</option>
-            <option value="justify-around">Space Around</option>
+            <option value="start">start</option>
+            <option value="center">center</option>
+            <option value="end">end</option>
+            <option value="stretch">stretch</option>
           </select>
         </div>
         <div className="space-y-1">
-          <label className="text-[10px] font-bold uppercase text-slate-400">
-            Align (Y-Axis)
+          <label className="text-xs text-slate-400 mb-1 block font-mono">
+            <code className="text-teal-400">align-items:</code>{" "}
+            <span className="text-slate-300">{alignItems}</span>
           </label>
           <select
-            value={align}
-            onChange={(e) => setAlign(e.target.value)}
-            className="block w-full text-sm p-2 rounded bg-slate-700 border border-white/10 text-slate-300"
+            value={alignItems}
+            onChange={(e) => setAlignItems(e.target.value)}
+            className="block w-full text-sm p-2 rounded bg-slate-700 border border-white/10 text-slate-300 font-mono"
           >
-            <option value="items-start">Start</option>
-            <option value="items-center">Center</option>
-            <option value="items-end">End</option>
+            <option value="start">start</option>
+            <option value="center">center</option>
+            <option value="end">end</option>
+            <option value="stretch">stretch</option>
           </select>
         </div>
       </div>
 
-      <div
-        className={`flex-1 bg-slate-800 rounded-xl border-2 border-dashed border-slate-600 flex ${justify} ${align} p-4 gap-4 transition-all duration-500`}
-      >
-        <div className="w-16 h-16 bg-purple-500 rounded-lg shadow-lg flex items-center justify-center text-white font-bold">
-          1
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 min-h-0">
+        {/* Preview */}
+        <div className="flex flex-col gap-2">
+          <label className="text-xs font-bold text-slate-400 uppercase flex items-center gap-2">
+            <Monitor size={12} /> Live Preview
+          </label>
+          <div className="flex-1 bg-slate-800 rounded-xl border-2 border-dashed border-slate-600 p-4 transition-all duration-500 min-h-[300px]">
+            <div style={gridStyle} className="h-full">
+              {items.map((item) => (
+                <div
+                  key={item}
+                  className="bg-gradient-to-br from-teal-500 to-cyan-500 rounded-lg shadow-lg flex items-center justify-center text-white font-bold text-sm"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="w-16 h-16 bg-pink-500 rounded-lg shadow-lg flex items-center justify-center text-white font-bold">
-          2
+
+        {/* Generated CSS */}
+        <div className="flex flex-col gap-2">
+          <label className="text-xs font-bold text-slate-400 uppercase flex items-center gap-2">
+            <Code size={12} /> Generated CSS
+          </label>
+          <div className="flex-1 bg-slate-800/50 rounded-xl p-4 border border-white/10 min-h-[300px]">
+            <pre className="text-xs text-teal-300 font-mono bg-slate-900/50 p-4 rounded border border-slate-700 overflow-x-auto h-full">
+              {`.container {
+    display: grid;
+    grid-template-columns: repeat(${columns}, 1fr);
+    grid-template-rows: repeat(${rows}, 1fr);
+    gap: ${gap}px;
+    justify-items: ${justifyItems};
+    align-items: ${alignItems};
+}`}
+            </pre>
+          </div>
         </div>
-        <div className="w-16 h-16 bg-orange-500 rounded-lg shadow-lg flex items-center justify-center text-white font-bold">
-          3
+      </div>
+    </div>
+  );
+};
+
+const FlexboxPlayground = () => {
+  const [justify, setJustify] = useState("justify-center");
+  const [align, setAlign] = useState("items-center");
+
+  // Mapping Tailwind classes to CSS properties
+  const getJustifyContent = (value) => {
+    const map = {
+      "justify-start": "start",
+      "justify-center": "center",
+      "justify-end": "end",
+      "justify-between": "space-between",
+      "justify-around": "space-around",
+    };
+    return map[value] || "center";
+  };
+
+  const getAlignItems = (value) => {
+    const map = {
+      "items-start": "start",
+      "items-center": "center",
+      "items-end": "end",
+    };
+    return map[value] || "center";
+  };
+
+  return (
+    <div className="h-full flex flex-col gap-4">
+      <div className="flex gap-4 p-4 bg-slate-800/50 rounded-xl border border-white/10 shadow-sm">
+        <div className="space-y-1 flex-1">
+          <label className="text-xs text-slate-400 mb-1 block font-mono">
+            <code className="text-indigo-400">justify-content:</code>{" "}
+            <span className="text-slate-300">{getJustifyContent(justify)}</span>
+          </label>
+          <select
+            value={justify}
+            onChange={(e) => setJustify(e.target.value)}
+            className="block w-full text-sm p-2 rounded bg-slate-700 border border-white/10 text-slate-300 font-mono"
+          >
+            <option value="justify-start">start</option>
+            <option value="justify-center">center</option>
+            <option value="justify-end">end</option>
+            <option value="justify-between">space-between</option>
+            <option value="justify-around">space-around</option>
+          </select>
+        </div>
+        <div className="space-y-1 flex-1">
+          <label className="text-xs text-slate-400 mb-1 block font-mono">
+            <code className="text-indigo-400">align-items:</code>{" "}
+            <span className="text-slate-300">{getAlignItems(align)}</span>
+          </label>
+          <select
+            value={align}
+            onChange={(e) => setAlign(e.target.value)}
+            className="block w-full text-sm p-2 rounded bg-slate-700 border border-white/10 text-slate-300 font-mono"
+          >
+            <option value="items-start">start</option>
+            <option value="items-center">center</option>
+            <option value="items-end">end</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 min-h-0">
+        {/* Preview */}
+        <div className="flex flex-col gap-2">
+          <label className="text-xs font-bold text-slate-400 uppercase flex items-center gap-2">
+            <Monitor size={12} /> Live Preview
+          </label>
+          <div
+            className={`flex-1 bg-slate-800 rounded-xl border-2 border-dashed border-slate-600 flex ${justify} ${align} p-4 gap-4 transition-all duration-500 min-h-[300px]`}
+          >
+            <div className="w-16 h-16 bg-purple-500 rounded-lg shadow-lg flex items-center justify-center text-white font-bold">
+              1
+            </div>
+            <div className="w-16 h-16 bg-pink-500 rounded-lg shadow-lg flex items-center justify-center text-white font-bold">
+              2
+            </div>
+            <div className="w-16 h-16 bg-orange-500 rounded-lg shadow-lg flex items-center justify-center text-white font-bold">
+              3
+            </div>
+          </div>
+        </div>
+
+        {/* Generated CSS */}
+        <div className="flex flex-col gap-2">
+          <label className="text-xs font-bold text-slate-400 uppercase flex items-center gap-2">
+            <Code size={12} /> Generated CSS
+          </label>
+          <div className="flex-1 bg-slate-800/50 rounded-xl p-4 border border-white/10 min-h-[300px]">
+            <pre className="text-xs text-indigo-300 font-mono bg-slate-900/50 p-4 rounded border border-slate-700 overflow-x-auto h-full">
+              {`.container {
+    display: flex;
+    justify-content: ${getJustifyContent(justify)};
+    align-items: ${getAlignItems(align)};
+    gap: 1rem;
+    padding: 1rem;
+}`}
+            </pre>
+          </div>
         </div>
       </div>
     </div>
@@ -1678,8 +2321,12 @@ const LearningApp = () => {
 
   const renderInteractive = (type) => {
     switch (type) {
+      case "interactive-css":
+        return <CssPropertiesPlayground />;
       case "interactive-flex":
         return <FlexboxPlayground />;
+      case "interactive-grid":
+        return <GridPlayground />;
       case "interactive-tailwind":
         return <TailwindBuilder />;
       case "code-editor":
@@ -1760,9 +2407,9 @@ const LearningApp = () => {
               <div className="bg-slate-800/50 border border-white/10 rounded-2xl p-1 shadow-sm flex flex-col">
                 {slide.type.startsWith("interactive") ||
                 slide.type === "code-editor" ? (
-                  <div className="bg-slate-900/50 rounded-xl p-6 flex-1 border border-white/10">
+                  <div className="rounded-xl p-6 flex-1">
                     <div className="mb-4 text-slate-400">{slide.content}</div>
-                    <div className="h-[400px]">
+                    <div className="min-h-[400px]">
                       {renderInteractive(slide.type)}
                     </div>
                   </div>
