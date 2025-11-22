@@ -1,4 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  useCallback,
+  memo,
+  lazy,
+  Suspense,
+} from "react";
 import {
   ChevronRight,
   ChevronLeft,
@@ -40,6 +49,7 @@ const getSlideIcon = (chapter) => {
         src="/Materi/html.png"
         alt="HTML"
         className="w-10 h-10 object-contain"
+        loading="lazy"
       />
     );
   }
@@ -49,6 +59,7 @@ const getSlideIcon = (chapter) => {
         src="/Materi/css.png"
         alt="CSS"
         className="w-10 h-10 object-contain"
+        loading="lazy"
       />
     );
   }
@@ -58,6 +69,7 @@ const getSlideIcon = (chapter) => {
         src="/Materi/tailwind.png"
         alt="Tailwind"
         className="w-10 h-10 object-contain"
+        loading="lazy"
       />
     );
   }
@@ -371,7 +383,12 @@ const slidesData = [
                 {`<img src="/logo.png" alt="Logo" />`}
               </pre>
               <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[80px]">
-                <img src="/pcc.png" alt="Logo" className="h-12 w-auto" />
+                <img
+                  src="/pcc.png"
+                  alt="Logo"
+                  className="h-12 w-auto"
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>
@@ -1348,27 +1365,50 @@ const membersData = [
 
 // --- KOMPONEN UI PENDUKUNG ---
 
-const MenuBar = ({ activeApp }) => {
+const MenuBar = memo(({ activeApp }) => {
   const [time, setTime] = useState(new Date());
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  const getTitle = () => {
+  const title = useMemo(() => {
     if (activeApp === "learning") return "Learning";
     if (activeApp === "members") return "Members";
     if (activeApp === "info") return "About";
     return "PCC";
-  };
+  }, [activeApp]);
+
+  const timeString = useMemo(() => {
+    return (
+      time.toLocaleDateString("id-ID", {
+        weekday: "short",
+        day: "numeric",
+        month: "short",
+      }) +
+      " " +
+      time
+        .toLocaleTimeString("id-ID", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        })
+        .replace(".", ":")
+    );
+  }, [time]);
 
   return (
     <div className="h-9 bg-slate-900/60 backdrop-blur-xl text-white flex items-center justify-between px-4 text-xs font-medium select-none fixed top-0 w-full z-50 border-b border-white/10 shadow-sm transition-all">
       <div className="flex items-center gap-4">
         <span className="text-base font-bold hover:text-white cursor-default opacity-90 hover:opacity-100 flex items-center">
-          <img src="/pcc.png" alt="PCC Logo" className="w-5 h-5" />
+          <img
+            src="/pcc.png"
+            alt="PCC Logo"
+            className="w-5 h-5"
+            loading="lazy"
+          />
         </span>
-        <span className="font-bold tracking-wide">{getTitle()}</span>
+        <span className="font-bold tracking-wide">{title}</span>
         <div className="hidden md:flex gap-4 opacity-80">
           <span className="hover:opacity-100 cursor-default">File</span>
           <span className="hover:opacity-100 cursor-default">Edit</span>
@@ -1381,47 +1421,47 @@ const MenuBar = ({ activeApp }) => {
         <Battery size={16} />
         <Wifi size={16} />
         <Search size={16} />
-        <span className="tabular-nums">
-          {time.toLocaleDateString("id-ID", {
-            weekday: "short",
-            day: "numeric",
-            month: "short",
-          })}
-          &nbsp;
-          {time
-            .toLocaleTimeString("id-ID", {
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: false,
-            })
-            .replace(".", ":")}
-        </span>
+        <span className="tabular-nums">{timeString}</span>
       </div>
     </div>
   );
-};
+});
 
-const Dock = ({ activeApp, setActiveApp }) => {
-  const dockItems = [
-    {
-      id: "info",
-      icon: <Info size={28} />,
-      label: "Info",
-      color: "from-sky-400 to-blue-600",
+const Dock = memo(({ activeApp, setActiveApp }) => {
+  const dockItems = useMemo(
+    () => [
+      {
+        id: "info",
+        icon: <Info size={28} />,
+        label: "Info",
+        color: "from-sky-400 to-blue-600",
+      },
+      {
+        id: "members",
+        icon: <Users size={28} />,
+        label: "Members",
+        color: "from-emerald-400 to-teal-600",
+      },
+      {
+        id: "learning",
+        icon: <BookOpen size={28} />,
+        label: "Materi",
+        color: "from-violet-500 to-fuchsia-600",
+      },
+    ],
+    []
+  );
+
+  const handleAppClick = useCallback(
+    (id) => {
+      setActiveApp(id);
     },
-    {
-      id: "members",
-      icon: <Users size={28} />,
-      label: "Members",
-      color: "from-emerald-400 to-teal-600",
-    },
-    {
-      id: "learning",
-      icon: <BookOpen size={28} />,
-      label: "Materi",
-      color: "from-violet-500 to-fuchsia-600",
-    },
-  ];
+    [setActiveApp]
+  );
+
+  const handleCloseAll = useCallback(() => {
+    setActiveApp(null);
+  }, [setActiveApp]);
 
   return (
     <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
@@ -1429,7 +1469,7 @@ const Dock = ({ activeApp, setActiveApp }) => {
         {dockItems.map((item) => (
           <button
             key={item.id}
-            onClick={() => setActiveApp(item.id)}
+            onClick={() => handleAppClick(item.id)}
             className="group relative flex flex-col items-center transition-all duration-300 ease-out hover:-translate-y-2"
           >
             <div
@@ -1457,7 +1497,7 @@ const Dock = ({ activeApp, setActiveApp }) => {
         ))}
         <div className="w-px h-10 bg-white/20 mx-1 self-center"></div>
         <button
-          onClick={() => setActiveApp(null)}
+          onClick={handleCloseAll}
           className="group relative hover:-translate-y-2 transition-all"
         >
           <div className="w-12 h-12 rounded-full bg-slate-700/50 backdrop-blur flex items-center justify-center border border-white/10 text-slate-300 hover:bg-red-900/50 hover:text-red-400 transition-colors">
@@ -1470,9 +1510,9 @@ const Dock = ({ activeApp, setActiveApp }) => {
       </div>
     </div>
   );
-};
+});
 
-const WindowFrame = ({ title, children, onClose }) => (
+const WindowFrame = memo(({ title, children, onClose }) => (
   <div className="bg-slate-900/90 backdrop-blur-3xl border border-white/10 shadow-2xl rounded-xl overflow-hidden w-full max-w-6xl max-h-[90vh] my-auto flex flex-col animate-in zoom-in-95 duration-300 relative">
     <div className="h-10 bg-gradient-to-b from-slate-800/90 to-slate-900/90 border-b border-white/10 flex items-center justify-between px-4 select-none shrink-0">
       <div className="flex items-center gap-2 group w-20">
@@ -1494,11 +1534,11 @@ const WindowFrame = ({ title, children, onClose }) => (
       {children}
     </div>
   </div>
-);
+));
 
 // --- APP MODULES ---
 
-const MembersApp = () => (
+const MembersApp = memo(() => (
   <div className="min-h-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
     <div className="max-w-7xl mx-auto px-6 py-10">
       {/* Header Section */}
@@ -1529,6 +1569,7 @@ const MembersApp = () => (
                   src={member.img}
                   alt={`Member ${idx + 1}`}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
                 />
               </div>
 
@@ -1570,9 +1611,9 @@ const MembersApp = () => (
       </div>
     </div>
   </div>
-);
+));
 
-const InfoApp = () => (
+const InfoApp = memo(() => (
   <div className="min-h-full flex items-center justify-center bg-slate-900 py-8">
     <div className="max-w-2xl w-full p-8 text-center">
       <div className="w-24 h-24 bg-white py-3 pe-3 ps-2 from-blue-500 to-purple-600 rounded-[2rem] shadow-2xl mx-auto mb-8 flex items-center justify-center overflow-hidden animate-bounce-slow">
@@ -1580,6 +1621,7 @@ const InfoApp = () => (
           src="/software.webp"
           alt="Software Icon"
           className="w-full h-full object-cover"
+          loading="lazy"
         />
       </div>
       <h1 className="text-4xl font-extrabold text-white mb-4 tracking-tight">
@@ -1606,11 +1648,11 @@ const InfoApp = () => (
       </div>
     </div>
   </div>
-);
+));
 
 // --- LEARNING COMPONENTS ---
 
-const CssPropertiesPlayground = () => {
+const CssPropertiesPlayground = memo(() => {
   const [properties, setProperties] = useState({
     color: "#ffffff",
     backgroundColor: "#3b82f6",
@@ -1625,28 +1667,32 @@ const CssPropertiesPlayground = () => {
     height: "auto",
   });
 
-  const updateProperty = (key, value) => {
+  const updateProperty = useCallback((key, value) => {
     setProperties((prev) => ({ ...prev, [key]: value }));
-  };
+  }, []);
 
-  const style = {
-    color: properties.color,
-    backgroundColor: properties.backgroundColor,
-    fontSize: `${properties.fontSize}px`,
-    padding: `${properties.padding}px`,
-    margin: `${properties.margin}px`,
-    borderWidth: `${properties.borderWidth}px`,
-    borderColor: properties.borderColor,
-    borderStyle: "solid",
-    borderRadius: `${properties.borderRadius}px`,
-    fontWeight: properties.fontWeight,
-    width: properties.height === "auto" ? `${properties.width}px` : "auto",
-    minHeight: properties.height !== "auto" ? `${properties.height}px` : "auto",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    transition: "all 0.3s ease",
-  };
+  const style = useMemo(
+    () => ({
+      color: properties.color,
+      backgroundColor: properties.backgroundColor,
+      fontSize: `${properties.fontSize}px`,
+      padding: `${properties.padding}px`,
+      margin: `${properties.margin}px`,
+      borderWidth: `${properties.borderWidth}px`,
+      borderColor: properties.borderColor,
+      borderStyle: "solid",
+      borderRadius: `${properties.borderRadius}px`,
+      fontWeight: properties.fontWeight,
+      width: properties.height === "auto" ? `${properties.width}px` : "auto",
+      minHeight:
+        properties.height !== "auto" ? `${properties.height}px` : "auto",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      transition: "all 0.3s ease",
+    }),
+    [properties]
+  );
 
   return (
     <div className="h-full flex flex-col gap-4">
@@ -1891,9 +1937,9 @@ const CssPropertiesPlayground = () => {
       </div>
     </div>
   );
-};
+});
 
-const GridPlayground = () => {
+const GridPlayground = memo(() => {
   const [columns, setColumns] = useState("3");
   const [rows, setRows] = useState("3");
   const [gap, setGap] = useState("16");
@@ -2035,9 +2081,9 @@ const GridPlayground = () => {
       </div>
     </div>
   );
-};
+});
 
-const FlexboxPlayground = () => {
+const FlexboxPlayground = memo(() => {
   const [justify, setJustify] = useState("justify-center");
   const [align, setAlign] = useState("items-center");
 
@@ -2140,9 +2186,9 @@ const FlexboxPlayground = () => {
       </div>
     </div>
   );
-};
+});
 
-const TailwindBuilder = () => {
+const TailwindBuilder = memo(() => {
   const [state, setState] = useState({
     rounded: true,
     shadow: true,
@@ -2263,9 +2309,9 @@ const TailwindBuilder = () => {
       </div>
     </div>
   );
-};
+});
 
-const CodePlayground = () => {
+const CodePlayground = memo(() => {
   const [html, setHtml] = useState(
     '<button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Button</button>'
   );
@@ -2303,17 +2349,26 @@ const CodePlayground = () => {
       </p>
     </div>
   );
-};
+});
 
 const LearningApp = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slide = slidesData[currentSlide];
 
-  const nextSlide = () =>
-    currentSlide < slidesData.length - 1 && setCurrentSlide((c) => c + 1);
-  const prevSlide = () => currentSlide > 0 && setCurrentSlide((c) => c - 1);
+  const slide = useMemo(() => slidesData[currentSlide], [currentSlide]);
 
-  const renderInteractive = (type) => {
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((c) => (c < slidesData.length - 1 ? c + 1 : c));
+  }, []);
+
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((c) => (c > 0 ? c - 1 : c));
+  }, []);
+
+  const handleSlideClick = useCallback((idx) => {
+    setCurrentSlide(idx);
+  }, []);
+
+  const renderInteractive = useCallback((type) => {
     switch (type) {
       case "interactive-css":
         return <CssPropertiesPlayground />;
@@ -2328,7 +2383,7 @@ const LearningApp = () => {
       default:
         return null;
     }
-  };
+  }, []);
 
   return (
     <div className="flex bg-slate-900 h-[74vh]">
@@ -2340,7 +2395,7 @@ const LearningApp = () => {
         {slidesData.map((s, idx) => (
           <button
             key={s.id}
-            onClick={() => setCurrentSlide(idx)}
+            onClick={() => handleSlideClick(idx)}
             className={`text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors ${
               idx === currentSlide
                 ? "bg-blue-900/50 text-blue-300 border border-blue-700/50"
@@ -2456,6 +2511,21 @@ const LearningApp = () => {
 const App = () => {
   const [activeApp, setActiveApp] = useState(null);
 
+  const handleSetActiveApp = useCallback((app) => {
+    setActiveApp(app);
+  }, []);
+
+  const handleCloseApp = useCallback(() => {
+    setActiveApp(null);
+  }, []);
+
+  const windowTitle = useMemo(() => {
+    if (activeApp === "learning") return "Interactive Module";
+    if (activeApp === "info") return "Info";
+    if (activeApp === "members") return "Departemen Software";
+    return "Info";
+  }, [activeApp]);
+
   return (
     <div
       className="w-full h-screen overflow-hidden bg-cover bg-center relative font-sans antialiased"
@@ -2469,16 +2539,7 @@ const App = () => {
 
       <main className="relative z-10 min-h-[calc(100vh-3rem)] pt-12 pb-24 px-4 flex items-start justify-center overflow-y-auto">
         {activeApp && (
-          <WindowFrame
-            title={
-              activeApp === "learning"
-                ? "Interactive Module"
-                : activeApp === "members"
-                ? "Departemen Software"
-                : "Info"
-            }
-            onClose={() => setActiveApp(null)}
-          >
+          <WindowFrame title={windowTitle} onClose={handleCloseApp}>
             {activeApp === "learning" && <LearningApp />}
             {activeApp === "members" && <MembersApp />}
             {activeApp === "info" && <InfoApp />}
@@ -2486,7 +2547,7 @@ const App = () => {
         )}
       </main>
 
-      <Dock activeApp={activeApp} setActiveApp={setActiveApp} />
+      <Dock activeApp={activeApp} setActiveApp={handleSetActiveApp} />
     </div>
   );
 };
