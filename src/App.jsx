@@ -32,6 +32,38 @@ import {
   Layout,
 } from "lucide-react";
 
+// --- HELPER FUNCTION UNTUK ICON ---
+const getSlideIcon = (chapter) => {
+  if (chapter.includes("HTML")) {
+    return (
+      <img
+        src="/Materi/html.png"
+        alt="HTML"
+        className="w-10 h-10 object-contain"
+      />
+    );
+  }
+  if (chapter.includes("CSS")) {
+    return (
+      <img
+        src="/Materi/css.png"
+        alt="CSS"
+        className="w-10 h-10 object-contain"
+      />
+    );
+  }
+  if (chapter.includes("Tailwind")) {
+    return (
+      <img
+        src="/Materi/tailwind.png"
+        alt="Tailwind"
+        className="w-10 h-10 object-contain"
+      />
+    );
+  }
+  return null;
+};
+
 // --- DATA MATERI (DIPERLUAS) ---
 const slidesData = [
   {
@@ -47,43 +79,57 @@ const slidesData = [
   {
     id: 2,
     type: "content",
-    title: "HTML: Semantic Structure",
-    subtitle: "Lebih dari sekadar <div>",
+    title: "Konsep HTML",
+    subtitle: "Struktur Dasar Website",
     icon: <LayoutTemplate size={40} />,
-    chapter: "HTML",
+    chapter: "HTML - Konsep",
     content: (
-      <div className="space-y-6">
-        <p className="text-lg text-slate-300">
-          HTML Semantik membuat kode lebih mudah dibaca manusia dan mesin (SEO).
-          Jangan gunakan <code className="text-blue-400">div</code> untuk
-          segalanya.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-red-900/30 p-5 rounded-xl border border-red-800/50">
-            <h4 className="font-bold text-red-400 mb-2 flex items-center gap-2">
-              <X size={16} /> Cara Lama (Buruk)
-            </h4>
-            <pre className="text-xs text-slate-300 font-mono bg-slate-800 p-3 rounded border border-red-800/50">
-              {`<div id="header">...</div>
-<div id="nav">...</div>
-<div class="article">
-  <div class="title">...</div>
-</div>
-<div id="footer">...</div>`}
-            </pre>
+      <div className="space-y-8">
+        {/* Apa itu HTML */}
+        <div className="bg-blue-900/20 border border-blue-700/50 rounded-2xl p-6">
+          <div className="flex items-start gap-4 mb-4">
+            <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center shrink-0">
+              <LayoutTemplate size={24} className="text-white" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-blue-400 mb-3">
+                Apa itu HTML?
+              </h3>
+              <p className="text-slate-300 leading-relaxed mb-4">
+                <strong className="text-white">
+                  HTML (HyperText Markup Language)
+                </strong>{" "}
+                adalah bahasa markup yang digunakan untuk membuat struktur dan
+                konten dari sebuah halaman web. HTML bertindak sebagai kerangka
+                untuk sebuah situs web, menentukan di mana judul, paragraf,
+                gambar, tautan, dan elemen lainnya akan ditempatkan, sehingga
+                browser web dapat menampilkannya kepada pengguna.
+              </p>
+            </div>
           </div>
-          <div className="bg-emerald-900/30 p-5 rounded-xl border border-emerald-800/50">
-            <h4 className="font-bold text-emerald-400 mb-2 flex items-center gap-2">
-              <Zap size={16} /> Semantic HTML (Baik)
-            </h4>
-            <pre className="text-xs text-slate-300 font-mono bg-slate-800 p-3 rounded border border-emerald-800/50">
-              {`<header>...</header>
-<nav>...</nav>
-<article>
-  <h1>...</h1>
-</article>
-<footer>...</footer>`}
-            </pre>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
+            <div className="bg-slate-800/50 p-3 rounded-lg border border-blue-700/30">
+              <div className="text-blue-400 font-bold text-sm mb-1">
+                HyperText
+              </div>
+              <div className="text-xs text-slate-400">
+                Teks yang saling terhubung melalui hyperlink
+              </div>
+            </div>
+            <div className="bg-slate-800/50 p-3 rounded-lg border border-blue-700/30">
+              <div className="text-blue-400 font-bold text-sm mb-1">Markup</div>
+              <div className="text-xs text-slate-400">
+                Sistem untuk menandai struktur dokumen
+              </div>
+            </div>
+            <div className="bg-slate-800/50 p-3 rounded-lg border border-blue-700/30">
+              <div className="text-blue-400 font-bold text-sm mb-1">
+                Language
+              </div>
+              <div className="text-xs text-slate-400">
+                Bahasa standar untuk struktur web
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -92,37 +138,103 @@ const slidesData = [
   {
     id: 3,
     type: "content",
-    title: "Visualisasi Tag HTML",
-    subtitle: "Elemen Interaktif",
-    icon: <Code size={40} />,
+    title: "Struktur Kode HTML",
+    subtitle: "Anatomi Dokumen HTML",
+    icon: <LayoutTemplate size={40} />,
     chapter: "HTML",
     content: (
-      <div className="space-y-4">
-        <p className="text-slate-300">
-          Elemen umum yang membentuk interaksi user.
+      <div className="space-y-6">
+        <p className="text-lg text-slate-300">
+          Setiap dokumen HTML memiliki struktur dasar yang terdiri dari beberapa
+          elemen penting. Mari kita pelajari struktur kode HTML dari awal.
         </p>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-2">
-            <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
-              &lt;button&gt;
-            </span>
-            <div className="flex-1 flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border">
-              <button className="bg-blue-600 text-white px-4 py-1.5 rounded-md shadow hover:bg-blue-700 transition text-sm">
-                Submit
-              </button>
-            </div>
+
+        {/* Struktur Dasar */}
+        <div className="bg-blue-900/20 border border-blue-700/50 rounded-2xl p-6">
+          <h3 className="text-xl font-bold text-blue-400 mb-4">
+            Struktur Dasar HTML
+          </h3>
+          <pre className="text-xs text-slate-300 font-mono bg-slate-800 p-4 rounded-lg border border-blue-700/50 overflow-x-auto">
+            {`<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Judul Halaman</title>
+  </head>
+  <body>
+    <!-- Konten halaman di sini -->
+  </body>
+</html>`}
+          </pre>
+        </div>
+
+        {/* Penjelasan Elemen */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-slate-800/50 p-4 rounded-xl border border-white/10">
+            <h4 className="font-bold text-emerald-400 mb-2 flex items-center gap-2">
+              <Code size={16} /> &lt;!DOCTYPE html&gt;
+            </h4>
+            <p className="text-sm text-slate-300">
+              Deklarasi tipe dokumen. Memberitahu browser bahwa ini adalah
+              dokumen HTML5.
+            </p>
           </div>
-          <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-2">
-            <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
-              &lt;input type="date"&gt;
-            </span>
-            <div className="flex-1 flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border">
-              <input
-                type="date"
-                className="border border-slate-600 bg-slate-800 text-slate-300 p-1 rounded text-sm"
-              />
-            </div>
+          <div className="bg-slate-800/50 p-4 rounded-xl border border-white/10">
+            <h4 className="font-bold text-emerald-400 mb-2 flex items-center gap-2">
+              <Code size={16} /> &lt;html&gt;
+            </h4>
+            <p className="text-sm text-slate-300">
+              Elemen root yang membungkus seluruh konten HTML. Atribut{" "}
+              <code className="text-blue-400">lang</code> menentukan bahasa.
+            </p>
           </div>
+          <div className="bg-slate-800/50 p-4 rounded-xl border border-white/10">
+            <h4 className="font-bold text-emerald-400 mb-2 flex items-center gap-2">
+              <Code size={16} /> &lt;head&gt;
+            </h4>
+            <p className="text-sm text-slate-300">
+              Berisi metadata dokumen seperti title, charset, viewport, dan link
+              ke file eksternal (CSS, JS).
+            </p>
+          </div>
+          <div className="bg-slate-800/50 p-4 rounded-xl border border-white/10">
+            <h4 className="font-bold text-emerald-400 mb-2 flex items-center gap-2">
+              <Code size={16} /> &lt;body&gt;
+            </h4>
+            <p className="text-sm text-slate-300">
+              Berisi semua konten yang ditampilkan di halaman web seperti teks,
+              gambar, link, dan elemen lainnya.
+            </p>
+          </div>
+        </div>
+
+        {/* Contoh Lengkap */}
+        <div className="bg-emerald-900/20 border border-emerald-700/50 rounded-2xl p-6">
+          <h3 className="text-xl font-bold text-emerald-400 mb-4">
+            Contoh Struktur Lengkap
+          </h3>
+          <pre className="text-xs text-slate-300 font-mono bg-slate-800 p-4 rounded-lg border border-emerald-700/50 overflow-x-auto">
+            {`<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Pertamaku</title>
+  </head>
+  <body>
+    <header>
+      <h1>Selamat Datang</h1>
+    </header>
+    <main>
+      <p>Ini adalah paragraf pertama saya.</p>
+    </main>
+    <footer>
+      <p>&copy; 2025 Departemen Software</p>
+    </footer>
+  </body>
+</html>`}
+          </pre>
         </div>
       </div>
     ),
@@ -130,10 +242,522 @@ const slidesData = [
   {
     id: 4,
     type: "content",
+    title: "Visualisasi Tag HTML",
+    subtitle: "Berbagai Elemen HTML",
+    icon: <Code size={40} />,
+    chapter: "HTML - Praktik",
+    content: (
+      <div className="space-y-6">
+        <p className="text-slate-300">
+          Berikut adalah berbagai tag HTML yang umum digunakan dan bagaimana
+          mereka terlihat di browser.
+        </p>
+
+        {/* Heading Tags */}
+        <div>
+          <h3 className="text-lg font-bold text-white mb-3">Heading Tags</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;h1&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<h1>Heading 1</h1>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[60px]">
+                <h1 className="text-3xl font-bold text-white">Heading 1</h1>
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;h2&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<h2>Heading 2</h2>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[60px]">
+                <h2 className="text-2xl font-bold text-white">Heading 2</h2>
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;h3&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<h3>Heading 3</h3>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[60px]">
+                <h3 className="text-xl font-bold text-white">Heading 3</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Text Tags */}
+        <div>
+          <h3 className="text-lg font-bold text-white mb-3">Text Tags</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;p&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<p>Ini adalah paragraf</p>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[50px]">
+                <p className="text-slate-300">Ini adalah paragraf</p>
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;strong&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<strong>Teks Tebal</strong>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[50px]">
+                <strong className="text-white">Teks Tebal</strong>
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;em&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<em>Teks Miring</em>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[50px]">
+                <em className="text-slate-300">Teks Miring</em>
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;code&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<code>code</code>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[50px]">
+                <code className="text-blue-400 bg-slate-800 px-2 py-1 rounded">
+                  code
+                </code>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Link & Media */}
+        <div>
+          <h3 className="text-lg font-bold text-white mb-3">Link & Media</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;a&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<a href="#">Link ke Halaman</a>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[50px]">
+                <a href="#" className="text-blue-400 hover:underline">
+                  Link ke Halaman
+                </a>
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;img&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<img src="/logo.png" alt="Logo" />`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[80px]">
+                <img src="/pcc.png" alt="Logo" className="h-12 w-auto" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Form Elements */}
+        <div>
+          <h3 className="text-lg font-bold text-white mb-3">Form Elements</h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;input type="text"&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<input type="text" placeholder="Masukkan teks" />`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[50px]">
+                <input
+                  type="text"
+                  placeholder="Masukkan teks"
+                  className="border border-slate-600 bg-slate-800 text-slate-300 px-3 py-1.5 rounded text-sm w-full max-w-[200px]"
+                />
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;input type="email"&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<input type="email" placeholder="email@example.com" />`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[50px]">
+                <input
+                  type="email"
+                  placeholder="email@example.com"
+                  className="border border-slate-600 bg-slate-800 text-slate-300 px-3 py-1.5 rounded text-sm w-full max-w-[200px]"
+                />
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;input type="password"&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<input type="password" placeholder="Password" />`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[50px]">
+                <input
+                  type="password"
+                  placeholder="Password"
+                  className="border border-slate-600 bg-slate-800 text-slate-300 px-3 py-1.5 rounded text-sm w-full max-w-[200px]"
+                />
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;input type="date"&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<input type="date" />`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[50px]">
+                <input
+                  type="date"
+                  className="border border-slate-600 bg-slate-800 text-slate-300 px-3 py-1.5 rounded text-sm"
+                />
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;input type="checkbox"&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<label>
+    <input type="checkbox" />
+    Checkbox
+</label>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[50px]">
+                <label className="flex items-center gap-2 text-slate-300">
+                  <input type="checkbox" className="w-4 h-4" />
+                  <span>Checkbox</span>
+                </label>
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;input type="radio"&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<label>
+    <input type="radio" name="radio" />
+    Radio
+</label>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[50px]">
+                <label className="flex items-center gap-2 text-slate-300">
+                  <input type="radio" name="radio-demo" className="w-4 h-4" />
+                  <span>Radio</span>
+                </label>
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;select&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<select>
+    <option>Pilih opsi</option>
+    <option>Opsi 1</option>
+    <option>Opsi 2</option>
+</select>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[50px]">
+                <select className="border border-slate-600 bg-slate-800 text-slate-300 px-3 py-1.5 rounded text-sm">
+                  <option>Pilih opsi</option>
+                  <option>Opsi 1</option>
+                  <option>Opsi 2</option>
+                </select>
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;textarea&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<textarea placeholder="Tulis pesan..."></textarea>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[80px]">
+                <textarea
+                  placeholder="Tulis pesan..."
+                  className="border border-slate-600 bg-slate-800 text-slate-300 px-3 py-1.5 rounded text-sm w-full max-w-[200px] h-16 resize-none"
+                />
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;button&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<button>Submit</button>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[50px]">
+                <button className="bg-blue-600 text-white px-4 py-1.5 rounded-md shadow hover:bg-blue-700 transition text-sm">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* List Tags */}
+        <div>
+          <h3 className="text-lg font-bold text-white mb-3">List Tags</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;ul&gt; &lt;li&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<ul>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+</ul>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[80px]">
+                <ul className="list-disc list-inside text-slate-300 text-sm">
+                  <li>Item 1</li>
+                  <li>Item 2</li>
+                  <li>Item 3</li>
+                </ul>
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;ol&gt; &lt;li&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<ol>
+    <li>Pertama</li>
+    <li>Kedua</li>
+    <li>Ketiga</li>
+</ol>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[80px]">
+                <ol className="list-decimal list-inside text-slate-300 text-sm">
+                  <li>Pertama</li>
+                  <li>Kedua</li>
+                  <li>Ketiga</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Semantic Tags */}
+        <div>
+          <h3 className="text-lg font-bold text-white mb-3">Semantic Tags</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;header&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<header>
+    Header
+</header>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[60px]">
+                <div className="text-slate-300 text-sm text-center">Header</div>
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;nav&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<nav>
+    Navigation
+</nav>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[60px]">
+                <div className="text-slate-300 text-sm text-center">
+                  Navigation
+                </div>
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;main&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<main>
+    Main
+</main>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[60px]">
+                <div className="text-slate-300 text-sm text-center">Main</div>
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;footer&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<footer>
+    Footer
+</footer>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[60px]">
+                <div className="text-slate-300 text-sm text-center">Footer</div>
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;article&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<article>
+    Article
+</article>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[60px]">
+                <div className="text-slate-300 text-sm text-center">
+                  Article
+                </div>
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;section&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<section>
+    Section
+</section>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[60px]">
+                <div className="text-slate-300 text-sm text-center">
+                  Section
+                </div>
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;aside&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<aside>
+    Aside
+</aside>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[60px]">
+                <div className="text-slate-300 text-sm text-center">Aside</div>
+              </div>
+            </div>
+            <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <span className="font-mono text-pink-400 text-xs bg-pink-900/30 px-2 py-1 rounded w-fit border border-pink-800/50">
+                &lt;div&gt;
+              </span>
+              <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
+                {`<div>
+    Div
+</div>`}
+              </pre>
+              <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[60px]">
+                <div className="text-slate-300 text-sm text-center">Div</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: 5,
+    type: "content",
+    title: "Konsep CSS",
+    subtitle: "Styling dan Layout",
+    icon: <Layers size={40} />,
+    chapter: "CSS - Konsep",
+    content: (
+      <div className="space-y-8">
+        {/* Apa itu CSS */}
+        <div className="bg-purple-900/20 border border-purple-700/50 rounded-2xl p-6">
+          <div className="flex items-start gap-4 mb-4">
+            <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center shrink-0">
+              <Layers size={24} className="text-white" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-purple-400 mb-3">
+                Apa itu CSS?
+              </h3>
+              <p className="text-slate-300 leading-relaxed mb-4">
+                <strong className="text-white">
+                  CSS (Cascading Style Sheets)
+                </strong>{" "}
+                adalah sebuah bahasa
+                stylesheet yang digunakan untuk mengatur tampilan dan gaya
+                dokumen web yang ditulis dalam bahasa markup seperti HTML. CSS
+                memungkinkan pengembang web untuk mengontrol elemen visual
+                seperti warna, font, tata letak, dan ukuran, sehingga memisahkan
+                konten dari presentasi visualnya. Tujuannya adalah membuat
+                website lebih menarik, konsisten, dan responsif di berbagai
+                perangkat.
+              </p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
+            <div className="bg-slate-800/50 p-3 rounded-lg border border-purple-700/30">
+              <div className="text-purple-400 font-bold text-sm mb-1">
+                Separation
+              </div>
+              <div className="text-xs text-slate-400">
+                Memisahkan struktur (HTML) dari presentasi (CSS)
+              </div>
+            </div>
+            <div className="bg-slate-800/50 p-3 rounded-lg border border-purple-700/30">
+              <div className="text-purple-400 font-bold text-sm mb-1">
+                Responsive
+              </div>
+              <div className="text-xs text-slate-400">
+                Membuat layout yang adaptif di berbagai ukuran layar
+              </div>
+            </div>
+            <div className="bg-slate-800/50 p-3 rounded-lg border border-purple-700/30">
+              <div className="text-purple-400 font-bold text-sm mb-1">
+                Maintainable
+              </div>
+              <div className="text-xs text-slate-400">
+                Lebih mudah dirawat dan diubah
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: 6,
+    type: "content",
     title: "CSS Box Model",
     subtitle: "Fondasi Layout",
     icon: <Layers size={40} />,
-    chapter: "CSS",
+    chapter: "CSS - Praktik",
     content: (
       <div className="space-y-4">
         <p className="text-slate-300">
@@ -169,22 +793,180 @@ const slidesData = [
     ),
   },
   {
-    id: 5,
+    id: 7,
+    type: "content",
+    title: "Konsep Flexbox & Grid",
+    subtitle: "Sistem Layout Modern",
+    icon: <Layout size={40} />,
+    chapter: "CSS - Konsep",
+    content: (
+      <div className="space-y-8">
+        {/* Visual Comparison */}
+        <div className="flex justify-center gap-8 mb-6">
+          <div className="text-center">
+            <div className="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center shadow-xl mb-2">
+              <Layout size={48} className="text-white" />
+            </div>
+            <div className="text-xs text-slate-400 font-semibold">
+              1 Dimensi
+            </div>
+          </div>
+          <div className="text-center">
+            <div className="w-24 h-24 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-xl mb-2">
+              <Grid size={48} className="text-white" />
+            </div>
+            <div className="text-xs text-slate-400 font-semibold">
+              2 Dimensi
+            </div>
+          </div>
+        </div>
+
+        {/* Flexbox Section */}
+        <div className="bg-indigo-900/20 border border-indigo-700/50 rounded-2xl p-6">
+          <div className="flex items-start gap-4 mb-4">
+            <div className="w-12 h-12 bg-indigo-500 rounded-xl flex items-center justify-center shrink-0">
+              <Layout size={24} className="text-white" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-indigo-400 mb-3">
+                Flexbox
+              </h3>
+              <p className="text-slate-300 leading-relaxed mb-4">
+                <strong className="text-white">Flexbox</strong> adalah sistem
+                layout 1 dimensi yang memudahkan distribusi ruang dan perataan
+                item dalam sebuah container.
+              </p>
+            </div>
+          </div>
+
+          {/* Visual Example */}
+          <div className="bg-slate-800/50 p-4 rounded-lg border border-indigo-700/30 mb-4">
+            <div className="flex justify-between items-center gap-2 mb-2">
+              <div className="text-xs text-indigo-400 font-semibold">
+                Main Axis (X)
+              </div>
+              <div className="text-xs text-slate-500">Cross Axis (Y) →</div>
+            </div>
+            <div className="flex justify-center items-center gap-2 h-16 bg-indigo-500/10 rounded border border-indigo-500/30">
+              <div className="w-12 h-12 bg-indigo-500 rounded flex items-center justify-center text-white font-bold text-sm">
+                1
+              </div>
+              <div className="w-12 h-12 bg-purple-500 rounded flex items-center justify-center text-white font-bold text-sm">
+                2
+              </div>
+              <div className="w-12 h-12 bg-pink-500 rounded flex items-center justify-center text-white font-bold text-sm">
+                3
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-slate-800/50 p-3 rounded-lg border border-white/10">
+              <strong className="text-indigo-400 block mb-2 text-sm">
+                ✓ Gunakan Untuk:
+              </strong>
+              <ul className="text-xs text-slate-400 space-y-1">
+                <li>• Satu baris/kolom</li>
+                <li>• Navigation bar</li>
+                <li>• Centering content</li>
+                <li>• Distribusi fleksibel</li>
+              </ul>
+            </div>
+            <div className="bg-slate-800/50 p-3 rounded-lg border border-white/10">
+              <code className="text-xs text-indigo-400">
+                display: flex;
+                <br />
+                justify-content: center;
+                <br />
+                align-items: center;
+              </code>
+            </div>
+          </div>
+        </div>
+
+        {/* Grid Section */}
+        <div className="bg-teal-900/20 border border-teal-700/50 rounded-2xl p-6">
+          <div className="flex items-start gap-4 mb-4">
+            <div className="w-12 h-12 bg-teal-500 rounded-xl flex items-center justify-center shrink-0">
+              <Grid size={24} className="text-white" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-teal-400 mb-3">CSS Grid</h3>
+              <p className="text-slate-300 leading-relaxed mb-4">
+                <strong className="text-white">CSS Grid</strong> adalah sistem
+                layout 2 dimensi yang memungkinkan kontrol penuh atas baris dan
+                kolom secara bersamaan.
+              </p>
+            </div>
+          </div>
+
+          {/* Visual Example */}
+          <div className="bg-slate-800/50 p-4 rounded-lg border border-teal-700/30 mb-4">
+            <div className="text-xs text-teal-400 font-semibold mb-2 text-center">
+              Rows & Columns (2D)
+            </div>
+            <div className="grid grid-cols-3 gap-2 h-24">
+              <div className="bg-teal-500 rounded flex items-center justify-center text-white font-bold text-xs">
+                1
+              </div>
+              <div className="bg-cyan-500 rounded flex items-center justify-center text-white font-bold text-xs">
+                2
+              </div>
+              <div className="bg-blue-500 rounded flex items-center justify-center text-white font-bold text-xs">
+                3
+              </div>
+              <div className="bg-indigo-500 rounded flex items-center justify-center text-white font-bold text-xs">
+                4
+              </div>
+              <div className="bg-purple-500 rounded col-span-2 flex items-center justify-center text-white font-bold text-xs">
+                5 (2 cols)
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-slate-800/50 p-3 rounded-lg border border-white/10">
+              <strong className="text-teal-400 block mb-2 text-sm">
+                ✓ Gunakan Untuk:
+              </strong>
+              <ul className="text-xs text-slate-400 space-y-1">
+                <li>• Layout kompleks 2D</li>
+                <li>• Halaman struktur jelas</li>
+                <li>• Overlapping items</li>
+                <li>• Grid responsif</li>
+              </ul>
+            </div>
+            <div className="bg-slate-800/50 p-3 rounded-lg border border-white/10">
+              <code className="text-xs text-teal-400">
+                display: grid;
+                <br />
+                grid-template-columns:
+                <br />
+                &nbsp;&nbsp;repeat(3, 1fr);
+              </code>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: 8,
     type: "interactive-flex",
     title: "CSS Flexbox",
     subtitle: "Layout 1 Dimensi",
     icon: <Layout size={40} />,
-    chapter: "CSS",
+    chapter: "CSS - Praktik",
     content:
       "Flexbox sangat powerful untuk mengatur elemen dalam satu baris atau satu kolom.",
   },
   {
-    id: 6,
+    id: 9,
     type: "content",
     title: "CSS Grid",
     subtitle: "Layout 2 Dimensi",
     icon: <Grid size={40} />,
-    chapter: "CSS",
+    chapter: "CSS - Praktik",
     content: (
       <div className="space-y-6">
         <p className="text-slate-300">
@@ -215,12 +997,162 @@ const slidesData = [
     ),
   },
   {
-    id: 7,
+    id: 10,
+    type: "content",
+    title: "Konsep Tailwind CSS",
+    subtitle: "Utility-First Framework",
+    icon: <Type size={40} />,
+    chapter: "Tailwind - Konsep",
+    content: (
+      <div className="space-y-8">
+        {/* Apa itu Tailwind */}
+        <div className="bg-sky-900/20 border border-sky-700/50 rounded-2xl p-6">
+          <div className="flex items-start gap-4 mb-4">
+            <div className="w-12 h-12 bg-sky-500 rounded-xl flex items-center justify-center shrink-0">
+              <Type size={24} className="text-white" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-sky-400 mb-3">
+                Apa itu Tailwind CSS?
+              </h3>
+              <p className="text-slate-300 leading-relaxed mb-4">
+                <strong className="text-white">Tailwind CSS</strong> adalah
+                framework CSS utility-first yang menyediakan class-class siap
+                pakai untuk membangun desain custom dengan cepat tanpa perlu
+                menulis CSS custom.
+              </p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-slate-800/50 p-4 rounded-lg border border-sky-700/30">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                  <Zap size={16} className="text-white" />
+                </div>
+                <strong className="text-sky-400">Kelebihan</strong>
+              </div>
+              <ul className="text-sm text-slate-300 space-y-2">
+                <li className="flex items-start gap-2">
+                  <span className="text-green-400 mt-1">✓</span>
+                  <span>Development lebih cepat</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-400 mt-1">✓</span>
+                  <span>Konsistensi desain</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-400 mt-1">✓</span>
+                  <span>Bundle size kecil</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-400 mt-1">✓</span>
+                  <span>Highly customizable</span>
+                </li>
+              </ul>
+            </div>
+            <div className="bg-slate-800/50 p-4 rounded-lg border border-orange-700/30">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
+                  <Info size={16} className="text-white" />
+                </div>
+                <strong className="text-orange-400">Pertimbangan</strong>
+              </div>
+              <ul className="text-sm text-slate-300 space-y-2">
+                <li className="flex items-start gap-2">
+                  <span className="text-orange-400 mt-1">•</span>
+                  <span>Learning curve awal</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-orange-400 mt-1">•</span>
+                  <span>HTML bisa jadi panjang</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-orange-400 mt-1">•</span>
+                  <span>Perlu konfigurasi</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-orange-400 mt-1">•</span>
+                  <span>Utility-first mindset</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Konsep Utility-First */}
+        <div className="bg-violet-900/20 border border-violet-700/50 rounded-2xl p-6">
+          <div className="flex items-start gap-4 mb-4">
+            <div className="w-12 h-12 bg-violet-500 rounded-xl flex items-center justify-center shrink-0">
+              <Code size={24} className="text-white" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-violet-400 mb-3">
+                Konsep Utility-First
+              </h3>
+              <p className="text-slate-300 leading-relaxed mb-4">
+                Tailwind menggunakan pendekatan{" "}
+                <strong className="text-white">utility-first</strong>, di mana
+                setiap class memiliki fungsi spesifik dan dapat dikombinasikan
+                untuk membuat desain kompleks.
+              </p>
+            </div>
+          </div>
+
+          {/* Visual Example */}
+          <div className="bg-slate-800/50 p-4 rounded-lg border border-violet-700/30 mb-4">
+            <div className="flex items-center justify-center gap-4 p-4 bg-blue-500 rounded-lg text-white hover:bg-blue-600 transition">
+              <span className="font-bold">Button</span>
+            </div>
+          </div>
+
+          <div className="bg-slate-800/50 p-4 rounded-lg border border-white/10">
+            <p className="text-xs text-slate-400 mb-2">
+              Kode HTML dengan Tailwind:
+            </p>
+            <code className="text-xs text-violet-400 block mb-4">
+              &lt;div class="flex items-center justify-center p-4 bg-blue-500
+              text-white rounded-lg hover:bg-blue-600 transition"&gt;
+            </code>
+            <div className="grid grid-cols-2 gap-3 text-xs text-slate-300">
+              <div className="flex items-center gap-2">
+                <code className="text-violet-400">flex</code>
+                <span className="text-slate-500">→ display: flex</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <code className="text-violet-400">items-center</code>
+                <span className="text-slate-500">→ align-items: center</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <code className="text-violet-400">justify-center</code>
+                <span className="text-slate-500">
+                  → justify-content: center
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <code className="text-violet-400">p-4</code>
+                <span className="text-slate-500">→ padding: 1rem</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <code className="text-violet-400">bg-blue-500</code>
+                <span className="text-slate-500">→ background-color</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <code className="text-violet-400">rounded-lg</code>
+                <span className="text-slate-500">→ border-radius</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: 11,
     type: "content",
     title: "Tailwind CSS Intro",
     subtitle: "Utility-First",
     icon: <Type size={40} />,
-    chapter: "Tailwind",
+    chapter: "Tailwind - Praktik",
     content: (
       <div className="space-y-5">
         <p className="text-slate-300">
@@ -253,22 +1185,22 @@ const slidesData = [
     ),
   },
   {
-    id: 8,
+    id: 12,
     type: "interactive-tailwind",
     title: "Tailwind Playground",
     subtitle: "Interactive Builder",
     icon: <MousePointer size={40} />,
-    chapter: "Tailwind",
+    chapter: "Tailwind - Praktik",
     content:
       "Eksperimen dengan class Tailwind untuk melihat betapa cepatnya membangun UI.",
   },
   {
-    id: 9,
+    id: 13,
     type: "code-editor",
     title: "Live Coding",
     subtitle: "Coba Sendiri",
     icon: <Code size={40} />,
-    chapter: "Praktik",
+    chapter: "Praktik Final",
     content: "Area coding langsung.",
   },
 ];
@@ -439,7 +1371,7 @@ const Dock = ({ activeApp, setActiveApp }) => {
 };
 
 const WindowFrame = ({ title, children, onClose }) => (
-  <div className="bg-slate-900/90 backdrop-blur-3xl border border-white/10 shadow-2xl rounded-xl overflow-hidden w-full max-w-6xl h-[85vh] flex flex-col animate-in zoom-in-95 duration-300 relative">
+  <div className="bg-slate-900/90 backdrop-blur-3xl border border-white/10 shadow-2xl rounded-xl overflow-hidden w-full max-w-6xl max-h-[90vh] my-auto flex flex-col animate-in zoom-in-95 duration-300 relative">
     <div className="h-10 bg-gradient-to-b from-slate-800/90 to-slate-900/90 border-b border-white/10 flex items-center justify-between px-4 select-none shrink-0">
       <div className="flex items-center gap-2 group w-20">
         <button
@@ -456,7 +1388,7 @@ const WindowFrame = ({ title, children, onClose }) => (
       </div>
       <div className="w-20"></div>
     </div>
-    <div className="flex-1 overflow-hidden relative bg-slate-900/50">
+    <div className="flex-1 overflow-y-auto relative bg-slate-900/50 min-h-0">
       {children}
     </div>
   </div>
@@ -465,7 +1397,7 @@ const WindowFrame = ({ title, children, onClose }) => (
 // --- APP MODULES ---
 
 const MembersApp = () => (
-  <div className="h-full overflow-y-auto bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+  <div className="min-h-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
     <div className="max-w-7xl mx-auto px-6 py-10">
       {/* Header Section */}
       <div className="text-center mb-8 space-y-4">
@@ -539,7 +1471,7 @@ const MembersApp = () => (
 );
 
 const InfoApp = () => (
-  <div className="h-full overflow-y-auto flex items-center justify-center bg-slate-900">
+  <div className="min-h-full flex items-center justify-center bg-slate-900 py-8">
     <div className="max-w-2xl w-full p-8 text-center">
       <div className="w-24 h-24 bg-white py-3 pe-3 ps-2 from-blue-500 to-purple-600 rounded-[2rem] shadow-2xl mx-auto mb-8 flex items-center justify-center overflow-hidden animate-bounce-slow">
         <img
@@ -758,7 +1690,7 @@ const LearningApp = () => {
   };
 
   return (
-    <div className="flex h-full bg-slate-900">
+    <div className="flex bg-slate-900 h-[74vh]">
       {/* Sidebar TOC */}
       <div className="w-64 bg-slate-800 border-r border-white/10 p-4 hidden md:flex flex-col gap-1 overflow-y-auto">
         <h3 className="text-xs font-bold text-slate-500 uppercase mb-2 px-2">
@@ -783,10 +1715,10 @@ const LearningApp = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0">
-        <div className="flex-1 overflow-y-auto p-8 md:p-12">
+      <div className="flex-1 flex flex-col min-w-0 relative">
+        <div className="flex-1 overflow-y-auto p-8 md:p-12 pb-32">
           {slide.type === "cover" ? (
-            <div className="h-full flex flex-col items-center justify-center text-center animate-in fade-in zoom-in duration-500">
+            <div className="min-h-full flex flex-col items-center justify-center text-center animate-in fade-in zoom-in duration-500 py-12">
               <div className="w-32 h-32 bg-gradient-to-br from-blue-600 to-purple-600 rounded-[2rem] flex items-center justify-center shadow-2xl mb-8 ring-4 ring-slate-800">
                 {slide.icon}
               </div>
@@ -804,7 +1736,7 @@ const LearningApp = () => {
               </button>
             </div>
           ) : (
-            <div className="max-w-4xl mx-auto h-full flex flex-col">
+            <div className="max-w-4xl mx-auto w-full flex flex-col mb-8">
               <div className="flex items-center gap-3 text-slate-500 text-sm font-bold uppercase tracking-wider mb-4">
                 <span className="bg-slate-800 px-2 py-1 rounded text-slate-300 border border-white/10">
                   {slide.chapter}
@@ -814,8 +1746,8 @@ const LearningApp = () => {
               </div>
 
               <div className="flex items-center gap-4 mb-6">
-                <div className="p-3 bg-slate-800 rounded-xl text-slate-300 border border-white/10">
-                  {slide.icon}
+                <div className="p-3 bg-slate-800 rounded-xl text-slate-300 border border-white/10 flex items-center justify-center">
+                  {getSlideIcon(slide.chapter) || slide.icon}
                 </div>
                 <div>
                   <h2 className="text-3xl font-bold text-white">
@@ -825,7 +1757,7 @@ const LearningApp = () => {
                 </div>
               </div>
 
-              <div className="bg-slate-800/50 border border-white/10 rounded-2xl p-1 shadow-sm flex-1 min-h-0 flex flex-col">
+              <div className="bg-slate-800/50 border border-white/10 rounded-2xl p-1 shadow-sm flex flex-col">
                 {slide.type.startsWith("interactive") ||
                 slide.type === "code-editor" ? (
                   <div className="bg-slate-900/50 rounded-xl p-6 flex-1 border border-white/10">
@@ -844,8 +1776,8 @@ const LearningApp = () => {
           )}
         </div>
 
-        {/* Control Bar */}
-        <div className="h-16 border-t border-white/10 bg-slate-800/80 backdrop-blur px-8 flex items-center justify-between shrink-0">
+        {/* Control Bar - Fixed */}
+        <div className="fixed bottom-0 left-0 md:left-64 right-0 h-16 border-t border-white/10 bg-slate-800/90 backdrop-blur-xl px-8 flex items-center justify-between z-40 shadow-lg">
           <button
             onClick={prevSlide}
             disabled={currentSlide === 0}
@@ -887,14 +1819,14 @@ const App = () => {
     <div
       className="w-full h-screen overflow-hidden bg-cover bg-center relative font-sans antialiased"
       style={{
-        backgroundImage: 'url("/wallpaper.JPG")',
+        backgroundImage: 'url("/wallpaper.jpg")',
       }}
     >
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
 
       <MenuBar activeApp={activeApp} />
 
-      <main className="relative z-10 h-full pt-12 pb-24 px-4 flex items-center justify-center">
+      <main className="relative z-10 min-h-[calc(100vh-3rem)] pt-12 pb-24 px-4 flex items-start justify-center overflow-y-auto">
         {activeApp && (
           <WindowFrame
             title={
