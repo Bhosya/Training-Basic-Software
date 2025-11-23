@@ -1574,24 +1574,26 @@ const MembersApp = memo(() => (
             }}
           >
             {/* Glass Card */}
-            <div className="h-full bg-slate-800/70 rounded-2xl border border-white/10 shadow-xl hover:shadow-2xl transition-shadow md:transition-[shadow,transform] duration-300 overflow-hidden hover:-translate-y-1 flex flex-col gpu-accelerate">
+            <div className="member-card h-full bg-slate-800/70 rounded-2xl border border-white/10 shadow-xl hover:shadow-2xl transition-all duration-500 ease-out overflow-hidden hover:-translate-y-2 flex flex-col gpu-accelerate relative">
               {/* Member Image - Full Width */}
-              <div className="flex-1 overflow-hidden">
+              <div className="flex-1 overflow-hidden relative">
                 <img
                   src={member.img}
                   alt={`Member ${idx + 1}`}
-                  className="w-full h-full object-cover md:group-hover:scale-105 transition-transform duration-300 gpu-accelerate"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out hover:scale-110 gpu-accelerate"
                   loading="lazy"
                 />
+                {/* Gradient Overlay on Hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
               </div>
 
               {/* Social Links */}
-              <div className="flex justify-center gap-3 p-5 bg-slate-900/80 border-t border-white/10">
+              <div className="flex justify-center gap-3 p-5 bg-slate-900/80 border-t border-white/10 relative z-10">
                 <a
                   href={member.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-slate-700/50 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-600/50 md:hover:scale-110 transition-[color,background-color,transform] duration-200 gpu-accelerate"
+                  className="w-10 h-10 rounded-full bg-slate-700/50 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-600/50 hover:scale-110 transition-all duration-300 ease-out gpu-accelerate"
                 >
                   <Github size={18} />
                 </a>
@@ -1599,7 +1601,7 @@ const MembersApp = memo(() => (
                   href={member.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-slate-700/50 border border-white/10 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:bg-blue-900/30 hover:border-blue-500/30 md:hover:scale-110 transition-[color,background-color,border-color,transform] duration-200 gpu-accelerate"
+                  className="w-10 h-10 rounded-full bg-slate-700/50 border border-white/10 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:bg-blue-900/30 hover:border-blue-500/30 hover:scale-110 transition-all duration-300 ease-out gpu-accelerate"
                 >
                   <Linkedin size={18} />
                 </a>
@@ -1607,16 +1609,20 @@ const MembersApp = memo(() => (
                   href={member.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-slate-700/50 border border-white/10 flex items-center justify-center text-slate-400 hover:text-pink-400 hover:bg-pink-900/30 hover:border-pink-500/30 md:hover:scale-110 transition-[color,background-color,border-color,transform] duration-200 gpu-accelerate"
+                  className="w-10 h-10 rounded-full bg-slate-700/50 border border-white/10 flex items-center justify-center text-slate-400 hover:text-pink-400 hover:bg-pink-900/30 hover:border-pink-500/30 hover:scale-110 transition-all duration-300 ease-out gpu-accelerate"
                 >
                   <Instagram size={18} />
                 </a>
               </div>
 
-              {/* Shine Effect on Hover */}
-              <div className="absolute inset-0 rounded-3xl opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full md:group-hover:translate-x-full transition-transform duration-300 gpu-accelerate"></div>
+              {/* Shine Effect on Hover - Elegant Moving Light */}
+              <div className="member-card-shine rounded-2xl">
+                {/* Single Long Shine Beam - Diagonal Sweep */}
+                <div className="member-card-shine-beam"></div>
               </div>
+              
+              {/* Border Glow Effect on Hover */}
+              <div className="absolute inset-0 rounded-2xl border-2 border-white/0 hover:border-white/20 transition-all duration-500 pointer-events-none"></div>
             </div>
           </div>
         ))}
