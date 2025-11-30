@@ -9,6 +9,9 @@ import React, {
   Suspense,
 } from "react";
 import {
+  Sparkles,
+  Copy,
+  Laptop,
   ChevronRight,
   ChevronLeft,
   Maximize2,
@@ -40,6 +43,8 @@ import {
   Sun,
   Layout,
 } from "lucide-react";
+
+import { projectSlides } from "./data/projectslides";
 
 // --- HELPER FUNCTION UNTUK ICON ---
 const getSlideIcon = (chapter) => {
@@ -1388,6 +1393,7 @@ const MenuBar = memo(({ activeApp }) => {
     if (activeApp === "learning") return "Learning";
     if (activeApp === "members") return "Members";
     if (activeApp === "info") return "About";
+    if (activeApp === "project") return "Project";
     return "PCC";
   }, [activeApp]);
 
@@ -1459,6 +1465,12 @@ const Dock = memo(({ activeApp, setActiveApp }) => {
         icon: <BookOpen size={28} />,
         label: "Materi",
         color: "from-violet-500 to-fuchsia-600",
+      },
+      {
+        id: "project",
+        icon: <Laptop size={28} />,
+        label: "project",
+        color: "from-red-400 to-red-600",
       },
     ],
     []
@@ -2527,6 +2539,112 @@ const CodePlayground = memo(() => {
   );
 });
 
+const ProjectApp = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [copied, setCopied] = useState(false);
+
+  const slidesData = projectSlides
+
+  const slide = useMemo(() => slidesData[currentSlide], [currentSlide]);
+
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((c) => (c < slidesData.length - 1 ? c + 1 : c));
+  }, []);
+
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((c) => (c > 0 ? c - 1 : c));
+  }, []);
+
+  const goToSlide = useCallback((idx) => {
+    setCurrentSlide(idx);
+  }, []);
+
+  const handleCopy = (code) => {
+    navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+
+  return (
+    <div className="flex bg-slate-900 h-screen sm:h-[74vh]">
+      <div className="w-64 bg-slate-800 border-r border-white/10 p-4 hidden md:flex flex-col gap-1 overflow-y-auto">
+        <h3 className="text-xs font-bold text-slate-500 uppercase mb-3 px-2">
+          Daftar Langkah
+        </h3>
+        {slidesData.map((s, idx) => (
+          <button
+            key={idx}
+            onClick={() => goToSlide(idx)}
+            className={`text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all ${
+              idx === currentSlide
+                ? "bg-blue-900/60 text-blue-300 border border-blue-700/50"
+                : "text-slate-400 hover:bg-slate-700/50 hover:text-slate-200"
+            }`}
+          >
+            {idx === currentSlide && <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>}
+            <span className="truncate">{idx + 1}. {s.title}</span>
+          </button>
+        ))}
+      </div>
+
+      <div className="flex-1 flex flex-col min-w-0 relative">
+        <div className="flex-1 mb-1 overflow-y-auto overflow-x-visible md:overflow-x-auto p-2 md:p-8 lg:p-12 pb-32">
+          <div className="max-w-5xl mx-auto">
+            <div className="flex items-start gap-6 mb-8">
+              
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+                  {slide.title}
+                </h2>
+                <p className="text-lg text-slate-400">{slide.subtitle}</p>
+              </div>
+            </div>
+            <button
+              onClick={() => handleCopy(slide.code)}
+              className="absolute right-3 top-3 bg-white/10 hover:bg-white/20 text-white p-2 rounded-lg transition backdrop-blur-sm flex items-center gap-1 text-sm"
+            >
+              <Copy size={16} />
+              {copied ? "Copied!" : "Copy"}
+            </button>
+            <pre className="bg-gray-950 text-gray-100 p-6 md:p-8 rounded-2xl overflow-x-auto text-sm md:text-base leading-relaxed border border-white/10 shadow-2xl">
+              <code>{slide.code}</code>
+            </pre>
+          </div>
+        </div>
+
+        <div className="fixed bottom-0 left-0 md:left-64 right-0 h-20 bg-slate-800/95 backdrop-blur border-t border-white/10 flex items-center justify-between px-6 z-50 shadow-2xl">
+          <button
+            onClick={prevSlide}
+            disabled={currentSlide === 0}
+            className="flex items-center gap-3 px-5 py-3 rounded-full bg-slate-700 hover:bg-slate-600 disabled:opacity-40 disabled:cursor-not-allowed transition text-white font-medium"
+          >
+            <ChevronLeft size={20} /> Sebelumnya
+          </button>
+
+          <div className="flex gap-2">
+            {slidesData.map((_, i) => (
+              <div
+                key={i}
+                className={`h-2 rounded-full transition-all ${
+                  i === currentSlide ? "w-10 bg-blue-500" : "w-3 bg-slate-600"
+                }`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={nextSlide}
+            disabled={currentSlide === slidesData.length - 1}
+            className="flex items-center gap-3 px-5 py-3 rounded-full bg-amber-600 hover:bg-amber-500 disabled:opacity-40 disabled:cursor-not-allowed transition text-white font-bold"
+          >
+            {currentSlide === slidesData.length - 1 ? "Selesai" : "Selanjutnya"} <ChevronRight size={20} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const LearningApp = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -2562,7 +2680,7 @@ const LearningApp = () => {
   }, []);
 
   return (
-    <div className="flex bg-slate-900 h-[100vh] sm:h-[74vh]">
+    <div className="flex bg-slate-900 h-screen sm:h-[74vh]">
       {/* Sidebar TOC */}
       <div className="w-64 bg-slate-800 border-r border-white/10 p-4 hidden md:flex flex-col gap-1 overflow-y-auto">
         <h3 className="text-xs font-bold text-slate-500 uppercase mb-2 px-2">
@@ -2746,6 +2864,7 @@ const App = () => {
     if (activeApp === "learning") return "Interactive Module";
     if (activeApp === "info") return "Info";
     if (activeApp === "members") return "Departemen Software";
+    if (activeApp === "project") return "Project - Landing Page Bisnis Kopi";
     return "Info";
   }, [activeApp]);
 
@@ -2766,6 +2885,7 @@ const App = () => {
             {activeApp === "learning" && <LearningApp />}
             {activeApp === "members" && <MembersApp />}
             {activeApp === "info" && <InfoApp />}
+            {activeApp === "project" && <ProjectApp />}
           </WindowFrame>
         )}
       </main>
