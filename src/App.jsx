@@ -2587,11 +2587,10 @@ const ProjectApp = () => {
         ))}
       </div>
 
-      <div className="flex-1 flex flex-col min-w-0 relative">
+      <div className="flex-1 flex flex-col min-w-0">
         <div className="flex-1 mb-1 overflow-y-auto overflow-x-visible md:overflow-x-auto p-2 md:p-8 lg:p-12 pb-32">
           <div className="max-w-5xl mx-auto">
             <div className="flex items-start gap-6 mb-8">
-              
               <div>
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
                   {slide.title}
@@ -2599,18 +2598,26 @@ const ProjectApp = () => {
                 <p className="text-lg text-slate-400">{slide.subtitle}</p>
               </div>
             </div>
-            <button
-              onClick={() => handleCopy(slide.code)}
-              className="absolute right-3 top-3 bg-white/10 hover:bg-white/20 text-white p-2 rounded-lg transition backdrop-blur-sm flex items-center gap-1 text-sm"
-            >
-              <Copy size={16} />
-              {copied ? "Copied!" : "Copy"}
-            </button>
-            <pre className="bg-gray-950 text-gray-100 p-6 md:p-8 rounded-2xl overflow-x-auto text-sm md:text-base leading-relaxed border border-white/10 shadow-2xl">
-              <code>{slide.code}</code>
-            </pre>
+
+            {/* Container relatif untuk posisi tombol */}
+            <div className="relative">
+              {/* Tombol Copy DIPINDAH KE SINI (di luar <pre>) */}
+              <button
+                onClick={() => handleCopy(slide.code)}
+                className="absolute right-4 top-4 z-20 bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg transition backdrop-blur-sm flex items-center gap-2 text-sm font-medium shadow-lg border border-white/10"
+              >
+                <Copy size={16} />
+                {copied ? "Copied!" : "Copy"}
+              </button>
+
+              {/* Pre murni untuk kode saja */}
+              <pre className="bg-gray-950 text-gray-100 p-6 md:p-8 rounded-2xl overflow-x-auto text-sm md:text-base leading-relaxed border border-white/10 shadow-2xl scrollbar-thin scrollbar-thumb-white/20">
+                <code className="block min-w-full">{slide.code}</code>
+              </pre>
+            </div>
           </div>
         </div>
+      </div>
 
         <div className="fixed bottom-0 left-0 md:left-64 right-0 h-20 bg-slate-800/95 backdrop-blur border-t border-white/10 flex items-center justify-between px-6 z-50 shadow-2xl">
           <button
@@ -2641,7 +2648,6 @@ const ProjectApp = () => {
           </button>
         </div>
       </div>
-    </div>
   );
 }
 
