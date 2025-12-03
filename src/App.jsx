@@ -44,7 +44,7 @@ import {
   Layout,
 } from "lucide-react";
 
-import { projectSlides } from "./data/projectslides";
+import { projectSlides } from "./data/projectSlides";
 
 // --- HELPER FUNCTION UNTUK ICON ---
 const getSlideIcon = (chapter) => {
