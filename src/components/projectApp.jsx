@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback } from 'react'
-import { projectSlides } from "../data/projectslides";
+import { projectSlides } from "../data/projectSlides";
 import { Copy, ChevronLeft, ChevronRight } from "lucide-react"
 
 const ProjectApp = () => {
