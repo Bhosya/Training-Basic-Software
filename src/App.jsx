@@ -96,6 +96,246 @@ const slidesData = [
   {
     id: 2,
     type: "content",
+    title: "Mengenal Dunia Website",
+    subtitle: "Bahasa Santai untuk Pemula Banget",
+    icon: <Monitor size={40} />,
+    chapter: "Intro - Konsep Website",
+    content: (
+      <div className="space-y-6">
+        {/* Apa itu website */}
+        <div className="bg-slate-900/50 border border-slate-700/60 rounded-2xl p-6 space-y-4">
+          <h3 className="text-xl font-bold text-blue-400">Apa itu Website?</h3>
+          <p className="text-slate-300 leading-relaxed">
+            Website itu ibarat{" "}
+            <span className="font-semibold text-white">rumah di internet</span>.
+            Orang lain bisa berkunjung lewat HP atau laptop dengan membuka
+            alamat{" "}
+            <span className="font-mono text-sm bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700">
+              www.namasitekamu.com
+            </span>
+            .
+          </p>
+          <div className="rounded-xl overflow-hidden border border-slate-700 bg-slate-950/40">
+            <img
+              src="/Materi/analogi web.png"
+              alt="Analogi website seperti rumah dengan banyak ruangan"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <p className="text-slate-300 leading-relaxed text-sm">
+            Di gambar ini, rumah punya banyak ruangan:{" "}
+            <span className="font-semibold">halaman depan (home)</span>,{" "}
+            <span className="font-semibold">tentang kami (about)</span>,{" "}
+            <span className="font-semibold">produk (products)</span>,{" "}
+            <span className="font-semibold">blog/artikel</span>, sampai{" "}
+            <span className="font-semibold">kontak</span>. Website juga sama,
+            isinya kumpulan halaman yang terhubung dan bisa dibuka dari satu
+            alamat di internet.
+          </p>
+          <p className="text-slate-400 text-xs">
+            Nanti kita akan belajar bagaimana cara membangun “rumah” ini mulai
+            dari kerangkanya, catnya, sampai bisa dikunjungi orang lain.
+          </p>
+        </div>
+
+        {/* Kenapa perlu website */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-blue-900/20 border border-blue-700/60 rounded-xl p-4">
+            <div className="text-xs font-semibold uppercase tracking-wide text-blue-300 mb-1">
+              Untuk Individu
+            </div>
+            <p className="text-sm text-slate-200">
+              Portofolio online, blog pribadi, dan tempat menunjukkan karya
+              kepada dunia.
+            </p>
+          </div>
+          <div className="bg-emerald-900/20 border border-emerald-700/60 rounded-xl p-4">
+            <div className="text-xs font-semibold uppercase tracking-wide text-emerald-300 mb-1">
+              Untuk Bisnis
+            </div>
+            <p className="text-sm text-slate-200">
+              Toko yang buka 24 jam, meningkatkan kepercayaan, dan memudahkan
+              calon pelanggan menemukan informasi.
+            </p>
+          </div>
+          <div className="bg-purple-900/20 border border-purple-700/60 rounded-xl p-4">
+            <div className="text-xs font-semibold uppercase tracking-wide text-purple-300 mb-1">
+              Untuk Karier
+            </div>
+            <p className="text-sm text-slate-200">
+              Langkah awal untuk belajar jadi pembuat website dan kerja di dunia
+              IT.
+            </p>
+          </div>
+        </div>
+
+        {/* Cara kerja website sederhana */}
+        <div className="bg-slate-900/50 border border-slate-700/60 rounded-2xl p-6">
+          <h3 className="text-lg font-semibold text-blue-300 mb-4">
+            Cara Kerja Website (Versi Sederhana)
+          </h3>
+          <ol className="space-y-2 text-sm text-slate-300 list-decimal list-inside">
+            <li>
+              Pengguna mengetik alamat website di browser (misalnya{" "}
+              <span className="font-mono text-xs bg-slate-800 px-1 rounded border border-slate-700">
+                www.contoh.com
+              </span>
+              ).
+            </li>
+            <li>
+              Browser mengirim permintaan ke{" "}
+              <span className="font-semibold text-white">server</span> (komputer
+              khusus di internet yang tugasnya menyimpan website).
+            </li>
+            <li>
+              Server mengirimkan kembali file-file website (tulisan, gambar, dan
+              kode-kode di belakang layar).
+            </li>
+            <li>
+              Browser membaca file tersebut dan menampilkan halaman yang bisa
+              dilihat dan diklik pengguna.
+            </li>
+          </ol>
+        </div>
+
+        {/* Analogi HTML, CSS, dan JavaScript */}
+        <div className="bg-slate-900/60 border border-blue-800/60 rounded-2xl p-6 space-y-4">
+          <h3 className="text-xl font-bold text-blue-400">
+            HTML, CSS, dan JavaScript Itu Apa Sih?
+          </h3>
+          <p className="text-slate-300 text-sm">
+            Lihat gambar ini. Kita pakai contoh rumah untuk menjelaskan 3 hal
+            penting di dunia website:{" "}
+            <span className="font-semibold">HTML</span>,{" "}
+            <span className="font-semibold">CSS</span>, dan{" "}
+            <span className="font-semibold">JavaScript</span>.
+          </p>
+          <div className="rounded-xl overflow-hidden border border-slate-700">
+            <img
+              src="/Materi/analogi.png"
+              alt="Analogi HTML, CSS, dan JavaScript dengan rumah dan ruangan"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <p className="text-slate-300 text-sm">
+            Singkatnya: HTML itu rangka rumahnya, CSS itu cat dan dekorasi biar
+            kelihatan cantik, dan JavaScript itu listrik/mesin yang bikin
+            rumahnya bisa “hidup” dan merespon kita.
+          </p>
+        </div>
+
+        {/* Roadmap singkat - diagram langkah belajar */}
+        <div className="bg-slate-900/50 border border-emerald-700/60 rounded-2xl p-6 space-y-4">
+          <h3 className="text-lg font-bold text-emerald-300">
+            Gambaran Alur Belajar Kita
+          </h3>
+          <p className="text-slate-300 text-sm">
+            Anggap ini seperti{" "}
+            <span className="font-semibold">peta perjalanan</span> dari nol
+            sampai punya website sendiri:
+          </p>
+
+          <div className="relative">
+            {/* garis vertikal */}
+            <div className="hidden md:block absolute left-4 top-0 bottom-0 w-px bg-emerald-700/60" />
+
+            <div className="space-y-4">
+              {/* Step 1 */}
+              <div className="flex items-start gap-3">
+                <div className="relative z-10 flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-xs font-bold text-white shadow-lg">
+                    1
+                  </div>
+                </div>
+                <div className="bg-slate-800/70 border border-emerald-700/60 rounded-xl p-3 flex-1">
+                  <div className="font-semibold text-white text-sm">
+                    Dasar-dasar website &amp; browser
+                  </div>
+                  <p className="text-xs text-slate-300 mt-1">
+                    Materi yang sedang kamu lihat sekarang: paham dulu dunia
+                    website sebelum mulai nulis kode.
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 2 */}
+              <div className="flex items-start gap-3">
+                <div className="relative z-10 flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-xs font-bold text-white shadow-lg">
+                    2
+                  </div>
+                </div>
+                <div className="bg-slate-800/70 border border-emerald-700/60 rounded-xl p-3 flex-1">
+                  <div className="font-semibold text-white text-sm">HTML</div>
+                  <p className="text-xs text-slate-300 mt-1">
+                    Belajar bikin kerangka halaman: judul, teks, gambar, link,
+                    sampai form. Ini ibarat rangka rumahnya.
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 3 */}
+              <div className="flex items-start gap-3">
+                <div className="relative z-10 flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-xs font-bold text-white shadow-lg">
+                    3
+                  </div>
+                </div>
+                <div className="bg-slate-800/70 border border-emerald-700/60 rounded-xl p-3 flex-1">
+                  <div className="font-semibold text-white text-sm">CSS</div>
+                  <p className="text-xs text-slate-300 mt-1">
+                    Bikin halaman jadi rapi dan menarik: warna, posisi, layout,
+                    dan tampilan yang enak dilihat di HP maupun laptop.
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 4 */}
+              <div className="flex items-start gap-3">
+                <div className="relative z-10 flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-xs font-bold text-white shadow-lg">
+                    4
+                  </div>
+                </div>
+                <div className="bg-slate-800/70 border border-emerald-700/60 rounded-xl p-3 flex-1">
+                  <div className="font-semibold text-white text-sm">
+                    JavaScript dasar
+                  </div>
+                  <p className="text-xs text-slate-300 mt-1">
+                    Membuat website bisa interaktif: tombol kalau diklik ada
+                    reaksinya, form bisa dicek, dan berbagai efek sederhana.
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 5 */}
+              <div className="flex items-start gap-3">
+                <div className="relative z-10 flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-xs font-bold text-white shadow-lg">
+                    5
+                  </div>
+                </div>
+                <div className="bg-slate-800/70 border border-emerald-700/60 rounded-xl p-3 flex-1">
+                  <div className="font-semibold text-white text-sm">
+                    Publish (opsional)
+                  </div>
+                  <p className="text-xs text-slate-300 mt-1">
+                    Cara meng-online-kan website sederhana supaya bisa dilihat
+                    orang lain di internet, bukan cuma di laptop sendiri.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: 3,
+    type: "content",
     title: "Konsep HTML",
     subtitle: "Struktur Dasar Website",
     icon: <LayoutTemplate size={40} />,
@@ -1632,7 +1872,7 @@ const MembersApp = memo(() => (
                 {/* Single Long Shine Beam - Diagonal Sweep */}
                 <div className="member-card-shine-beam"></div>
               </div>
-              
+
               {/* Border Glow Effect on Hover */}
               <div className="absolute inset-0 rounded-2xl border-2 border-white/0 hover:border-white/20 transition-all duration-500 pointer-events-none"></div>
             </div>
@@ -2543,7 +2783,7 @@ const ProjectApp = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [copied, setCopied] = useState(false);
 
-  const slidesData = projectSlides
+  const slidesData = projectSlides;
 
   const slide = useMemo(() => slidesData[currentSlide], [currentSlide]);
 
@@ -2581,8 +2821,12 @@ const ProjectApp = () => {
                 : "text-slate-400 hover:bg-slate-700/50 hover:text-slate-200"
             }`}
           >
-            {idx === currentSlide && <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>}
-            <span className="truncate">{idx + 1}. {s.title}</span>
+            {idx === currentSlide && (
+              <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
+            )}
+            <span className="truncate">
+              {idx + 1}. {s.title}
+            </span>
           </button>
         ))}
       </div>
@@ -2619,37 +2863,38 @@ const ProjectApp = () => {
         </div>
       </div>
 
-        <div className="fixed bottom-0 left-0 md:left-64 right-0 h-20 bg-slate-800/95 backdrop-blur border-t border-white/10 flex items-center justify-between px-6 z-50 shadow-2xl">
-          <button
-            onClick={prevSlide}
-            disabled={currentSlide === 0}
-            className="flex items-center gap-3 px-5 py-3 rounded-full bg-slate-700 hover:bg-slate-600 disabled:opacity-40 disabled:cursor-not-allowed transition text-white font-medium"
-          >
-            <ChevronLeft size={20} /> Sebelumnya
-          </button>
+      <div className="fixed bottom-0 left-0 md:left-64 right-0 h-20 bg-slate-800/95 backdrop-blur border-t border-white/10 flex items-center justify-between px-6 z-50 shadow-2xl">
+        <button
+          onClick={prevSlide}
+          disabled={currentSlide === 0}
+          className="flex items-center gap-3 px-5 py-3 rounded-full bg-slate-700 hover:bg-slate-600 disabled:opacity-40 disabled:cursor-not-allowed transition text-white font-medium"
+        >
+          <ChevronLeft size={20} /> Sebelumnya
+        </button>
 
-          <div className="flex gap-2">
-            {slidesData.map((_, i) => (
-              <div
-                key={i}
-                className={`h-2 rounded-full transition-all ${
-                  i === currentSlide ? "w-10 bg-blue-500" : "w-3 bg-slate-600"
-                }`}
-              />
-            ))}
-          </div>
-
-          <button
-            onClick={nextSlide}
-            disabled={currentSlide === slidesData.length - 1}
-            className="flex items-center gap-3 px-5 py-3 rounded-full bg-amber-600 hover:bg-amber-500 disabled:opacity-40 disabled:cursor-not-allowed transition text-white font-bold"
-          >
-            {currentSlide === slidesData.length - 1 ? "Selesai" : "Selanjutnya"} <ChevronRight size={20} />
-          </button>
+        <div className="flex gap-2">
+          {slidesData.map((_, i) => (
+            <div
+              key={i}
+              className={`h-2 rounded-full transition-all ${
+                i === currentSlide ? "w-10 bg-blue-500" : "w-3 bg-slate-600"
+              }`}
+            />
+          ))}
         </div>
+
+        <button
+          onClick={nextSlide}
+          disabled={currentSlide === slidesData.length - 1}
+          className="flex items-center gap-3 px-5 py-3 rounded-full bg-amber-600 hover:bg-amber-500 disabled:opacity-40 disabled:cursor-not-allowed transition text-white font-bold"
+        >
+          {currentSlide === slidesData.length - 1 ? "Selesai" : "Selanjutnya"}{" "}
+          <ChevronRight size={20} />
+        </button>
       </div>
+    </div>
   );
-}
+};
 
 const LearningApp = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
