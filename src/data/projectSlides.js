@@ -8,15 +8,15 @@ export const projectSlides = [
         },
         {
             text: "Pindahkan folder assets yang telah disiapkan ke dalam folder project.",
-            img: '/public/Materi/Modul/pindahkan-assets.gif'
+            img: '/Materi/Modul/pindahkan-assets.gif'
         },
         {
             text: `Masuk ke dalam folder tadi, klik kanan > Show more options > Open with code.`,
-            img: '/public/Materi/Modul/open-with-code.gif'
+            img: '/Materi/Modul/open-with-code.gif'
         },
         {
             text: `Buat file HTML baru dan tambahkan struktur dasar HTML5 dengan mengetik "!", kemudian enter.`, 
-            img: '/public/Materi/Modul/new-html-file.gif'
+            img: '/Materi/Modul/new-html-file.gif'
         },
         {
             text: `Ubah value atribut lang pada tag <html> menjadi "id".`,
@@ -60,7 +60,7 @@ export const projectSlides = [
         },
         {
             text: `Jalankan Live Server pada pojok kanan bawah.`,
-            img: `/public/Materi/Modul/start-live-server.gif`
+            img: `/Materi/Modul/start-live-server.gif`
         },
       ],
     },
@@ -638,11 +638,11 @@ export const projectSlides = [
       step: [
         {
             text: `Berikut adalah link feedback dari Training Basic.`,
-            img: `/public/feedback.jpg`,
+            img: `/feedback.jpg`,
         },
         {
             text: `Berikut adalah token dikoding bagi yang mengikuti Training Basic.`,
-            img: `/public/dicoding.jpg`,
+            img: `/dicoding.jpg`,
         },
       ],
     },
