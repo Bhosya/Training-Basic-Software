@@ -65,8 +65,8 @@ const ProjectApp = () => {
             {slide.step && (
                 <ul className='my-8 flex flex-col gap-6'>
                     {slide.step?.map((step, i) => (
-                        <li className=' text-white'>
-                            <div key={i}>{i+1}. {step.text}</div>
+                        <li key={i} className=' text-white'>
+                            <div>{i+1}. {step.text}</div>
                             {step.code && (
                                 <div className="relative">
                                     <button
@@ -80,6 +80,11 @@ const ProjectApp = () => {
                                     <pre className="bg-gray-950 text-gray-100 p-6 md:p-8 rounded-2xl overflow-x-auto text-sm md:text-base leading-relaxed border border-white/10 shadow-2xl scrollbar-thin scrollbar-thumb-white/20">
                                         <code className="block min-w-full">{step.code}</code>
                                     </pre>
+                                </div>
+                            )}
+                            {step.img && (
+                                <div className="relative">
+                                  <img src={step.img} className="rounded-2xl border border-white/10 shadow-2xl md:max-w-150 md:max-h-50 object-cover" />
                                 </div>
                             )}
                         </li>

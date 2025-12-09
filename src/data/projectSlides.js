@@ -4,17 +4,23 @@ export const projectSlides = [
       subtitle: "Struktur dasar + Tailwind CDN",
       step: [
         {
-            text: "Buat file HTML baru dan tambahkan struktur dasar HTML5.", 
-            code: `<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body class="bg-stone-50 text-gray-800">
-</body>
-</html>`
+            text: `Buat folder bernama "training-basic-software" (atau nama lain sesuai kemauanmu), taruh di manapun senyaman kamu.`
+        },
+        {
+            text: "Pindahkan folder assets yang telah disiapkan ke dalam folder project.",
+            img: '/public/Materi/Modul/pindahkan-assets.gif'
+        },
+        {
+            text: `Masuk ke dalam folder tadi, klik kanan > Show more options > Open with code.`,
+            img: '/public/Materi/Modul/open-with-code.gif'
+        },
+        {
+            text: `Buat file HTML baru dan tambahkan struktur dasar HTML5 dengan mengetik "!", kemudian enter.`, 
+            img: '/public/Materi/Modul/new-html-file.gif'
+        },
+        {
+            text: `Ubah value atribut lang pada tag <html> menjadi "id".`,
+            code: `<html lang="id">`
         },
         {
             text: "Ubah title menjadi nama brand.",
@@ -33,15 +39,28 @@ export const projectSlides = [
             code: `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">`
         },
         {
-            text: "Tambahkan tag style di dalam head — gunakan untuk set font default dan heading.",
-            code: `<style>
-body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
-h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
-.gradient-text { background: linear-gradient(90deg,#f59e0b,#f97316); -webkit-background-clip: text; background-clip: text; color: transparent; }
-</style>`
+            text: "Tambahkan tag <style> di dalam tag <head>.",
+            code: `<style></style>`
         },
         {
-            text: "Pindahkan folder assets yang telah disiapkan ke dalam folder project."
+            text: `Isikan styling untuk body, buat agar memakai font "Inter"`,
+            code: `body { font-family: 'Inter' }`
+        },
+        {
+            text: `Masih di dalam tag <style>, buat agar heading h1-h4 memakai font "Playfair Display"`,
+            code: `h1,h2,h3,h4 { font-family: 'Playfair Display' }`
+        },
+        {
+            text: `Masih di dalam tag <style>, selector class bernama ".gradient-text" untuk membuat teks dengan efek gradasi.`,
+            code: `.gradient-text { 
+    background: linear-gradient(90deg,#f59e0b,#f97316); 
+    background-clip: text; 
+    color: transparent; 
+}`
+        },
+        {
+            text: `Jalankan Live Server pada pojok kanan bawah.`,
+            img: `/public/Materi/Modul/start-live-server.gif`
         },
       ],
     },
@@ -55,58 +74,89 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
 </nav>`
         },
         {
-            text: 'Tambahkan class berikut untuk memberi warna elemen dan border pada tag <nav> (contoh lengkap di langkah berikut).',
-            code:  `bg-stone-900/95 backdrop-blur-xl border-b border-amber-800/30`
+            text: 'Tambahkan class tailwind untuk memberi warna elemen pada tag <nav>. (gunakan warna "stone-900" dengan opacity 95%)',
+            // code:  `bg-stone-900/95`
+        },
+        // {
+        //     text: 'Buat agar navbar selalu di atas dengan menambahkan class berikut pada tag <nav>',
+        //     code:  `fixed top-0 w-full z-50`
+        // },
+        {
+            text: 'Tambahkan class tailwind untuk membuat tag <nav> tadi mempunyai padding horizontal 24px (6 dalam satuan tailwind), dan padding vertikal 20px (5 dalam satuan tailwind).',
+            // code:  `px-6 py-5`
         },
         {
-            text: 'Buat agar navbar selalu di atas dengan menambahkan class berikut pada tag <nav>',
-            code:  `fixed top-0 w-full z-50`
-        },
-        {
-            text: 'Tambahkan tag <div> seperti berikut di dalam tag <nav> untuk layout konten navbar',
-            code:  `<div class="px-6 py-5 flex items-center justify-between">
-</div>`
-        },
-        {
-            text: 'Tambahkan logo dan nama brand ke dalam div tersebut',
-            code:  `<a href="/" class="flex items-center space-x-3 group">
-    <img src="assets/images/logo.png" alt="Logo" class="h-14 hover:scale-110 transition">
-    <span class="text-2xl font-bold text-white">Kopi CC</span>
+            text: 'Tambahkan tag <a> untuk membungkus logo dan nama brand. Beri atribut href menuju ke halaman utama ("/").',
+            code:  `<a href="/">
 </a>`
         },
         {
-            text: 'Tambahkan kode berikut untuk menu navigasi di desktop',
-            code:  `<div class="items-center space-x-10">
-    <a href="#home" class="text-white hover:text-amber-400 transition font-medium">Beranda</a>
-    <a href="#menu" class="text-white hover:text-amber-400 transition font-medium">Menu</a>
-    <a href="#about" class="text-white hover:text-amber-400 transition font-medium">Tentang</a>
-    <a href="#gallery" class="text-white hover:text-amber-400 transition font-medium">Galeri</a>
-    <a href="#testimoni" class="text-white hover:text-amber-400 transition font-medium">Testimoni</a>
-    <a href="#contact" class="text-white hover:text-amber-400 transition font-medium">Kontak</a>
+            text: `Tambahkan tag <img> di dalam tag <a> tadi untuk menampilkan logo. Arahkan atribut src ke path menuju ke asset logo (nama file logo adalah logo.png).`,
+            code:  `<img src="" alt="Logo">`
+        },
+        {
+            text: `Atur ukuran gambar menjadi 56px (14 dalam satuan tailwind).`,
+            // code:  `h-14`
+        },
+        {
+            text: `Tambahkan animasi pada <img> ketika kursor diarahkan ke situ. (buat agar gambar membesar sedikit ketika hover)`,
+            // code:  `hover:scale-110 transition`
+        },
+        {
+            text: `Tambahkan tag <span> di dalam tag <a> untuk menampilkan nama brand.`,
+            code:  `<span>Kopi CC</span>`
+        },
+        {
+            text: `Gunakan tailwnd untuk membuat teksnya berukuran 2xl, tebal, dan berwarna putih.`,
+            // code:  `text-2xl font-bold text-white`
+        },
+        {
+            text: `Atur agar logo dan nama brand berada dalam satu baris dan sejajar.`,
+        },
+        {
+            text: `Tambahkan tag <div> untuk membungkus link-link navigasi. Letakkan di dalam tag <nav>, setelah tag <a> logo.`,
+            code: `<div>
 </div>`
         },
         {
-            text: 'Sembunyikan menu desktop di mobile dengan class berikut',
-            code:  `hidden md:flex`
+            text: `Tambahkan Link-link navigasi di dalam tag <div> tadi. Untuk setiap link navigasi, tambahkan tag <a> dengan atribut href menuju ke section terkait.`,
+            code: `<a href="#home" class="text-white hover:text-amber-400 transition font-medium">Beranda</a>
+<!-- Link Menu -->
+<!-- Link Tentang -->
+<!-- Link Galeri -->
+<!-- Link Testimoni -->
+<!-- Link Kontak -->`
         },
         {
-            text: 'Tambahkan tombol menu mobile (ikon hamburger)',
+            text: `Beri spasi antar link sebanyak 40px (10 dalam satuan tailwind).`,
+            // code: `space-x-10`
+        },
+        {
+            text: `Buat agar link-link navigasi sejajar dnegan logo dan nama brand, dan berada di sebelah kanan.`,
+        },
+        {
+            text: 'Sembunyikan menu desktop di tampilan mobile/smartphone.',
+            // code:  `hidden md:flex`
+        },
+        {
+            text: 'Tambahkan tombol menu mobile (baris 3) dengan tag <button>',
             code:  `<button id="mobileBtn" class="md:hidden text-white">
-    <i class="fas fa-bars text-2xl"></i>
 </button>`
         },
         {
-            text: 'Buat menu mobile yang tersembunyi secara default — letakkan di bawah nav',
-            code:  `<div id="mobileMenu" class="hidden md:hidden bg-stone-900/98 border-t border-amber-800/30">
-    <div class="container mx-auto px-6 py-8 space-y-5 text-center">
-        <a href="#home" class="block text-xl text-white hover:text-amber-400">Beranda</a>
-        <a href="#menu" class="block text-xl text-white hover:text-amber-400">Menu</a>
-        <a href="#about" class="block text-xl text-white hover:text-amber-400">Tentang</a>
-        <a href="#gallery" class="block text-xl text-white hover:text-amber-400">Galeri</a>
-        <a href="#testimoni" class="block text-xl text-white hover:text-amber-400">Testimoni</a>
-        <a href="#contact" class="block text-xl text-white hover:text-amber-400">Kontak</a>
-    </div>
-</div>`
+            text: 'Di dalam tag <button>, tambahkan kode berikut untuk menampilkan ikon baris 3',
+            code:  `<i class="fas fa-bars text-2xl"></i>`
+        },
+        {
+            text: 'Buat tag <nav> baru untuk menu mobile — letakkan di bawah <nav> yang pertama',
+            code:  `<nav id="mobileMenu" class="bg-stone-900/98 border-t border-amber-800/30">
+    <a href="#home" class="block text-xl text-white hover:text-amber-400">Beranda</a>
+    <a href="#menu" class="block text-xl text-white hover:text-amber-400">Menu</a>
+    <a href="#about" class="block text-xl text-white hover:text-amber-400">Tentang</a>
+    <a href="#gallery" class="block text-xl text-white hover:text-amber-400">Galeri</a>
+    <a href="#testimoni" class="block text-xl text-white hover:text-amber-400">Testimoni</a>
+    <a href="#contact" class="block text-xl text-white hover:text-amber-400">Kontak</a>
+</nav>`
         },
         {
             text: 'Tambahkan script toggle menu — letakkan sebelum tag </body> atau di file JS terpisah',
@@ -118,165 +168,202 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
         }]
     },
     {
-      title: "Hero Section",
+      title: "Home Section",
       subtitle: "Tempat gambar hero dan header",
       step: [
         {
-            text: 'Full code (gunakan gambar hero di folder assets/images/hero.webp). Tips: gunakan object-cover agar gambar mengisi area tanpa merusak rasio.',
-            code: `<section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
-    <img src="assets/images/hero.webp" alt="Hero" class="absolute inset-0 w-full h-full object-cover">
-    <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90"></div>
-    
-    <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
-        <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-tight">
-            Kopi <span class="gradient-text">CC</span>
-        </h1>
-        <p class="text-2xl md:text-4xl text-amber-200 mt-4 mb-10">
-            Cita Rasa Asli Indonesia
-        </p>
-        <p class="text-lg md:text-xl text-amber-100 max-w-2xl mx-auto mb-14">
-            Dari biji terbaik Aceh hingga Papua — kami sajikan kehangatan nusantara dalam setiap cangkir.
-        </p>
-
-        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <a href="#menu" class="border-2 border-amber-500 text-amber-400 hover:bg-amber-500/10 px-10 py-5 rounded-full text-lg font-bold transition whitespace-nowrap">
-                <i class="fas fa-coffee"></i> Lihat Menu
-            </a>
-
-            <a href="https://wa.me/6281234567890?text=Halo%20Kopi%20CC%2C%20saya%20mau%20pesan%20Take%20Away%20%F0%9F%98%8A" 
-            target="_blank"
-            class="bg-amber-600 hover:bg-amber-700 text-white px-10 py-5 rounded-full text-lg font-bold shadow-2xl hover:shadow-amber-600/50 transition flex items-center justify-center gap-3 whitespace-nowrap">
-                <i class="fas fa-shopping-bag"></i> Pesan Take Away
-            </a>
-
-            <a href="#contact" class="border-2 border-amber-500 text-amber-400 hover:bg-amber-500/10 px-10 py-5 rounded-full text-lg font-bold transition whitespace-nowrap">
-                Reservasi Meja
-            </a>
-        </div>
-    </div>
-
-    <!-- Panah ke bawah -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <i class="fas fa-chevron-down text-4xl text-amber-400"></i>
-    </div>
+            text: 'Buat section home dengan tinggi layar penuh.',
+            code: `<section id="home" class="h-screen flex items-center">
 </section>`
-        }
+        },
+        {
+            text: 'Tampilkan gambar sebagai background dengan tag <img> dengan file gambar hero.webp. Buat agar gambar posisinya absolut, menutupi seluruh section, dan berada di belakang konten lainnya.',
+        },
+        {
+            text: 'Buat section layer gradasi hitam hitam untuk menutupi gambar.',
+            code: `<div class="bg-gradient-to-b from-black/80 via-black/60 to-black/90></div>`
+        },
+        {
+            text: 'Buat agar layer tersebut menutupi seluruh gambar dengan menambahkan class berikut.',
+            code: `absolute inset-0`
+        },
+        {
+            text: 'Tambahkan class "relative" untuk tag <section> agar class absolute bisa dipakai.'
+        },
+        {
+            text: `Tambahkan tag <div> untuk membungkus teks di section <home>.`,
+            code: `<div class="px-6"></div>`
+        },
+        {
+            text: `Tambahkan konten teks sebagai berikut.`,
+            code: `<h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white">
+    Kopi CC
+</h1>
+<p class="text-2xl md:text-4xl text-amber-200 mt-4 mb-10">
+    Cita Rasa Asli Indonesia
+</p>
+<p class="text-lg md:text-xl text-amber-100 max-w-2xl mb-14">
+    Dari biji terbaik Aceh hingga Papua — kami sajikan kehangatan nusantara dalam setiap cangkir.
+</p>`
+        },
+        {
+            text: `Tambahkan class "z-10" pada tag <div> agar teks berada di atas layer gradasi dan gambar.`,
+        },
+        {
+            text: `Tambahkan class "gradient-text" pada tulisan CC untuk memberi efek gradasi pada teks.`,
+        },
+        {
+            text: `Buat agar konten teks berada di tengah-tengah secara vertikal dengan class "justify-center" pada tag <section> dan "text-center" pada tag <div> pembungkus teks.`,
+        },
+        {
+            text: `Tambahkan tombol "Pesan dari rumah" dengan border setebal 8px amber-600 dan sudut melengkung. Jika dihover, tombol berubah background amber-600 dengan teks putih.`,
+        },
+        {
+            text: `Buat tanda panah ke bawah.`,
+            code: `<div class="absolute">
+    <i class="fas fa-chevron-down text-4xl text-amber-400"></i>
+</div>`
+        },
+        {
+            text: `Aturlah agar tanda panah itu berada di posisi paling bawah, dan buat agar ada animasi bounce-nya.`,
+            code: `<div class="absolute">
+    <i class="fas fa-chevron-down text-4xl text-amber-400"></i>
+</div>`
+        },
       ],
     },
     {
       title: "Menu Section",
-      subtitle: "Card produk kopi — step by step",
+      subtitle: "Card produk kopi",
       step: [
         {
-            text: "1) Tambahkan section container untuk menu — header dan deskripsi singkat.",
+            text: "Tambahkan section container untuk menu — header dan deskripsi singkat.",
             code: `<section id="menu" class="py-24 bg-gradient-to-b from-stone-100 to-white">
     <div class="container mx-auto px-6">
         <div class="text-center mb-16">
             <h2 class="text-5xl md:text-6xl font-black text-stone-800">Menu Spesial</h2>
             <p class="text-xl text-stone-600 mt-4">Dipilih & disangrai dengan penuh cinta</p>
         </div>
-        <!-- grid produk akan di sini -->
+        
     </div>
 </section>`
         },
         {
-            text: "2) Buat grid responsif untuk card — 1 kolom di mobile, 2 di tablet, 3 di desktop.",
-            code: `<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-    <!-- card 1 -->
+            text: "Buat tag div untuk membungkus semua menu.",
+            code: `<div>
 </div>`
         },
         {
-            text: "3) Template card produk — gunakan group dan object-cover untuk efek hover halus.",
-            code: `<div class="group bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500">
+            text: `Buat agar item yang berada di dalam tag div tadi berada dalam grid dengan 2 kolom di mobile, 3 kolom di desktop. Beri jarak antar item 40px (10 dalam satuan tailwind).`,
+        },
+        {
+            text: `Buat card untuk menu dengan tag <div>.`,
+            code: `<div class="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl duration-500">
+</div>`
+        },
+        {
+            text: `Tambahkan pembungkus untuk gambar, nama produk, dan harga.`,
+            code: `<div class="relative h-80 overflow-hidden">
+</div>`
+        },
+        {
+            text: `Tambahkan gambar produk.`,
+            code: `<img src="assets/images/menus/espresso.png" alt="Espresso" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">`
+        },
+        {
+            text: `Tambahkan nama dan harga produk.`,
+            code: `<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+    <h3 class="text-3xl font-bold">Espresso</h3>
+    <p class="text-2xl text-amber-400">Rp 22.000</p>
+</div>`
+        },
+        {
+            text: `Tambahkan deskripsi produk. Taruh di luar pembungkus gambar, nama, dan harga`,
+            code: `<div class="p-8">
+    <p class="text-gray-600 leading-relaxed">Ekstraksi kopi murni dengan rasa kuat, pekat, dan aromatik.</p>
+</div>`
+        },
+        {
+            text: `Masukkan kode berikut untuk menu-menu lainnya.`,
+            code: `<div class="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl duration-500">
     <div class="relative h-80 overflow-hidden">
-        <img src="assets/images/menus/espresso.png" alt="Espresso" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+        <img src="assets/images/menus/cappuccino.png" alt="Cappuccino" class="w-full h-full object-cover group-hover:scale-110 transition">
         <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
         <div class="absolute bottom-6 left-6 text-white">
-            <h3 class="text-3xl font-bold">Espresso</h3>
-            <p class="text-2xl text-amber-400">Rp 22.000</p>
+            <h3 class="text-3xl font-bold">Cappuccino</h3>
+            <p class="text-2xl text-amber-400">Rp 32.000</p>
         </div>
     </div>
     <div class="p-8">
-        <p class="text-gray-600 leading-relaxed">Ekstraksi kopi murni dengan rasa kuat, pekat, dan aromatik.</p>
+        <p class="text-gray-600 leading-relaxed">Espresso, susu steamed, dan foam tebal yang lembut.</p>
+    </div>
+</div>
+
+<div class="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl duration-500">
+    <div class="relative h-80 overflow-hidden">
+        <img src="assets/images/menus/caffe late.png" alt="Caffe Latte" class="w-full h-full object-cover group-hover:scale-110 transition">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+        <div class="absolute bottom-6 left-6 text-white">
+            <h3 class="text-3xl font-bold">Caffè Latte</h3>
+            <p class="text-2xl text-amber-400">Rp 34.000</p>
+        </div>
+    </div>
+    <div class="p-8">
+        <p class="text-gray-600 leading-relaxed">Espresso dengan susu steamed creamy dan sedikit foam.</p>
+    </div>
+</div>
+
+<div class="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl duration-500">
+    <div class="relative h-80 overflow-hidden">
+        <img src="assets/images/menus/affogato.png" alt="Caffe Latte" class="w-full h-full object-cover group-hover:scale-110 transition">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+        <div class="absolute bottom-6 left-6 text-white">
+            <h3 class="text-3xl font-bold">Affogato</h3>
+            <p class="text-2xl text-amber-400">Rp 38.000</p>
+        </div>
+    </div>
+    <div class="p-8">
+        <p class="text-gray-600 leading-relaxed">Espresso panas dituang di atas satu scoop gelato vanilla premium .</p>
+    </div>
+</div>
+
+<div class="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl duration-500">
+    <div class="relative h-80 overflow-hidden">
+        <img src="assets/images/menus/cortado.png" alt="Caffe Latte" class="w-full h-full object-cover group-hover:scale-110 transition">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+        <div class="absolute bottom-6 left-6 text-white">
+            <h3 class="text-3xl font-bold">Cortado</h3>
+            <p class="text-2xl text-amber-400">Rp 30.000</p>
+        </div>
+    </div>
+    <div class="p-8">
+        <p class="text-gray-600 leading-relaxed">Espresso “dipotong” dengan sedikit susu steamed hangat.</p>
+    </div>
+</div>
+
+<div class="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl duration-500">
+    <div class="relative h-80 overflow-hidden">
+        <img src="assets/images/menus/mocha.png" alt="Caffe Latte" class="w-full h-full object-cover group-hover:scale-110 transition">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+        <div class="absolute bottom-6 left-6 text-white">
+            <h3 class="text-3xl font-bold">Mocha</h3>
+            <p class="text-2xl text-amber-400">Rp 36.000</p>
+        </div>
+    </div>
+    <div class="p-8">
+        <p class="text-gray-600 leading-relaxed">Espresso bertemu cokelat pekat dan susu steamed, ditambah whipped cream di atasnya.</p>
     </div>
 </div>`
         },
-        {
-            text: "4) Duplikasi template untuk produk lain — ubah nama, harga, gambar, dan deskripsi.",
-            code: `<!-- contoh kartu lain: cappuccino, caffè latte, mocha, cortado, affogato -->`
-        },
-        {
-            text: "5) Tips pemula: optimalkan ukuran gambar (webp/kompres) dan berikan alt text yang deskriptif untuk aksesibilitas."
-        },
-        {
-            text: "Full code contoh (masukkan ke dalam <section id=\"menu\"> di projectmu):",
-            code: `<section id="menu" class="py-24 bg-gradient-to-b from-stone-100 to-white">
-    <div class="container mx-auto px-6">
-        <div class="text-center mb-16">
-            <h2 class="text-5xl md:text-6xl font-black text-stone-800">Menu Spesial</h2>
-            <p class="text-xl text-stone-600 mt-4">Dipilih & disangrai dengan penuh cinta</p>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-            <!-- Espresso -->
-            <div class="group bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500">
-                <div class="relative h-80 overflow-hidden">
-                    <img src="assets/images/menus/espresso.png" alt="Espresso" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 text-white">
-                        <h3 class="text-3xl font-bold">Espresso</h3>
-                        <p class="text-2xl text-amber-400">Rp 22.000</p>
-                    </div>
-                </div>
-                <div class="p-8">
-                    <p class="text-gray-600 leading-relaxed">Ekstraksi kopi murni dengan rasa kuat, pekat, dan aromatik.</p>
-                </div>
-            </div>
-
-            <!-- Cappuccino -->
-            <div class="group bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500">
-                <div class="relative h-80 overflow-hidden">
-                    <img src="assets/images/menus/cappuccino.png" alt="Cappuccino" class="w-full h-full object-cover group-hover:scale-110 transition">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 text-white">
-                        <h3 class="text-3xl font-bold">Cappuccino</h3>
-                        <p class="text-2xl text-amber-400">Rp 32.000</p>
-                    </div>
-                </div>
-                <div class="p-8">
-                    <p class="text-gray-600 leading-relaxed">Espresso, susu steamed, dan foam tebal yang lembut.</p>
-                </div>
-            </div>
-
-            <!-- Caffè Latte -->
-            <div class="group bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500">
-                <div class="relative h-80 overflow-hidden">
-                    <img src="assets/images/menus/caffe-latte.png" alt="Caffe Latte" class="w-full h-full object-cover group-hover:scale-110 transition">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 text-white">
-                        <h3 class="text-3xl font-bold">Caffè Latte</h3>
-                        <p class="text-2xl text-amber-400">Rp 34.000</p>
-                    </div>
-                </div>
-                <div class="p-8">
-                    <p class="text-gray-600 leading-relaxed">Espresso dengan susu steamed creamy dan sedikit foam.</p>
-                </div>
-            </div>
-
-            <!-- Lainnya: Mocha, Cortado, Affogato -->
-            <!-- copy card pattern di atas dan ganti kontennya -->
-        </div>
-    </div>
-</section>`
-        }
       ],
     },
     {
       title: "Tentang Kami",
-      subtitle: "Cerita brand & komitmen — langkah sederhana untuk menulis konten",
+      subtitle: "Cerita brand & komitmen",
       step: [
         {
-            text: "1) Buat section tentang dengan grid: teks di kiri, gambar di kanan (desktop).",
+            text: "Buat section tentang dengan grid: teks di kiri, gambar di kanan (desktop).",
             code: `<section id="about" class="py-24 bg-amber-50">
     <div class="container mx-auto px-6">
         <div class="grid lg:grid-cols-2 gap-16 items-center">
@@ -287,7 +374,7 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
 </section>`
         },
         {
-            text: "2) Isi teks cerita: tulis 2–3 paragraf singkat tentang brand dan misi.",
+            text: "Isi teks cerita: tulis 2–3 paragraf singkat tentang brand dan misi.",
             code: `<div>
     <h2 class="text-5xl md:text-6xl font-black text-stone-800 mb-8">Cerita Kami</h2>
     <p class="text-lg text-gray-700 leading-relaxed mb-6">
@@ -299,50 +386,23 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
 </div>`
         },
         {
-            text: "3) Tambahkan gambar yang merepresentasikan kedai atau proses roasting.",
+            text: "Tambahkan gambar yang merepresentasikan kedai.",
             code: `<div class="rounded-3xl overflow-hidden shadow-2xl">
     <img src="assets/images/coffee-shop.png" alt="Coffee Shop" class="w-full h-full object-cover">
 </div>`
         },
-        {
-            text: "Full code: (taruh di file utama)",
-            code: `<section id="about" class="py-24 bg-amber-50">
-    <div class="container mx-auto px-6">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-                <h2 class="text-5xl md:text-6xl font-black text-stone-800 mb-8">Cerita Kami</h2>
-                <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                    Kopi CC lahir dari kecintaan mendalam terhadap kopi Indonesia. Sejak 2020, kami berkomitmen menghadirkan kopi berkualitas tinggi yang terjangkau.
-                </p>
-                <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                    Setiap biji kami pilih langsung dari petani lokal terbaik di Aceh, Toraja, Kintamani, hingga Papua.
-                </p>
-                <p class="text-lg text-gray-700 leading-relaxed">
-                    Kami tidak hanya menjual kopi — kami membangun komunitas dan mendukung kesejahteraan petani nusantara.
-                </p>
-            </div>
-            <div class="rounded-3xl overflow-hidden shadow-2xl">
-                <img src="assets/images/coffee-shop.png" alt="Coffee Shop" class="w-full h-full object-cover">
-            </div>
-        </div>
-    </div>
-</section>`
-        },
-        {
-            text: "Tips: pakai foto otentik jika ada; kalau belum, gunakan foto stok yang relevan dan beri alt text."
-        }
       ],
     },
     {
       title: "Galeri",
-      subtitle: "Visual produk & suasana — step sederhana",
+      subtitle: "Visual produk & suasana",
       step: [
         {
-            text: "1) Buat section galeri dengan grid gambar. Pastikan gambar punya ukuran seragam untuk tampilan rapi.",
+            text: "Buat section galeri dengan grid gambar. Pastikan gambar punya ukuran seragam untuk tampilan rapi.",
             code: `<section id="gallery" class="py-24 bg-white">
     <div class="container mx-auto px-6 text-center">
         <h2 class="text-5xl md:text-6xl font-black text-stone-800 mb-4">Galeri Kami</h2>
-        <p class="text-xl text-stone-600 mb-16">Dari biji hingga cangkir</p>
+        <p class="text-xl text-stone-600 mb-16">Berbagai Momen di Tempat Kami</p>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
             <!-- gambar -->
         </div>
@@ -350,37 +410,17 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
 </section>`
         },
         {
-            text: "2) Masukkan gambar dan beri class rounded & hover effect untuk interaksi.",
-            code: `<img src="assets/images/galleries/gallery1.png" alt="Proses Sangrai" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 cursor-pointer">`
+            text: "Masukkan gambar dan beri class rounded & hover effect untuk interaksi.",
+            code: `<img src="assets/images/galleries/gallery1.png" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 cursor-pointer">`
         },
-        {
-            text: "Full code: (ganti nama file gambar sesuai folder assets mu)",
-            code: `<section id="gallery" class="py-24 bg-white">
-    <div class="container mx-auto px-6 text-center">
-        <h2 class="text-5xl md:text-6xl font-black text-stone-800 mb-4">Galeri Kami</h2>
-        <p class="text-xl text-stone-600 mb-16">Dari biji hingga cangkir</p>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-            <img src="assets/images/galleries/gallery1.png" alt="Proses Sangrai" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 cursor-pointer">
-            <img src="assets/images/galleries/gallery2.png" alt="Barista" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 cursor-pointer">
-            <img src="assets/images/galleries/gallery3.png" alt="Interior Kedai" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 cursor-pointer">
-            <img src="assets/images/galleries/gallery4.png" alt="Penyajian Kopi" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 cursor-pointer">
-            <img src="assets/images/galleries/gallery5.png" alt="Biji Kopi" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 cursor-pointer">
-            <img src="assets/images/galleries/gallery6.png" alt="Pelanggan" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 cursor-pointer">
-        </div>
-    </div>
-</section>`
-        },
-        {
-            text: "Tips: tambahkan lightbox jika ingin memperbesar gambar saat diklik (bisa pakai plugin ringan atau modal buatan sendiri)."
-        }
       ],
     },
     {
       title: "Testimoni",
-      subtitle: "Ulasan pelanggan — cara membuat testimonial yang meyakinkan",
+      subtitle: "Ulasan pelanggan",
       step: [
         {
-            text: "1) Buat section testimonial dengan judul dan deskripsi pendek.",
+            text: "Buat section testimonial dengan judul dan deskripsi pendek.",
             code: `<section id="testimoni" class="py-24 bg-amber-50">
     <div class="container mx-auto px-6">
         <h2 class="text-5xl md:text-6xl font-black text-center text-stone-800 mb-4">Apa Kata Mereka</h2>
@@ -392,7 +432,7 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
 </section>`
         },
         {
-            text: "2) Template kartu testimonial: rating, kutipan, dan info user.",
+            text: "Template kartu testimonial: rating, kutipan, dan info user.",
             code: `<div class="bg-white p-8 rounded-3xl shadow-xl">
     <div class="text-4xl text-amber-500 mb-4">★★★★★</div>
     <p class="italic text-gray-700 mb-6">"Kopi terbaik yang pernah saya coba!"</p>
@@ -406,54 +446,31 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
 </div>`
         },
         {
-            text: "3) Tambahkan 3 kartu (contoh). Full code:",
-            code: `<section id="testimoni" class="py-24 bg-amber-50">
-    <div class="container mx-auto px-6">
-        <h2 class="text-5xl md:text-6xl font-black text-center text-stone-800 mb-4">Apa Kata Mereka</h2>
-        <p class="text-xl text-center text-stone-600 mb-16">Pelanggan setia kami</p>
-        <div class="grid md:grid-cols-3 gap-10">
-            <div class="bg-white p-8 rounded-3xl shadow-xl">
-                <div class="text-4xl text-amber-500 mb-4">★★★★★</div>
-                <p class="italic text-gray-700 mb-6">"Kopi terbaik yang pernah saya coba! Sudah jadi pelanggan setia selama 2 tahun."</p>
-                <div class="flex items-center gap-4">
-                    <div class="w-14 h-14 bg-amber-200 rounded-full flex items-center justify-center text-2xl">M</div>
-                    <div>
-                        <p class="font-bold text-stone-800">Budi Santoso</p>
-                        <p class="text-sm text-gray-600">Pengusaha</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white p-8 rounded-3xl shadow-xl">
-                <div class="text-4xl text-amber-500 mb-4">★★★★★</div>
-                <p class="italic text-gray-700 mb-6">"Tempat nyaman, kopi enak, pelayanan ramah. Highly recommended!"</p>
-                <div class="flex items-center gap-4">
-                    <div class="w-14 h-14 bg-amber-200 rounded-full flex items-center justify-center text-2xl">F</div>
-                    <div>
-                        <p class="font-bold text-stone-800">Siti Nurhaliza</p>
-                        <p class="text-sm text-gray-600">Content Creator</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white p-8 rounded-3xl shadow-xl">
-                <div class="text-4xl text-amber-500 mb-4">★★★★★</div>
-                <p class="italic text-gray-700 mb-6">"Setiap varian punya karakter unik. Worth it!"</p>
-                <div class="flex items-center gap-4">
-                    <div class="w-14 h-14 bg-amber-200 rounded-full flex items-center justify-center text-2xl">M</div>
-                    <div>
-                        <p class="font-bold text-stone-800">Ahmad Fauzi</p>
-                        <p class="text-sm text-gray-600">Mahasiswa</p>
-                    </div>
-                </div>
-            </div>
+            text: "Tambahkan 2 kartu lagi.",
+            code: `<div class="bg-white p-8 rounded-3xl shadow-xl">
+    <div class="text-4xl text-amber-500 mb-4">★★★★★</div>
+    <p class="italic text-gray-700 mb-6">"Tempat nyaman, kopi enak, pelayanan ramah. Highly recommended!"</p>
+    <div class="flex items-center gap-4">
+        <div class="w-14 h-14 bg-amber-200 rounded-full flex items-center justify-center text-2xl">F</div>
+        <div>
+            <p class="font-bold text-stone-800">Siti Nurhaliza</p>
+            <p class="text-sm text-gray-600">Content Creator</p>
         </div>
     </div>
-</section>`
+</div>
+
+<div class="bg-white p-8 rounded-3xl shadow-xl">
+    <div class="text-4xl text-amber-500 mb-4">★★★★★</div>
+    <p class="italic text-gray-700 mb-6">"Setiap varian punya karakter unik. Worth it!"</p>
+    <div class="flex items-center gap-4">
+        <div class="w-14 h-14 bg-amber-200 rounded-full flex items-center justify-center text-2xl">M</div>
+        <div>
+            <p class="font-bold text-stone-800">Ahmad Fauzi</p>
+            <p class="text-sm text-gray-600">Mahasiswa</p>
+        </div>
+    </div>
+</div>`
         },
-        {
-            text: "Tips: gunakan testimoni asli bila memungkinkan, dan tambahkan foto kecil untuk meningkatkan kredibilitas."
-        }
       ],
     },
     {
@@ -461,7 +478,7 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
       subtitle: "Form interaktif — langkah membuat form sederhana",
       step: [
         {
-            text: "1) Buat section form dengan max-width agar tidak melebar di desktop.",
+            text: "Buat section form dengan max-width agar tidak melebar di desktop.",
             code: `<section id="contact" class="py-20 bg-white">
     <div class="container mx-auto px-4 max-w-3xl">
         <!-- judul dan form -->
@@ -469,78 +486,65 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
 </section>`
         },
         {
-            text: "2) Masukkan input: nama, email, telepon, pesan — beri placeholder dan kelas fokus.",
+            text: "Masukkan input: nama, email, telepon, pesan — beri placeholder dan kelas fokus.",
             code: `<form class="bg-amber-50 p-8 rounded-lg shadow-lg">
     <div class="mb-6">
         <label class="block text-amber-900 font-bold mb-2">Nama Lengkap</label>
-        <input type="text" class="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="Masukkan nama Anda">
-    </div>
-    <!-- field lain -->
-</form>`
-        },
-        {
-            text: "3) Full code form (tambahkan action/API sesuai kebutuhan atau gunakan layanan form seperti Formspree):",
-            code: `<section id="contact" class="py-20 bg-white">
-<div class="container mx-auto px-4 max-w-3xl">
-    <h2 class="text-4xl font-bold text-center text-amber-900 mb-4">Hubungi Kami</h2>
-    <p class="text-center text-gray-600 mb-12">Ada pertanyaan? Jangan ragu untuk menghubungi kami!</p>
-    
-    <form class="bg-amber-50 p-8 rounded-lg shadow-lg" action="#" method="POST">
-        <div class="mb-6">
-            <label class="block text-amber-900 font-bold mb-2">Nama Lengkap</label>
-            <input 
-                name="name"
-                type="text" 
-                class="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
-                placeholder="Masukkan nama Anda"
-                required
-            >
-        </div>
-        
-        <div class="mb-6">
-            <label class="block text-amber-900 font-bold mb-2">Email</label>
-            <input 
-                name="email"
-                type="email" 
-                class="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
-                placeholder="email@contoh.com"
-                required
-            >
-        </div>
-        
-        <div class="mb-6">
-            <label class="block text-amber-900 font-bold mb-2">Nomor Telepon</label>
-            <input 
-                name="phone"
-                type="tel" 
-                class="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
-                placeholder="08xx xxxx xxxx"
-            >
-        </div>
-        
-        <div class="mb-6">
-            <label class="block text-amber-900 font-bold mb-2">Pesan</label>
-            <textarea 
-                name="message"
-                rows="5" 
-                class="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
-                placeholder="Tulis pesan Anda di sini..."
-                required
-            ></textarea>
-        </div>
-        
-        <button 
-            type="submit" 
-            class="w-full bg-amber-900 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-amber-800 transition"
+        <input 
+            name="name"
+            type="text" 
+            class="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+            placeholder="Masukkan nama Anda"
+            required
         >
-            Kirim Pesan
-        </button>
-    </form>
+    </div>
+</form>`},
+        {
+            text: "Lanjutkan dengan input email, nomor telepon, dan textarea untuk pesan.",
+        code: `<div class="mb-6">
+    <label class="block text-amber-900 font-bold mb-2">Email</label>
+    <input 
+        name="email"
+        type="email" 
+        class="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+        placeholder="email@contoh.com"
+        required
+    >
 </div>
-</section>`
+
+<div class="mb-6">
+    <label class="block text-amber-900 font-bold mb-2">Nomor Telepon</label>
+    <input 
+        name="phone"
+        type="tel" 
+        class="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+        placeholder="08xx xxxx xxxx"
+    >
+</div>
+
+<div class="mb-6">
+    <label class="block text-amber-900 font-bold mb-2">Pesan</label>
+    <textarea 
+        name="message"
+        rows="5" 
+        class="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+        placeholder="Tulis pesan Anda di sini..."
+        required
+    ></textarea>
+</div>`
         },
         {
-            text: "Tips: untuk tahap latihan, set action=\"#\"; untuk produksi, hubungkan ke backend atau layanan form."
+            text: "Tambahkan tombol kirim",
+            code: `<button 
+    type="submit" 
+    class="w-full bg-amber-900 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-amber-800 transition"
+>
+    Kirim Pesan
+</button>`
+        },
+        {
+            text: "Agar form bisa mengirim data, kita bisa pakai layanan Formspree. Tambahkan atribut action dan method pada tag <form> seperti berikut:",
+            code: `action="{endpoint formspree kamu}" method="post"`
         }
       ],
     },
@@ -549,7 +553,7 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
       subtitle: "Informasi lengkap & copyright — struktur sederhana",
       step: [
         {
-            text: "1) Buat footer dengan beberapa kolom: brand, menu, kontak, jam buka.",
+            text: "Buat footer dengan beberapa kolom: brand, menu, kontak, jam buka.",
             code: `<footer class="bg-stone-900 text-white py-16">
     <div class="container mx-auto px-6">
         <div class="grid md:grid-cols-4 gap-10 mb-12">
@@ -562,7 +566,7 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
 </footer>`
         },
         {
-            text: "2) Isi tiap kolom — gunakan link internal untuk menu dan info kontak nyata.",
+            text: "Isi tiap kolom.",
             code: `<div>
     <h3 class="text-2xl font-bold mb-4 flex items-center gap-3">
         <img src="assets/images/logo.png" alt="" class="h-12"> Kopi CC
@@ -610,34 +614,36 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
         </div>
     </div>
 </footer>`
-        },
-        {
-            text: "Tips: tambahkan link privacy policy atau terms jika nanti site kamu berkembang jadi bisnis resmi."
         }
       ],
     },
     {
-      title: "JavaScript Mobile Menu",
-      subtitle: "Toggle menu di perangkat mobile",
+      title: "Ekstra",
+      subtitle: "Membuat scroll smooth dan navbar tidak ikut di-scroll",
       step: [
         {
-            text: "Code JS simpel untuk men-toggle mobile menu — masukkan sebelum </body> atau file app.js:",
-            code: `<script>
-    document.getElementById('mobileBtn').addEventListener('click', () => {
-        document.getElementById('mobileMenu').classList.toggle('hidden');
-    });
-
-    // Optional: close menu saat klik link di mobile
-    document.querySelectorAll('#mobileMenu a').forEach(link => {
-        link.addEventListener('click', () => {
-            document.getElementById('mobileMenu').classList.add('hidden');
-        });
-    });
-</script>`
+            text: `Tambahkan class "scroll-smooth" pada tag <html> untuk membuat efek scroll yang halus saat mengklik link navigasi.`,
         },
         {
-            text: "Tips: untuk behavior lebih baik, kamu bisa tambahkan aria-expanded pada tombol dan animate height memakai CSS/JS."
-        }
+            text: `Tambahkan class "fixed top-0 w-full z-40" pada tag <nav> pertama untuk membuat navbar tetap di atas saat discroll.`,
+        },
+        {
+            text: `Tambahkan class "fixed top-20 z-30 w-full" pada tag <nav> kedua (menu mobile) untuk membuatnya tetap di bawah navbar utama saat discroll.`,
+        },
+      ],
+    },
+    {
+      title: "Penutup",
+      subtitle: "Selamat telah menyelesaikan project website landing page bisnis kopi",
+      step: [
+        {
+            text: `Berikut adalah link feedback dari Training Basic.`,
+            img: `/public/feedback.jpg`,
+        },
+        {
+            text: `Berikut adalah token dikoding bagi yang mengikuti Training Basic.`,
+            img: `/public/dicoding.jpg`,
+        },
       ],
     },
   ];
