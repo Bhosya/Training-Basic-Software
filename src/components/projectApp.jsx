@@ -65,7 +65,7 @@ const ProjectApp = () => {
             {slide.step && (
                 <ul className='my-8 flex flex-col gap-6'>
                     {slide.step?.map((step, i) => (
-                        <li key={i} className=' text-white'>
+                        <li key={i} className=' text-white gap-2 flex flex-col'>
                             <div>{i+1}. {step.text}</div>
                             {step.code && (
                                 <div className="relative">
@@ -86,6 +86,11 @@ const ProjectApp = () => {
                                 <div className="relative">
                                   <img src={step.img} className="rounded-2xl border border-white/10 shadow-2xl md:max-w-150 md:max-h-50 object-cover" />
                                 </div>
+                            )}
+                            {step.link && (
+                              <div class="bg-blue-600 text-white max-w-50 text-center py-4 px-5 rounded-md hover:bg-blue-900">
+                                <a href={step.link}>Tekan di sini</a>
+                              </div>
                             )}
                         </li>
                     )) }

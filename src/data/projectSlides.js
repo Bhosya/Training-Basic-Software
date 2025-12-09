@@ -639,10 +639,12 @@ export const projectSlides = [
         {
             text: `Berikut adalah link feedback dari Training Basic.`,
             img: `/feedback.jpg`,
+            link: `https://docs.google.com/forms/d/e/1FAIpQLSf_P_M0OmEa6hvAm4sP37T20YZf3CHmqL6-nNcyiFSlIiBmfg/viewform?pli=1`
         },
         {
             text: `Berikut adalah token dikoding bagi yang mengikuti Training Basic.`,
             img: `/dicoding.jpg`,
+            link:  `https://docs.google.com/forms/d/e/1FAIpQLScMMyPPO2MPhMXwGFB1KoWZsuQk4hzBMrbVu0kZEy5xwwN0MQ/viewform`
         },
       ],
     },
