@@ -81,17 +81,586 @@ const getSlideIcon = (chapter) => {
   return null;
 };
 
+const QuizSection = memo(({ slideTitle }) => {
+  const quizList = quizBank[slideTitle];
+  const [answers, setAnswers] = useState({});
+  const [checked, setChecked] = useState({});
+
+  useEffect(() => {
+    setAnswers({});
+    setChecked({});
+  }, [slideTitle]);
+
+  if (!quizList) return null;
+
+  const total = quizList ? quizList.length : 0;
+  const score = quizList.reduce((acc, q, idx) => {
+    if (!checked[idx]) return acc;
+    return acc + (answers[idx] === q.answer ? 1 : 0);
+  }, 0);
+  const checkedCount = Object.keys(checked).length;
+
+  const handleSelect = useCallback((qIdx, optIdx) => {
+    setAnswers((prev) => ({ ...prev, [qIdx]: optIdx }));
+  }, []);
+
+  const handleCheck = useCallback(
+    (qIdx) => {
+      if (answers[qIdx] === undefined) return;
+      setChecked((prev) => ({ ...prev, [qIdx]: true }));
+    },
+    [answers]
+  );
+
+  const handleReset = useCallback(() => {
+    setAnswers({});
+    setChecked({});
+  }, []);
+
+  return (
+    <div className="bg-slate-900/60 border border-white/10 rounded-2xl p-4 mt-4 space-y-3">
+      <div className="flex items-center justify-between gap-2 flex-wrap">
+        <div className="flex items-center gap-2 text-sm font-semibold text-emerald-200">
+          <Sparkles size={14} /> Quiz Cepat
+        </div>
+        <div className="text-xs text-slate-400">
+          {checkedCount > 0
+            ? `Benar ${score}/${checkedCount} (dari ${total} soal)`
+            : "Pilih opsi, lalu cek per soal"}
+        </div>
+      </div>
+
+      <div className="space-y-3">
+        {quizList.map((q, qIdx) => {
+          const selected = answers[qIdx];
+          const isChecked = checked[qIdx];
+          return (
+            <div
+              key={`${slideTitle}-${qIdx}`}
+              className="rounded-xl border border-white/10 bg-slate-800/50 p-3 space-y-2"
+            >
+              <div className="flex items-start gap-2">
+                <div className="text-[10px] font-bold text-emerald-200 px-2 py-1 bg-emerald-900/40 rounded">
+                  Q{qIdx + 1}
+                </div>
+                <div className="text-sm text-white leading-relaxed flex-1">
+                  {q.question}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {q.options.map((opt, optIdx) => {
+                  const isSelected = selected === optIdx;
+                  const isCorrect = isChecked && q.answer === optIdx;
+                  const isWrong = isChecked && isSelected && !isCorrect;
+                  return (
+                    <button
+                      key={`${slideTitle}-${qIdx}-${optIdx}`}
+                      onClick={() => handleSelect(qIdx, optIdx)}
+                      className={`text-left rounded-lg border px-3 py-2 text-sm transition-colors ${
+                        isCorrect
+                          ? "border-emerald-400/80 bg-emerald-900/20 text-emerald-100"
+                          : isWrong
+                          ? "border-rose-400/80 bg-rose-900/20 text-rose-100"
+                          : isSelected
+                          ? "border-blue-400/70 bg-blue-900/20 text-blue-100"
+                          : "border-white/10 bg-slate-900/40 text-slate-200 hover:border-white/30"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span>{opt}</span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {isChecked && q.explanation && (
+                <p className="text-xs text-slate-400 leading-relaxed border-t border-white/5 pt-2">
+                  {q.explanation}
+                </p>
+              )}
+
+              <div className="flex items-center justify-between gap-2 text-xs text-slate-400">
+                <span>
+                  {selected === undefined
+                    ? "Pilih jawaban dulu."
+                    : isChecked
+                    ? "Sudah dicek."
+                    : "Klik cek untuk soal ini."}
+                </span>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => handleCheck(qIdx)}
+                    disabled={selected === undefined}
+                    className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold disabled:opacity-40 transition"
+                  >
+                    Cek
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="flex items-center justify-between gap-2 text-xs text-slate-400">
+        <div>
+          Progress cek: {checkedCount}/{total} soal
+        </div>
+        <button
+          onClick={handleReset}
+          className="px-3 py-1.5 rounded-lg border border-white/10 text-slate-300 hover:border-white/30 transition"
+        >
+          Reset semua
+        </button>
+      </div>
+    </div>
+  );
+});
+
+const WhyWebsitePlayground = memo(() => {
+  const personas = useMemo(
+    () => [
+      {
+        key: "personal",
+        label: "Personal / Portofolio",
+        gradient: "from-blue-500 to-cyan-500",
+        headline: "Punya 'rumah digital' untuk nunjukkin diri atau karya.",
+        points: [
+          "Bagikan CV, portofolio, atau link sosmed dalam 1 alamat rapi.",
+          "Tampil profesional tanpa harus ngerti semua istilah teknis dulu.",
+          "Bisa jadi tempat latihan sebelum masuk ke proyek nyata.",
+        ],
+      },
+      {
+        key: "umkm",
+        label: "UMKM / Bisnis",
+        gradient: "from-amber-500 to-orange-500",
+        headline: "Toko yang buka 24 jam tanpa bayar sewa ruko.",
+        points: [
+          "Calon pelanggan langsung lihat produk, harga, dan kontak.",
+          "Naikkan trust: terlihat resmi, bukan sekadar chat dadakan.",
+          "Bisa dihubungkan ke WhatsApp, katalog, atau media sosial.",
+        ],
+      },
+      {
+        key: "komunitas",
+        label: "Komunitas / Organisasi",
+        gradient: "from-purple-500 to-pink-500",
+        headline:
+          "Satu pusat informasi untuk acara, dokumentasi, dan rekrutmen.",
+        points: [
+          "Jadwal kegiatan, galeri, dan form pendaftaran di satu tempat.",
+          "Mempermudah anggota baru memahami tujuan komunitas.",
+          "Link pendek yang mudah dibagikan di poster atau pesan singkat.",
+        ],
+      },
+    ],
+    []
+  );
+
+  const mythList = useMemo(
+    () => [
+      {
+        key: "mahal",
+        title: "Website itu selalu mahal",
+        fact: "Ada opsi gratis/low-budget: GitHub Pages, Netlify, atau domain .my.id murah. Mulai sederhana dulu, upgrade belakangan.",
+      },
+      {
+        key: "rumit",
+        title: "Bikin website pasti rumit",
+        fact: "Mulai dari template + sedikit edit teks & gambar. Materi di modul ini dirancang step-by-step, tinggal ikuti.",
+      },
+      {
+        key: "buat-it",
+        title: "Hanya orang IT yang butuh",
+        fact: "Pebisnis, kreator, guru, sampai komunitas juga terbantu. Website = kartu nama digital yang gampang ditemukan orang.",
+      },
+    ],
+    []
+  );
+
+  const quickSteps = useMemo(
+    () => [
+      {
+        key: "tujuan",
+        title: "Tentukan tujuan utama",
+        tip: "Pamer karya, jualan, atau sekadar info? Ini memengaruhi isi halaman.",
+      },
+      {
+        key: "pesan",
+        title: "Tulis pesan utama",
+        tip: "Satu kalimat jelas: siapa kamu, apa yang ditawarkan, apa langkah lanjutnya.",
+      },
+      {
+        key: "konten",
+        title: "Siapkan bahan",
+        tip: "Foto/logo, 3 testimoni, kontak yang aktif, dan 3 produk/jasa unggulan.",
+      },
+      {
+        key: "aksi",
+        title: "Pilih call-to-action",
+        tip: "Contoh: tombol 'Hubungi WhatsApp' atau 'Lihat portofolio'.",
+      },
+    ],
+    []
+  );
+
+  const [activePersona, setActivePersona] = useState(personas[0].key);
+  const [openMyth, setOpenMyth] = useState(mythList[0].key);
+  const [doneSteps, setDoneSteps] = useState([]);
+
+  const active = personas.find((p) => p.key === activePersona) ?? personas[0];
+  const completion = Math.round((doneSteps.length / quickSteps.length) * 100);
+
+  const toggleStep = useCallback((key) => {
+    setDoneSteps((prev) =>
+      prev.includes(key) ? prev.filter((item) => item !== key) : [...prev, key]
+    );
+  }, []);
+
+  const toggleMyth = useCallback((key) => {
+    setOpenMyth((prev) => (prev === key ? null : key));
+  }, []);
+
+  return (
+    <div className="space-y-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        {personas.map((persona) => {
+          const isActive = persona.key === activePersona;
+          return (
+            <button
+              key={persona.key}
+              onClick={() => setActivePersona(persona.key)}
+              className={`text-left rounded-2xl border transition-all duration-200 p-4 bg-slate-900/50 hover:border-white/20 ${
+                isActive
+                  ? "border-blue-400/80 shadow-lg shadow-blue-500/10"
+                  : "border-white/10"
+              }`}
+            >
+              <div
+                className={`inline-flex items-center gap-2 text-xs font-semibold text-white px-3 py-1 rounded-full bg-gradient-to-r ${persona.gradient}`}
+              >
+                <Sparkles size={14} /> {persona.label}
+              </div>
+              <p className="mt-3 text-sm text-slate-300 leading-relaxed">
+                {persona.headline}
+              </p>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+});
+
 // --- DATA MATERI (DIPERLUAS) ---
+const quizBank = {
+  "Kenapa Website?": [
+    {
+      question:
+        "Apa manfaat utama punya website dibanding hanya mengandalkan media sosial?",
+      options: [
+        "Website selalu otomatis viral tanpa effort",
+        "Website jadi alamat resmi yang bisa kamu kontrol tampilannya",
+        "Website hanya berguna kalau kamu sudah mahir coding",
+        "Website wajib berisi ratusan halaman supaya dianggap profesional",
+      ],
+      answer: 1,
+      explanation:
+        "Website memberimu ruang yang bisa dikontrol penuh: konten, warna, call-to-action, dan struktur sesuai tujuanmu.",
+    },
+    {
+      question: "Siapa saja yang bisa terbantu dengan punya website sederhana?",
+      options: [
+        "Hanya developer profesional",
+        "Hanya brand besar dengan budget tinggi",
+        "Personal, UMKM, komunitas—asal punya pesan jelas",
+        "Hanya bisnis yang tidak memakai media sosial",
+      ],
+      answer: 2,
+      explanation:
+        "Website itu kartu nama digital: personal, UMKM, atau komunitas bisa mulai dari 1 halaman jelas lalu berkembang.",
+    },
+  ],
+  "Mengenal Dunia Website": [
+    {
+      question: "Analogi apa yang dipakai untuk menjelaskan website?",
+      options: [
+        "Gudang kosong tanpa pintu",
+        "Rumah di internet dengan banyak ruangan/halaman",
+        "Buku yang tidak bisa dibuka",
+        "Mesin tanpa listrik",
+      ],
+      answer: 1,
+      explanation:
+        "Website dianalogikan seperti rumah: ada halaman depan, tentang, produk, blog, dan kontak yang saling terhubung.",
+    },
+    {
+      question: "Alur sederhana cara kerja website adalah...",
+      options: [
+        "Browser menyimpan semua file lalu menebak tampilannya",
+        "Server meminta file ke browser",
+        "Browser meminta ke server, server kirim file, browser menampilkan",
+        "Pengguna mengirim file ke server setiap kali membuka",
+      ],
+      answer: 2,
+      explanation:
+        "Browser meminta resource ke server, server merespons dengan file HTML/CSS/JS/media, lalu browser merender ke layar.",
+    },
+  ],
+  "Konsep HTML": [
+    {
+      question: "Peran HTML dalam sebuah halaman web adalah...",
+      options: [
+        "Mengatur animasi dan interaksi",
+        "Mengatur struktur dan konten halaman",
+        "Mengelola database",
+        "Menyediakan server untuk file",
+      ],
+      answer: 1,
+      explanation:
+        "HTML adalah kerangka: judul, teks, gambar, link, dan elemen lain ditempatkan dengan tag HTML.",
+    },
+    {
+      question: "Tag apa yang menjadi 'akar' dokumen HTML?",
+      options: ["<body>", "<head>", "<html>", "<title>"],
+      answer: 2,
+      explanation:
+        "<html> adalah root element yang membungkus seluruh konten halaman.",
+    },
+  ],
+  "Struktur Kode HTML": [
+    {
+      question: "Untuk menyatakan dokumen menggunakan HTML5, kita memakai...",
+      options: [
+        "<doctype html>",
+        "<!DOCTYPE html>",
+        "<html doctype>",
+        "<meta doctype>",
+      ],
+      answer: 1,
+      explanation:
+        "<!DOCTYPE html> memberi tahu browser bahwa dokumen ini mengikuti standar HTML5.",
+    },
+    {
+      question: "Di mana sebaiknya meta viewport ditempatkan?",
+      options: [
+        "Di dalam <body>",
+        "Di luar dokumen",
+        "Di dalam <head>",
+        "Tidak perlu dipakai",
+      ],
+      answer: 2,
+      explanation:
+        "Meta viewport ditaruh di <head> agar layout responsif di berbagai perangkat.",
+    },
+  ],
+  "Visualisasi Tag HTML": [
+    {
+      question: "Tag mana yang sesuai untuk membuat tautan?",
+      options: ["<p>", "<a>", "<img>", "<strong>"],
+      answer: 1,
+      explanation: "<a> digunakan untuk hyperlink ke halaman atau sumber lain.",
+    },
+    {
+      question: "Tag mana yang semantik untuk teks ditebalkan?",
+      options: ["<b>", "<strong>", "<em>", "<h1>"],
+      answer: 1,
+      explanation:
+        "<strong> memberi penekanan semantik (penting) selain efek visual tebal.",
+    },
+  ],
+  "Konsep CSS": [
+    {
+      question: "CSS berfungsi untuk...",
+      options: [
+        "Membuat struktur dokumen",
+        "Mengatur tampilan: warna, layout, ukuran, tipografi",
+        "Mengelola data ke database",
+        "Menjalankan logika server",
+      ],
+      answer: 1,
+      explanation:
+        "CSS mengatur presentasi: warna, posisi, ukuran, font, dan responsivitas tampilan.",
+    },
+    {
+      question: "File CSS biasanya dihubungkan ke HTML dengan...",
+      options: [
+        "<script src='style.css'>",
+        "<link rel='stylesheet' href='style.css'>",
+        "<style href='style.css'>",
+        "<css src='style.css'>",
+      ],
+      answer: 1,
+      explanation:
+        "<link rel='stylesheet' ...> dipakai di <head> untuk memuat file CSS eksternal.",
+    },
+  ],
+  "Cara Penggunaan CSS": [
+    {
+      question: "Selector CSS dipakai untuk...",
+      options: [
+        "Memuat gambar",
+        "Menentukan elemen mana yang akan diberi gaya",
+        "Menjalankan fungsi JavaScript",
+        "Membuat server",
+      ],
+      answer: 1,
+      explanation:
+        "Selector memilih elemen target (tag, class, id) untuk diberi deklarasi CSS.",
+    },
+    {
+      question: "Sintaks CSS yang benar adalah...",
+      options: ["color = red;", "color: red;", "color - red;", "color => red;"],
+      answer: 1,
+      explanation: "Deklarasi CSS memakai format property: value;",
+    },
+  ],
+  "CSS Box Model": [
+    {
+      question: "Empat komponen utama box model adalah...",
+      options: [
+        "Margin, border, padding, content",
+        "Header, body, footer, aside",
+        "Flex, grid, gap, align",
+        "Top, right, bottom, left",
+      ],
+      answer: 0,
+      explanation:
+        "Box model terdiri dari content di tengah, lalu padding, border, dan margin sebagai jarak luar.",
+    },
+    {
+      question: "Property untuk menambah jarak di dalam batas elemen adalah...",
+      options: ["margin", "padding", "border", "gap"],
+      answer: 1,
+      explanation:
+        "Padding memberi ruang di dalam border, antara konten dan tepi elemen.",
+    },
+  ],
+  "Konsep Flexbox & Grid": [
+    {
+      question: "Flexbox cocok untuk...",
+      options: [
+        "Layout dua dimensi kompleks",
+        "Mengatur sebaran item satu dimensi (baris/kolom)",
+        "Membuat animasi",
+        "Membuat query API",
+      ],
+      answer: 1,
+      explanation:
+        "Flexbox unggul untuk distribusi item dalam satu axis, seperti navbar atau card row.",
+    },
+    {
+      question: "Grid cocok dipakai saat...",
+      options: [
+        "Layout multi-kolom/baris yang terstruktur",
+        "Butuh sticky navbar",
+        "Hanya ada satu tombol",
+        "Menangani event click",
+      ],
+      answer: 0,
+      explanation:
+        "CSS Grid memudahkan layout 2D terencana dengan kolom dan baris.",
+    },
+  ],
+  "Konsep Tailwind CSS": [
+    {
+      question: "Ciri khas Tailwind dibanding CSS biasa adalah...",
+      options: [
+        "Tidak butuh kelas sama sekali",
+        "Utility-first: pakai class kecil yang siap dipakai",
+        "Hanya bisa dipakai di backend",
+        "Harus menulis file CSS panjang",
+      ],
+      answer: 1,
+      explanation:
+        "Tailwind menyediakan utility class siap pakai sehingga styling bisa langsung di markup.",
+    },
+    {
+      question: "Class Tailwind untuk membuat teks tebal adalah...",
+      options: ["text-bold", "font-semibold", "bold-600", "txt-strong"],
+      answer: 1,
+      explanation:
+        "Tailwind memakai skala font-weight seperti font-semibold, font-bold, dll.",
+    },
+  ],
+};
+
+// Gabungkan quiz per section agar tidak muncul di setiap slide
+quizBank["Quiz HTML"] = [
+  ...(quizBank["Konsep HTML"] ?? []),
+  ...(quizBank["Struktur Kode HTML"] ?? []),
+  ...(quizBank["Visualisasi Tag HTML"] ?? []),
+];
+
+quizBank["Quiz CSS"] = [
+  ...(quizBank["Konsep CSS"] ?? []),
+  ...(quizBank["Cara Penggunaan CSS"] ?? []),
+  ...(quizBank["CSS Box Model"] ?? []),
+  ...(quizBank["Konsep Flexbox & Grid"] ?? []),
+];
+
+quizBank["Quiz Tailwind CSS"] = [...(quizBank["Konsep Tailwind CSS"] ?? [])];
+
 const slidesData = [
   {
     id: 1,
     type: "cover",
-    title: "Web Development Mastery",
+    title: "Web Development",
     subtitle: "HTML5, CSS3 & Tailwind CSS",
     icon: <Monitor size={72} className="text-white drop-shadow-lg" />,
     chapter: "Intro",
     content:
       "Jelajahi dunia pengembangan web modern dengan panduan interaktif dan visual.",
+  },
+  {
+    id: "intro-why",
+    type: "content",
+    title: "Kenapa Website?",
+    subtitle: "Manfaat yang terasa bahkan kalau baru mulai",
+    icon: <Info size={40} />,
+    chapter: "Intro - Kenapa Perlu Website",
+    content: (
+      <div className="space-y-6">
+        <div className="bg-slate-900/50 border border-slate-700/60 rounded-2xl p-5 space-y-3">
+          <h3 className="text-lg font-bold text-white">
+            Website = alamat resmi di internet
+          </h3>
+          <p className="text-slate-300 text-sm leading-relaxed">
+            Kalau media sosial itu seperti lapak di pusat keramaian, website
+            adalah rumah yang bisa kamu atur sesuka hati. Orang bisa mampir
+            kapan saja tanpa tenggelam di algoritma. Modul ini bantu kamu bikin
+            versi sederhana dulu, lalu pelan-pelan ditingkatkan.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="bg-slate-800/50 rounded-xl border border-white/10 p-3 text-sm text-slate-200 space-y-1">
+              <div className="text-xs font-semibold text-blue-300 uppercase">
+                Cepat ditemukan
+              </div>
+              <p>Link rapi untuk portofolio, katalog, atau profil usaha.</p>
+            </div>
+            <div className="bg-slate-800/50 rounded-xl border border-white/10 p-3 text-sm text-slate-200 space-y-1">
+              <div className="text-xs font-semibold text-emerald-300 uppercase">
+                Nambah trust
+              </div>
+              <p>
+                Terlihat lebih resmi dibanding hanya kirim chat atau poster.
+              </p>
+            </div>
+            <div className="bg-slate-800/50 rounded-xl border border-white/10 p-3 text-sm text-slate-200 space-y-1">
+              <div className="text-xs font-semibold text-amber-300 uppercase">
+                Bisa diatur
+              </div>
+              <p>Konten, warna, dan ajakan yang muncul bisa kamu kendalikan.</p>
+            </div>
+          </div>
+        </div>
+
+        <WhyWebsitePlayground />
+      </div>
+    ),
   },
   {
     id: 2,
@@ -362,30 +931,6 @@ const slidesData = [
                 gambar, tautan, dan elemen lainnya akan ditempatkan, sehingga
                 browser web dapat menampilkannya kepada pengguna.
               </p>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
-            <div className="bg-slate-800/50 p-3 rounded-lg border border-blue-700/30">
-              <div className="text-blue-400 font-bold text-sm mb-1">
-                HyperText
-              </div>
-              <div className="text-xs text-slate-400">
-                Teks yang saling terhubung melalui hyperlink
-              </div>
-            </div>
-            <div className="bg-slate-800/50 p-3 rounded-lg border border-blue-700/30">
-              <div className="text-blue-400 font-bold text-sm mb-1">Markup</div>
-              <div className="text-xs text-slate-400">
-                Sistem untuk menandai struktur dokumen
-              </div>
-            </div>
-            <div className="bg-slate-800/50 p-3 rounded-lg border border-blue-700/30">
-              <div className="text-blue-400 font-bold text-sm mb-1">
-                Language
-              </div>
-              <div className="text-xs text-slate-400">
-                Bahasa standar untuk struktur web
-              </div>
             </div>
           </div>
         </div>
@@ -982,32 +1527,6 @@ const slidesData = [
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
-            <div className="bg-slate-800/50 p-3 rounded-lg border border-purple-700/30">
-              <div className="text-purple-400 font-bold text-sm mb-1">
-                Separation
-              </div>
-              <div className="text-xs text-slate-400">
-                Memisahkan struktur (HTML) dari presentasi (CSS)
-              </div>
-            </div>
-            <div className="bg-slate-800/50 p-3 rounded-lg border border-purple-700/30">
-              <div className="text-purple-400 font-bold text-sm mb-1">
-                Responsive
-              </div>
-              <div className="text-xs text-slate-400">
-                Membuat layout yang adaptif di berbagai ukuran layar
-              </div>
-            </div>
-            <div className="bg-slate-800/50 p-3 rounded-lg border border-purple-700/30">
-              <div className="text-purple-400 font-bold text-sm mb-1">
-                Maintainable
-              </div>
-              <div className="text-xs text-slate-400">
-                Lebih mudah dirawat dan diubah
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     ),
@@ -1049,7 +1568,7 @@ const slidesData = [
                     {`<h1 style="color: blue; font-size: 24px;">
     Judul Biru
 </h1>
-<p style="background-color: yellow; padding: 10px;">
+<p style="background-color: yellow; padding: 10px; color: black;">
     Paragraf dengan background kuning
 </p>`}
                   </pre>
@@ -1070,6 +1589,7 @@ const slidesData = [
                         backgroundColor: "yellow",
                         padding: "8px",
                         marginTop: "8px",
+                        color: "black",
                       }}
                       className="text-xs md:text-sm break-words"
                     >
@@ -1530,31 +2050,145 @@ p {
     icon: <Type size={40} />,
     chapter: "Tailwind - Praktik",
     content: (
-      <div className="space-y-5">
+      <div className="space-y-6">
         <p className="text-slate-300">
-          Bangun desain modern tanpa meninggalkan HTML. Cukup panggil class yang
-          Anda butuhkan.
+          Lihat perbandingan langsung antara CSS biasa (harus bikin selector +
+          file terpisah) vs Tailwind (cukup pakai class di HTML).
         </p>
-        <div className="grid grid-cols-1 gap-3">
-          <div className="p-3 bg-slate-800/70 rounded-lg border border-white/10 flex items-center justify-between">
-            <code className="text-sky-400 font-bold text-sm">text-center</code>
-            <span className="text-slate-400 text-xs">text-align: center;</span>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {/* Tanpa Tailwind */}
+          <div className="bg-slate-900/60 border border-white/10 rounded-2xl p-4 space-y-3">
+            <div className="flex items-center gap-2">
+              <div className="w-9 h-9 rounded-xl bg-orange-500/80 flex items-center justify-center text-white font-bold text-sm">
+                CSS
+              </div>
+              <div>
+                <div className="text-sm font-bold text-white">
+                  Tanpa Tailwind (CSS biasa)
+                </div>
+                <div className="text-xs text-slate-400">
+                  Harus tulis selector dan file terpisah.
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-slate-800/60 rounded-xl border border-white/10 p-3 space-y-2">
+              <div className="text-[11px] text-slate-400">button.css</div>
+              <pre className="text-[11px] md:text-xs text-slate-200 font-mono bg-slate-900/70 p-3 rounded-lg border border-slate-700 overflow-x-auto">
+                {` .btn-primary {
+   background: linear-gradient(90deg,#3b82f6,#8b5cf6);
+   color: white;
+   padding: 12px 20px;
+   border-radius: 12px;
+   font-weight: 700;
+   box-shadow: 0 10px 30px rgba(59,130,246,0.25);
+   transition: transform .2s, box-shadow .2s;
+ }
+ .btn-primary:hover {
+   transform: translateY(-2px) scale(1.02);
+   box-shadow: 0 14px 40px rgba(59,130,246,0.35);
+ }`}
+              </pre>
+              <pre className="text-[11px] md:text-xs text-slate-200 font-mono bg-slate-900/70 p-3 rounded-lg border border-slate-700 overflow-x-auto">
+                {`<link rel="stylesheet" href="button.css" />
+<button class="btn-primary">Ayo Mulai</button>`}
+              </pre>
+            </div>
+
+            <div className="flex items-center gap-2 text-xs text-slate-300">
+              <span className="px-2 py-1 rounded-full bg-orange-500/20 text-orange-200 border border-orange-500/30">
+                Langkah: tulis CSS + import file
+              </span>
+              <span className="px-2 py-1 rounded-full bg-slate-800 border border-white/10">
+                HTML lebih bersih
+              </span>
+            </div>
           </div>
-          <div className="p-3 bg-slate-800/70 rounded-lg border border-white/10 flex items-center justify-between">
-            <code className="text-sky-400 font-bold text-sm">
-              bg-gradient-to-r from-blue-500 to-purple-500
-            </code>
-            <span className="text-slate-400 text-xs">
-              background-image: linear-gradient(...)
-            </span>
+
+          {/* Dengan Tailwind */}
+          <div className="bg-slate-900/60 border border-white/10 rounded-2xl p-4 space-y-3">
+            <div className="flex items-center gap-2">
+              <div className="w-9 h-9 rounded-xl bg-sky-500/80 flex items-center justify-center text-white font-bold text-sm">
+                TW
+              </div>
+              <div>
+                <div className="text-sm font-bold text-white">
+                  Dengan Tailwind
+                </div>
+                <div className="text-xs text-slate-400">
+                  Utility-first: class langsung di HTML.
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-slate-800/60 rounded-xl border border-white/10 p-3 space-y-2">
+              <div className="text-[11px] text-slate-400">
+                Tanpa file CSS terpisah
+              </div>
+              <pre className="text-[11px] md:text-xs text-slate-200 font-mono bg-slate-900/70 p-3 rounded-lg border border-slate-700 overflow-x-auto">
+                {`<button
+  class="bg-gradient-to-r from-blue-500 to-purple-500
+         text-white px-5 py-3 rounded-xl font-bold
+         shadow-lg hover:-translate-y-0.5 hover:scale-105
+         hover:shadow-xl transition"
+>
+  Ayo Mulai
+</button>`}
+              </pre>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-300">
+              <div className="rounded-lg bg-slate-800/60 border border-sky-500/30 p-2">
+                <div className="font-semibold text-sky-200 mb-1">Kelebihan</div>
+                <ul className="space-y-1 list-disc list-inside">
+                  <li>Ubah styling langsung di markup.</li>
+                  <li>Desain konsisten, cepat prototyping.</li>
+                  <li>Tidak pindah-pindah file.</li>
+                </ul>
+              </div>
+              <div className="rounded-lg bg-slate-800/60 border border-orange-500/30 p-2">
+                <div className="font-semibold text-orange-200 mb-1">
+                  Catatan
+                </div>
+                <ul className="space-y-1 list-disc list-inside">
+                  <li>Class bisa panjang (pakai extract/component).</li>
+                  <li>Perlu hafal utility dasar.</li>
+                </ul>
+              </div>
+            </div>
           </div>
-          <div className="p-3 bg-slate-800/70 rounded-lg border border-white/10 flex items-center justify-between">
-            <code className="text-sky-400 font-bold text-sm">
-              hover:scale-110
-            </code>
-            <span className="text-slate-400 text-xs">
-              transform: scale(1.1) on hover
-            </span>
+        </div>
+
+        <div className="bg-slate-900/60 border border-white/10 rounded-xl p-4">
+          <div className="text-xs font-semibold text-sky-300 mb-2 uppercase tracking-wide">
+            Mapping cepat
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs text-slate-300">
+            <div className="flex items-center justify-between bg-slate-800/60 rounded-lg border border-white/10 px-3 py-2">
+              <code className="text-sky-400">text-center</code>
+              <span className="text-slate-400">text-align: center;</span>
+            </div>
+            <div className="flex items-center justify-between bg-slate-800/60 rounded-lg border border-white/10 px-3 py-2">
+              <code className="text-sky-400">rounded-xl</code>
+              <span className="text-slate-400">border-radius: 12px;</span>
+            </div>
+            <div className="flex items-center justify-between bg-slate-800/60 rounded-lg border border-white/10 px-3 py-2">
+              <code className="text-sky-400">shadow-xl</code>
+              <span className="text-slate-400">box-shadow: ...;</span>
+            </div>
+            <div className="flex items-center justify-between bg-slate-800/60 rounded-lg border border-white/10 px-3 py-2">
+              <code className="text-sky-400">px-5 py-3</code>
+              <span className="text-slate-400">padding: 12px 20px;</span>
+            </div>
+            <div className="flex items-center justify-between bg-slate-800/60 rounded-lg border border-white/10 px-3 py-2">
+              <code className="text-sky-400">bg-gradient-to-r ...</code>
+              <span className="text-slate-400">linear-gradient(...)</span>
+            </div>
+            <div className="flex items-center justify-between bg-slate-800/60 rounded-lg border border-white/10 px-3 py-2">
+              <code className="text-sky-400">hover:scale-105</code>
+              <span className="text-slate-400">transform: scale(1.05)</span>
+            </div>
           </div>
         </div>
       </div>
@@ -1569,6 +2203,210 @@ p {
     chapter: "Tailwind - Praktik",
     content:
       "Eksperimen dengan class Tailwind untuk melihat betapa cepatnya membangun UI.",
+  },
+  {
+    id: 17,
+    type: "content",
+    title: "Tailwind Showcase",
+    subtitle: "10 Komponen Animasi (Tanpa Lib Tambahan)",
+    icon: <Zap size={40} />,
+    chapter: "Tailwind - Showcase",
+    content: (
+      <div className="space-y-5">
+        <p className="text-slate-300">
+          Satu section, 10 contoh komponen animasi. Semua murni Tailwind
+          (utility + animasi bawaan) tanpa library tambahan.
+        </p>
+
+        <div className="grid grid-cols-1 gap-3">
+          {[
+            {
+              title: "Hero Glow Banner",
+              desc: "Gradient glow + blur orb dan CTA.",
+              preview: `<div class="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-sky-600/30 via-purple-600/20 to-indigo-600/30 p-6 shadow-2xl">
+  <div class="absolute -top-12 -left-10 w-40 h-40 bg-sky-400/30 blur-3xl rounded-full"></div>
+  <div class="absolute -bottom-10 -right-6 w-36 h-36 bg-purple-500/25 blur-3xl rounded-full"></div>
+  <div class="relative space-y-3">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-xs text-slate-100 backdrop-blur">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      Launch-ready
+    </div>
+    <div class="text-white text-xl font-bold">Bangun landing page cepat</div>
+    <p class="text-slate-200 text-sm max-w-xl">Pakai utility Tailwind buat layout, warna, dan animasi tanpa nulis CSS terpisah.</p>
+    <div class="flex flex-wrap gap-2">
+      <button class="px-4 py-2 rounded-xl bg-white text-slate-900 font-semibold shadow hover:shadow-lg transition">Coba sekarang</button>
+      <button class="px-4 py-2 rounded-xl border border-white/20 text-slate-100 hover:border-white/40 transition">Lihat demo</button>
+    </div>
+  </div>
+</div>`,
+            },
+            {
+              title: "Neumorphic Toggle",
+              desc: "Switch empuk dengan inner shadow.",
+              preview: `<div class="inline-flex items-center gap-3 px-4 py-3 rounded-2xl bg-slate-800/70 border border-white/10 shadow-inner">
+  <span class="text-slate-300 text-sm">Gelap</span>
+  <label class="relative w-12 h-6 rounded-full bg-slate-900 shadow-inner border border-slate-700 cursor-pointer inline-flex items-center">
+    <input type="checkbox" class="peer sr-only" />
+    <span class="absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-gradient-to-br from-slate-200 to-slate-400 shadow-md transition peer-checked:translate-x-6 peer-checked:from-white peer-checked:to-slate-200"></span>
+    <span class="absolute inset-0 rounded-full transition peer-checked:bg-emerald-500/30"></span>
+  </label>
+  <span class="text-slate-100 text-sm font-semibold peer-checked:text-emerald-100">Terang</span>
+</div>`,
+            },
+            {
+              title: "Glass Stats Card",
+              desc: "Glassmorphism dengan ring gradient.",
+              preview: `<div class="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-5 shadow-xl">
+  <div class="absolute -top-10 -right-6 w-24 h-24 bg-purple-500/30 blur-3xl rounded-full"></div>
+  <div class="relative flex items-center gap-4">
+    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-purple-500 to-sky-500 flex items-center justify-center text-white font-bold shadow-lg ring-2 ring-white/30">92</div>
+    <div>
+      <div class="text-white font-semibold">Skor UX</div>
+      <div class="text-xs text-slate-200">+12% dibanding minggu lalu</div>
+    </div>
+  </div>
+</div>`,
+            },
+            {
+              title: "Animated Tabs",
+              desc: "Underline glide dengan transition.",
+              preview: `<div class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-slate-900/80 border border-white/10">
+  <input type="radio" name="tabs-demo" id="tab-ov" class="peer/tab-ov hidden" checked />
+  <label for="tab-ov" class="relative px-3 py-2 text-xs font-semibold text-slate-300 peer-checked/tab-ov:text-white transition cursor-pointer">
+    Overview
+    <span class="absolute left-2 right-2 -bottom-1 h-0.5 rounded-full bg-sky-400 transition-all opacity-0 peer-checked/tab-ov:opacity-100"></span>
+  </label>
+  <input type="radio" name="tabs-demo" id="tab-metric" class="peer/tab-metric hidden" />
+  <label for="tab-metric" class="relative px-3 py-2 text-xs font-semibold text-slate-300 peer-checked/tab-metric:text-white transition cursor-pointer">
+    Metrics
+    <span class="absolute left-2 right-2 -bottom-1 h-0.5 rounded-full bg-sky-400 transition-all opacity-0 peer-checked/tab-metric:opacity-100"></span>
+  </label>
+  <input type="radio" name="tabs-demo" id="tab-activity" class="peer/tab-activity hidden" />
+  <label for="tab-activity" class="relative px-3 py-2 text-xs font-semibold text-slate-300 peer-checked/tab-activity:text-white transition cursor-pointer">
+    Activity
+    <span class="absolute left-2 right-2 -bottom-1 h-0.5 rounded-full bg-sky-400 transition-all opacity-0 peer-checked/tab-activity:opacity-100"></span>
+  </label>
+</div>`,
+            },
+            {
+              title: "Skeleton Loader",
+              desc: "Placeholder shimmer untuk konten.",
+              preview: `<div class="space-y-3 p-4 rounded-2xl bg-slate-900/70 border border-white/10">
+  <div class="h-4 w-32 bg-slate-700/70 rounded animate-pulse"></div>
+  <div class="h-3 w-full bg-slate-700/60 rounded animate-pulse"></div>
+  <div class="h-3 w-5/6 bg-slate-700/60 rounded animate-pulse"></div>
+  <div class="h-3 w-4/6 bg-slate-700/60 rounded animate-pulse"></div>
+</div>`,
+            },
+            {
+              title: "Timeline Steps",
+              desc: "Stepper vertikal dengan accent.",
+              preview: `<div class="relative pl-6 space-y-4">
+  <div class="absolute left-2 top-2 bottom-2 w-px bg-slate-700"></div>
+  <div class="relative">
+    <div class="w-3 h-3 rounded-full bg-emerald-400 absolute left-2 top-1 -translate-x-1/2"></div>
+    <div class="text-white font-semibold text-sm">Riset</div>
+    <div class="text-xs text-slate-400">Kumpulkan kebutuhan pengguna</div>
+  </div>
+  <div class="relative">
+    <div class="w-3 h-3 rounded-full bg-sky-400 absolute left-2 top-1 -translate-x-1/2"></div>
+    <div class="text-white font-semibold text-sm">Desain</div>
+    <div class="text-xs text-slate-400">Wireframe & prototipe interaktif</div>
+  </div>
+  <div class="relative">
+    <div class="w-3 h-3 rounded-full bg-purple-400 absolute left-2 top-1 -translate-x-1/2"></div>
+    <div class="text-white font-semibold text-sm">Build</div>
+    <div class="text-xs text-slate-400">Implementasi dengan Tailwind</div>
+  </div>
+</div>`,
+            },
+            {
+              title: "Testimonial Glow",
+              desc: "Card dengan glow & accent border.",
+              preview: `<div class="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/80 p-5 shadow-xl">
+  <div class="absolute inset-0 opacity-0 hover:opacity-100 transition bg-gradient-to-tr from-emerald-500/10 via-sky-500/5 to-transparent"></div>
+  <div class="relative space-y-3">
+    <p class="text-slate-200 text-sm leading-relaxed">“Tailwind bikin tim kami shipping komponen 2x lebih cepat.”</p>
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full bg-emerald-500/30 border border-emerald-300/40 flex items-center justify-center text-white font-bold">AR</div>
+      <div>
+        <div class="text-white font-semibold text-sm">Ariana R.</div>
+        <div class="text-[11px] text-slate-400">Product Lead</div>
+      </div>
+    </div>
+  </div>
+</div>`,
+            },
+            {
+              title: "Feature Icons Row",
+              desc: "Grid badge dengan hover pop.",
+              preview: `<div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+  ${["API Ready", "Dark Mode", "Responsive", "Accessible"]
+    .map(
+      (t) =>
+        `<div class="group rounded-xl border border-white/10 bg-slate-800/70 p-3 text-center text-xs text-slate-200 hover:-translate-y-0.5 hover:border-sky-400/60 transition">
+  <div class="text-lg mb-1">✨</div>
+  <div>${t}</div>
+</div>`
+    )
+    .join("")}
+</div>`,
+            },
+            {
+              title: "CTA Banner",
+              desc: "CTA dengan gradient & hover tilt ringan.",
+              preview: `<div class="relative overflow-hidden rounded-2xl border border-white/10 p-5 bg-gradient-to-r from-indigo-500/30 via-blue-500/20 to-sky-500/10 transition hover:-translate-y-1 hover:shadow-2xl">
+  <div class="flex items-center justify-between gap-3 flex-wrap">
+    <div>
+      <div class="text-white font-bold text-lg">Upgrade ke Pro</div>
+      <div class="text-sm text-slate-200">Dapatkan komponen premium & support.</div>
+    </div>
+    <button class="px-4 py-2 rounded-xl bg-white text-slate-900 font-semibold shadow hover:shadow-lg transition">Coba 14 hari</button>
+  </div>
+</div>`,
+            },
+            {
+              title: "Pricing Toggle",
+              desc: "Switch gradien + bayangan lembut.",
+              preview: `<div class="flex items-center gap-3 text-sm text-slate-300">
+  Bulanan
+  <label class="relative w-12 h-6 rounded-full bg-slate-700 border border-white/10 cursor-pointer inline-flex items-center">
+    <input type="checkbox" class="peer sr-only" />
+    <span class="absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-gradient-to-r from-sky-500 to-purple-500 shadow transition peer-checked:translate-x-6"></span>
+    <span class="absolute inset-0 rounded-full peer-checked:bg-purple-500/30 transition"></span>
+  </label>
+  Tahunan
+</div>`,
+            },
+          ].map((item, idx) => (
+            <div
+              key={idx}
+              className="bg-slate-900/60 border border-white/10 rounded-2xl p-4 space-y-3"
+            >
+              <div className="flex items-center justify-between gap-2">
+                <div>
+                  <div className="text-sm font-semibold text-white">
+                    {idx + 1}. {item.title}
+                  </div>
+                  <div className="text-xs text-slate-400">{item.desc}</div>
+                </div>
+              </div>
+              <div className="bg-slate-800/60 border border-white/10 rounded-xl p-3">
+                <div
+                  className="bg-slate-900/60 rounded-lg p-4"
+                  dangerouslySetInnerHTML={{
+                    __html: item.preview || item.code,
+                  }}
+                />
+              </div>
+              <pre className="text-[11px] md:text-xs text-slate-200 font-mono bg-slate-900/70 p-3 rounded-lg border border-slate-700 overflow-x-auto">
+                {item.preview || item.code}
+              </pre>
+            </div>
+          ))}
+        </div>
+      </div>
+    ),
   },
   {
     id: 15,
@@ -2781,6 +3619,7 @@ const CodePlayground = memo(() => {
 
 const LearningApp = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const contentRef = useRef(null);
 
   const slide = useMemo(() => slidesData[currentSlide], [currentSlide]);
 
@@ -2813,6 +3652,21 @@ const LearningApp = () => {
     }
   }, []);
 
+  const quizKeyByTitle = useMemo(
+    () => ({
+      "Visualisasi Tag HTML": "Quiz HTML",
+      "Konsep Flexbox & Grid": "Quiz CSS",
+      "Tailwind CSS Intro": "Quiz Tailwind CSS",
+    }),
+    []
+  );
+
+  useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [currentSlide]);
+
   return (
     <div className="flex bg-slate-900 h-screen sm:h-[74vh]">
       {/* Sidebar TOC */}
@@ -2840,7 +3694,10 @@ const LearningApp = () => {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0 relative">
-        <div className="flex-1 overflow-y-auto overflow-x-visible md:overflow-x-auto p-2 md:p-8 lg:p-12 pb-32">
+        <div
+          ref={contentRef}
+          className="flex-1 overflow-y-auto overflow-x-visible md:overflow-x-auto p-2 md:p-8 lg:p-12 pb-32"
+        >
           {slide.type === "cover" ? (
             <div className="min-h-full flex flex-col items-center justify-center text-center animate-in fade-in zoom-in duration-300 py-12">
               <div className="w-32 h-32 bg-gradient-to-br from-blue-600 to-purple-600 rounded-[2rem] flex items-center justify-center shadow-2xl mb-8 ring-4 ring-slate-800">
@@ -2933,6 +3790,12 @@ const LearningApp = () => {
                   </div>
                 )}
               </div>
+              {quizKeyByTitle[slide.title] && (
+                <QuizSection
+                  key={quizKeyByTitle[slide.title]}
+                  slideTitle={quizKeyByTitle[slide.title]}
+                />
+              )}
             </div>
           )}
         </div>
