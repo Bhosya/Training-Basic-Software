@@ -75,15 +75,9 @@ export const projectSlides = [
         },
         {
             text: 'Tambahkan class tailwind untuk memberi warna elemen pada tag <nav>. (gunakan warna "stone-900" dengan opacity 95%)',
-            // code:  `bg-stone-900/95`
         },
-        // {
-        //     text: 'Buat agar navbar selalu di atas dengan menambahkan class berikut pada tag <nav>',
-        //     code:  `fixed top-0 w-full z-50`
-        // },
         {
             text: 'Tambahkan class tailwind untuk membuat tag <nav> tadi mempunyai padding horizontal 24px (6 dalam satuan tailwind), dan padding vertikal 20px (5 dalam satuan tailwind).',
-            // code:  `px-6 py-5`
         },
         {
             text: 'Tambahkan tag <a> untuk membungkus logo dan nama brand. Beri atribut href menuju ke halaman utama ("/").',
@@ -96,11 +90,9 @@ export const projectSlides = [
         },
         {
             text: `Atur ukuran gambar menjadi 56px (14 dalam satuan tailwind).`,
-            // code:  `h-14`
         },
         {
             text: `Tambahkan animasi pada <img> ketika kursor diarahkan ke situ. (buat agar gambar membesar sedikit ketika hover)`,
-            // code:  `hover:scale-110 transition`
         },
         {
             text: `Tambahkan tag <span> di dalam tag <a> untuk menampilkan nama brand.`,
@@ -108,7 +100,6 @@ export const projectSlides = [
         },
         {
             text: `Gunakan tailwnd untuk membuat teksnya berukuran 2xl, tebal, dan berwarna putih.`,
-            // code:  `text-2xl font-bold text-white`
         },
         {
             text: `Atur agar logo dan nama brand berada dalam satu baris dan sejajar.`,
@@ -129,14 +120,12 @@ export const projectSlides = [
         },
         {
             text: `Beri spasi antar link sebanyak 40px (10 dalam satuan tailwind).`,
-            // code: `space-x-10`
         },
         {
             text: `Buat agar link-link navigasi sejajar dnegan logo dan nama brand, dan berada di sebelah kanan.`,
         },
         {
             text: 'Sembunyikan menu desktop di tampilan mobile/smartphone.',
-            // code:  `hidden md:flex`
         },
         {
             text: 'Tambahkan tombol menu mobile (baris 3) dengan tag <button>',
@@ -637,12 +626,12 @@ export const projectSlides = [
       subtitle: "Selamat telah menyelesaikan project website landing page bisnis kopi",
       step: [
         {
-            text: `Berikut adalah link feedback dari Training Basic.`,
+            text: `Berikut adalah formulir untuk feedback Training Basic.`,
             img: `/feedback.jpg`,
             link: `https://docs.google.com/forms/d/e/1FAIpQLSf_P_M0OmEa6hvAm4sP37T20YZf3CHmqL6-nNcyiFSlIiBmfg/viewform?pli=1`
         },
         {
-            text: `Berikut adalah token dikoding bagi yang mengikuti Training Basic.`,
+            text: `Berikut adalah formulir untuk mendapatkan token Dicoding.`,
             img: `/dicoding.jpg`,
             link:  `https://docs.google.com/forms/d/e/1FAIpQLScMMyPPO2MPhMXwGFB1KoWZsuQk4hzBMrbVu0kZEy5xwwN0MQ/viewform`
         },

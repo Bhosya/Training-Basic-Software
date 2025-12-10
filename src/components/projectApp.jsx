@@ -88,9 +88,9 @@ const ProjectApp = () => {
                                 </div>
                             )}
                             {step.link && (
-                              <div class="bg-blue-600 text-white max-w-50 text-center py-4 px-5 rounded-md hover:bg-blue-900">
-                                <a href={step.link}>Tekan di sini</a>
-                              </div>
+                              <button onClick={() => window.location.href=`${step.link}`} href={step.link} class="cursor-pointer bg-blue-600 text-white max-w-50 text-center py-4 px-5 rounded-xl hover:bg-blue-900">
+                                Tekan di sini
+                              </button>
                             )}
                         </li>
                     )) }
