@@ -1,5 +1,13 @@
 export const projectSlides = [
     {
+        title: "Cover", // Judul cover Anda
+        step: [
+            {
+                cover: "/Materi/Modul/modul Software.webp", // Ganti dengan path gambar portrait Anda
+            }
+        ]
+    },
+    {
       title: "Setup HTML Dasar",
       subtitle: "Struktur dasar + Tailwind CDN",
       step: [

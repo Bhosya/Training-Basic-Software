@@ -3010,7 +3010,7 @@ const App = () => {
       }}
     >
       <div className="absolute inset-0 bg-black/50"></div>
-
+      
       <MenuBar activeApp={activeApp} />
 
       <main className="relative z-10 min-h-[calc(100vh-3rem)] pt-12 pb-24 px-3 md:px-4 flex items-start justify-center overflow-y-auto">
