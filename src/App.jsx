@@ -588,21 +588,40 @@ const quizBank = {
   ],
 };
 
-// Gabungkan quiz per section agar tidak muncul di setiap slide
+// Gabungkan quiz per section (maks 4 soal berbobot per quiz)
 quizBank["Quiz HTML"] = [
-  ...(quizBank["Konsep HTML"] ?? []),
-  ...(quizBank["Struktur Kode HTML"] ?? []),
-  ...(quizBank["Visualisasi Tag HTML"] ?? []),
-];
+  ...(quizBank["Konsep HTML"]?.slice(0, 2) ?? []),
+  ...(quizBank["Struktur Kode HTML"]?.slice(0, 2) ?? []),
+].slice(0, 4);
 
 quizBank["Quiz CSS"] = [
-  ...(quizBank["Konsep CSS"] ?? []),
-  ...(quizBank["Cara Penggunaan CSS"] ?? []),
-  ...(quizBank["CSS Box Model"] ?? []),
-  ...(quizBank["Konsep Flexbox & Grid"] ?? []),
-];
+  ...(quizBank["Konsep CSS"]?.slice(0, 2) ?? []),
+  ...(quizBank["CSS Box Model"]?.slice(0, 1) ?? []),
+  ...(quizBank["Konsep Flexbox & Grid"]?.slice(0, 1) ?? []),
+].slice(0, 4);
 
-quizBank["Quiz Tailwind CSS"] = [...(quizBank["Konsep Tailwind CSS"] ?? [])];
+quizBank["Quiz Tailwind CSS"] = [
+  ...(quizBank["Konsep Tailwind CSS"] ?? []),
+  {
+    question: "Prefix responsive md: berarti apa?",
+    options: [
+      "Class dipakai di semua ukuran layar",
+      "Hanya untuk layar < 768px",
+      "Aktif mulai breakpoint medium (>=768px)",
+      "Hanya untuk layar 4K",
+    ],
+    answer: 2,
+    explanation:
+      "Prefix md: di Tailwind berlaku pada viewport >=768px (default breakpoint).",
+  },
+  {
+    question: "Class Tailwind untuk bayangan besar adalah...",
+    options: ["shadow", "shadow-md", "shadow-xl", "shadow-none"],
+    answer: 2,
+    explanation:
+      "shadow-xl memberi efek bayangan besar; bisa digabung hover:shadow-2xl untuk interaksi.",
+  },
+].slice(0, 4);
 
 const slidesData = [
   {
@@ -1254,14 +1273,24 @@ const slidesData = [
               <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
                 {`<label>
     <input type="checkbox" />
-    Checkbox
+    Checkbox A
+</label>
+<label>
+    <input type="checkbox" />
+    Checkbox B
 </label>`}
               </pre>
               <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[50px]">
-                <label className="flex items-center gap-2 text-slate-300">
-                  <input type="checkbox" className="w-4 h-4" />
-                  <span>Checkbox</span>
-                </label>
+                <div className="flex flex-col gap-2 text-slate-300">
+                  <label className="flex items-center gap-2">
+                    <input type="checkbox" className="w-4 h-4" />
+                    <span>Checkbox A</span>
+                  </label>
+                  <label className="flex items-center gap-2">
+                    <input type="checkbox" className="w-4 h-4" />
+                    <span>Checkbox B</span>
+                  </label>
+                </div>
               </div>
             </div>
             <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
@@ -1270,15 +1299,25 @@ const slidesData = [
               </span>
               <pre className="text-xs text-slate-300 font-mono bg-slate-900/50 p-2 rounded border border-slate-700 overflow-x-auto">
                 {`<label>
-    <input type="radio" name="radio" />
-    Radio
+    <input type="radio" name="radio-example" />
+    Opsi 1
+</label>
+<label>
+    <input type="radio" name="radio-example" />
+    Opsi 2
 </label>`}
               </pre>
               <div className="flex items-center justify-center bg-slate-700/50 rounded border-dashed border-slate-600 border min-h-[50px]">
-                <label className="flex items-center gap-2 text-slate-300">
-                  <input type="radio" name="radio-demo" className="w-4 h-4" />
-                  <span>Radio</span>
-                </label>
+                <div className="flex flex-col gap-2 text-slate-300">
+                  <label className="flex items-center gap-2">
+                    <input type="radio" name="radio-demo" className="w-4 h-4" />
+                    <span>Opsi 1</span>
+                  </label>
+                  <label className="flex items-center gap-2">
+                    <input type="radio" name="radio-demo" className="w-4 h-4" />
+                    <span>Opsi 2</span>
+                  </label>
+                </div>
               </div>
             </div>
             <div className="bg-slate-800/60 p-4 rounded-xl border border-white/10 flex flex-col gap-3">
@@ -2056,7 +2095,7 @@ p {
           file terpisah) vs Tailwind (cukup pakai class di HTML).
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           {/* Tanpa Tailwind */}
           <div className="bg-slate-900/60 border border-white/10 rounded-2xl p-4 space-y-3">
             <div className="flex items-center gap-2">
@@ -3811,7 +3850,7 @@ const LearningApp = () => {
             disabled={currentSlide === 0}
             className="p-2 rounded-full hover:bg-slate-700/50 disabled:opacity-30 transition flex items-center gap-2 text-sm font-semibold text-slate-300 relative z-10"
           >
-            <ChevronLeft size={20} />{" "}
+            <ChevronLeft size={20} />
             <span className="hidden md:inline">Sebelumnya</span>
           </button>
 
