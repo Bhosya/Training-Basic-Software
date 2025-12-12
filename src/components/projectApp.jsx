@@ -143,7 +143,6 @@ const ProjectApp = () => {
             <ChevronRight size={20} />
           </button>
         </div>
-      </div>
     </div>
   );
 }
