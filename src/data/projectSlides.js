@@ -178,7 +178,7 @@ export const projectSlides = [
         },
         {
             text: 'Buat section layer gradasi hitam hitam untuk menutupi gambar.',
-            code: `<div class="bg-gradient-to-b from-black/80 via-black/60 to-black/90></div>`
+            code: `<div class="bg-gradient-to-b from-black/80 via-black/60 to-black/90"></div>`
         },
         {
             text: 'Buat agar layer tersebut menutupi seluruh gambar dengan menambahkan class berikut.',
