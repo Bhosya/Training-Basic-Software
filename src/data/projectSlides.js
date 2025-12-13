@@ -146,7 +146,7 @@ export const projectSlides = [
         },
         {
             text: 'Buat tag <nav> baru untuk menu mobile — letakkan di bawah <nav> yang pertama',
-            code:  `<nav id="mobileMenu" class="bg-stone-900/98 border-t border-amber-800/30">
+            code:  `<nav id="mobileMenu" class="bg-stone-900 border-t border-amber-800/30">
     <a href="#home" class="block text-xl text-white hover:text-amber-400">Beranda</a>
     <a href="#menu" class="block text-xl text-white hover:text-amber-400">Menu</a>
     <a href="#about" class="block text-xl text-white hover:text-amber-400">Tentang</a>
