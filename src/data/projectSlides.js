@@ -222,10 +222,8 @@ export const projectSlides = [
 </div>`
         },
         {
-            text: `Aturlah agar tanda panah itu berada di posisi paling bawah, dan buat agar ada animasi bounce-nya.`,
-            code: `<div class="absolute">
-    <i class="fas fa-chevron-down text-4xl text-amber-400"></i>
-</div>`
+            text: `Aturlah agar tanda panah itu berada di posisi paling bawah, dan buat agar ada animasi bounce-nya (gunakan class animate-bounce).`,
+            code: `animate-bounce`
         },
       ],
     },

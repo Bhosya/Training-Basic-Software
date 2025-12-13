@@ -113,9 +113,10 @@ const ProjectApp = () => {
         <button
           onClick={prevSlide}
           disabled={currentSlide === 0}
-          className="flex items-center gap-3 px-5 py-3 rounded-full bg-slate-700 hover:bg-slate-600 disabled:opacity-40 disabled:cursor-not-allowed transition text-white font-medium"
+          className="p-2 rounded-full hover:bg-slate-700/50 disabled:opacity-30 transition flex items-center gap-2 text-sm font-semibold text-slate-300 relative z-10"
         >
-          <ChevronLeft size={20} /> Sebelumnya
+          <ChevronLeft size={20} />{" "}
+          <span className="hidden md:inline">Sebelumnya</span>
         </button>
 
         <div className="flex gap-2">
@@ -132,9 +133,10 @@ const ProjectApp = () => {
         <button
           onClick={nextSlide}
           disabled={currentSlide === slidesData.length - 1}
-          className="flex items-center gap-3 px-5 py-3 rounded-full bg-amber-600 hover:bg-amber-500 disabled:opacity-40 disabled:cursor-not-allowed transition text-white font-bold"
+          className="p-2 rounded-full hover:bg-slate-700/50 disabled:opacity-30 transition flex items-center gap-2 text-sm font-semibold text-slate-300 relative z-10"
         >
-          {currentSlide === slidesData.length - 1 ? "Selesai" : "Selanjutnya"} <ChevronRight size={20} />
+          <span className="hidden md:inline">{currentSlide === slidesData.length - 1 ? "Selesai" : "Selanjutnya"}</span>{" "}
+          <ChevronRight size={20} />
         </button>
       </div>
     </div>
