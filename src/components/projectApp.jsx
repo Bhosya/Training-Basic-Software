@@ -119,30 +119,30 @@ const ProjectApp = () => {
           <span className="hidden md:inline">Sebelumnya</span>
         </button>
 
-          <div className="flex gap-2 overflow-x-auto max-w-[40vw] sm:max-w-[360px] px-1 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-            {slidesData.map((_, i) => (
-              <div
-                key={i}
-                className={`h-2 rounded-full transition-all ${
-                  i === currentSlide ? "w-10 bg-blue-500" : "w-3 bg-slate-600"
-                }`}
-              />
-            ))}
-          </div>
-
-          <button
-            onClick={nextSlide}
-            disabled={currentSlide === slidesData.length - 1}
-            className="flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-5 sm:py-3 rounded-full bg-amber-600 hover:bg-amber-500 disabled:opacity-40 disabled:cursor-not-allowed transition text-white font-bold"
-          >
-            {currentSlide === slidesData.length - 1 ? (
-              <span className="hidden sm:inline">Selesai</span>
-            ) : (
-              <span className="hidden sm:inline">Selanjutnya</span>
-            )}
-            <ChevronRight size={20} />
-          </button>
+        <div className="flex gap-2 overflow-x-auto max-w-[40vw] sm:max-w-[360px] px-1 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+          {slidesData.map((_, i) => (
+            <div
+              key={i}
+              className={`h-2 rounded-full transition-all ${
+                i === currentSlide ? "w-10 bg-blue-500" : "w-3 bg-slate-600"
+              }`}
+            />
+          ))}
         </div>
+
+        <button
+          onClick={nextSlide}
+          disabled={currentSlide === slidesData.length - 1}
+          className="flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-5 sm:py-3 rounded-full bg-amber-600 hover:bg-amber-500 disabled:opacity-40 disabled:cursor-not-allowed transition text-white font-bold"
+        >
+          {currentSlide === slidesData.length - 1 ? (
+            <span className="hidden sm:inline">Selesai</span>
+          ) : (
+            <span className="hidden sm:inline">Selanjutnya</span>
+          )}
+          <ChevronRight size={20} />
+        </button>
+      </div>
 
         <button
           onClick={nextSlide}
