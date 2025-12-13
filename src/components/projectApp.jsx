@@ -152,7 +152,6 @@ const ProjectApp = () => {
           <span className="hidden md:inline">{currentSlide === slidesData.length - 1 ? "Selesai" : "Selanjutnya"}</span>{" "}
           <ChevronRight size={20} />
         </button>
-      </div>
     </div>
   );
 }
